@@ -35,6 +35,21 @@ Good outcomes are:
 - **Solution-agnostic**: Outcomes describe the *what* and *why*, not the *how*. Multiple solutions might serve the same outcome.
 - **Durable**: Good outcomes remain relevant across multiple release cycles. If your outcome expires in a sprint, it's probably a feature.
 
+## Why Outcomes Matter for Prototyping
+
+When outcomes get broken down into individual RFEs and strategies further down the pipeline, each piece becomes narrow and feature-focused. Without an outcome to anchor them, you end up with a collection of myopic prototypes that each solve a slice of the problem but never show the full picture.
+
+Outcomes are what tie it all together. They describe the end-to-end user journey — the experience change that cuts across multiple features. The [prototype-creator](https://github.com/andybraren/prototype-creator) uses outcomes to inform what a prototype should demonstrate: not just a single screen or interaction, but the broader journey a user takes to achieve the outcome. Outcomes also provide the success criteria and measurable signals that prototypes can be assessed against — "does this prototype show a path to achieving the stated outcome?"
+
+This is the relationship:
+
+```
+outcome-creator (THE GOAL)     →  What change are we trying to achieve?
+  └─ prototype-creator (THE SHOW)  →  What does achieving it look and feel like?
+       └─ rfe-creator (THE WHAT)   →  What capabilities do we need?
+            └─ strat-creator (THE HOW)  →  How do we build them?
+```
+
 ## Quick Start
 
 ```bash
@@ -323,21 +338,6 @@ All skills support `--headless` for non-interactive CI use. Combined with `--dry
 
 ```bash
 claude -p "/outcome.speedrun --headless --dry-run --input batch.yaml"
-```
-
-## Why Outcomes Matter for Prototyping
-
-When outcomes get broken down into individual RFEs and strategies further down the pipeline, each piece becomes narrow and feature-focused. Without an outcome to anchor them, you end up with a collection of myopic prototypes that each solve a slice of the problem but never show the full picture.
-
-Outcomes are what tie it all together. They describe the end-to-end user journey — the experience change that cuts across multiple features. The [prototype-creator](https://github.com/andybraren/prototype-creator) uses outcomes to inform what a prototype should demonstrate: not just a single screen or interaction, but the broader journey a user takes to achieve the outcome. Outcomes also provide the success criteria and measurable signals that prototypes can be assessed against — "does this prototype show a path to achieving the stated outcome?"
-
-This is the relationship:
-
-```
-outcome-creator (THE GOAL)     →  What change are we trying to achieve?
-  └─ prototype-creator (THE SHOW)  →  What does achieving it look and feel like?
-       └─ rfe-creator (THE WHAT)   →  What capabilities do we need?
-            └─ strat-creator (THE HOW)  →  How do we build them?
 ```
 
 ## Related Projects
