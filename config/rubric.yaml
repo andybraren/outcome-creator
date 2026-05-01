@@ -1,0 +1,178 @@
+rubric:
+  name: "Outcome Quality Rubric"
+  version: "1.0"
+  max_score: 8
+  pass_threshold: 8
+  revise_threshold: 6
+  dimensions:
+    measurability:
+      weight: 1
+      max: 2
+      description: "Does the outcome have clear, trackable metrics or directional indicators?"
+      levels:
+        0:
+          label: "Missing"
+          criteria:
+            - "No metrics or directional indicators anywhere in the document"
+            - "Acceptance signals are purely aspirational"
+            - "Business and product outcomes have no quantitative or qualitative measures"
+          examples:
+            - "Users will be happier"
+            - "The product will be better"
+        1:
+          label: "Partial"
+          criteria:
+            - "Directional indicators present but metrics are vague"
+            - "Metrics exist but aren't clearly tied to the stated outcome"
+            - "Only one layer (business OR product) has clear metrics"
+            - "Acceptance signals exist but aren't observable or time-bound"
+          examples:
+            - "Increase engagement (no specific metric)"
+            - "Reduce time-to-value (no baseline or target)"
+        2:
+          label: "Complete"
+          criteria:
+            - "Business outcome has specific metrics or clear directional indicators"
+            - "Product outcome has specific, measurable behavioral changes"
+            - "Acceptance signals are observable and time-bound"
+            - "Both quantitative and qualitative signals present"
+          examples:
+            - "Increase trial-to-paid conversion from 15% to 25% within 6 months"
+            - "80% of deployed agents have active tracing within 7 days"
+
+    user_focus:
+      weight: 1
+      max: 2
+      description: "Is the user outcome grounded in real user needs and specific enough to act on?"
+      levels:
+        0:
+          label: "Missing"
+          criteria:
+            - "No clear user need articulated"
+            - "Outcome is technology-driven or internally focused"
+            - "No persona or user segment identified"
+            - "User outcome section missing or reads like a feature spec"
+          examples:
+            - "Implement observability stack"
+            - "Add dashboard features"
+        1:
+          label: "Partial"
+          criteria:
+            - "User need stated but generic"
+            - "Persona is vague without further specificity"
+            - "User outcome describes a feature rather than capability change"
+            - "Evidence for user need is thin or absent"
+          examples:
+            - "Users want better monitoring tools"
+            - "Enterprises need more flexibility"
+        2:
+          label: "Complete"
+          criteria:
+            - "Specific user persona or segment identified with context"
+            - "User outcome describes meaningful change in capability or experience"
+            - "Grounded in research, customer feedback, or evidence"
+            - "Solution-agnostic — multiple features could serve it"
+            - "A user would recognize this as their problem"
+          examples:
+            - "AI engineers can diagnose agent failures in under 5 minutes without needing cluster access or ops team assistance"
+            - "Platform engineers can see fleet-wide agent health at a glance during incident response"
+
+    business_alignment:
+      weight: 1
+      max: 2
+      description: "Does the outcome connect to strategic goals with clear business value?"
+      levels:
+        0:
+          label: "Missing"
+          criteria:
+            - "No connection to any strategic goal"
+            - "Business value is absent or hand-wavy"
+            - "Could apply to any product, not specifically this one"
+          examples:
+            - "Make the product better"
+            - "Improve customer satisfaction"
+        1:
+          label: "Partial"
+          criteria:
+            - "Strategic goal referenced but connection is loose"
+            - "Business outcome plausible but not substantiated"
+            - "Business metric too broad without specifics"
+          examples:
+            - "Supports our AI strategy (no further detail)"
+            - "Will increase revenue (no mechanism described)"
+        2:
+          label: "Complete"
+          criteria:
+            - "Direct connection to strategic goals with clear rationale"
+            - "Business outcome has specific metrics or directional indicators"
+            - "Evidence supports the business case"
+            - "Business outcome is clearly a lagging indicator of product outcome"
+          examples:
+            - "Directly supports PROJGOALS-314 (Bring Your Own Agent) by reducing time-to-production for customer agent deployments by 50%"
+            - "Addresses the 81% of enterprises citing observability gaps as a blocker to production agent deployment (IDC 2026)"
+
+    actionability:
+      weight: 1
+      max: 2
+      description: "Can teams derive concrete work from this outcome?"
+      levels:
+        0:
+          label: "Missing"
+          criteria:
+            - "Too broad — could mean anything"
+            - "Or too narrow — really just a feature request"
+            - "No downstream opportunities identified"
+            - "Teams cannot derive concrete work"
+          examples:
+            - "Improve the platform"
+            - "Add a button to export traces"
+        1:
+          label: "Partial"
+          criteria:
+            - "Scope reasonable but downstream opportunities unclear"
+            - "Teams would need significant additional context"
+            - "Open questions not identified"
+          examples:
+            - "Users need better agent management (no specifics on where to start)"
+        2:
+          label: "Complete"
+          criteria:
+            - "Well-scoped — not too broad, not too narrow"
+            - "Downstream opportunities are concrete"
+            - "Teams can begin discovery immediately"
+            - "Open questions are identified and contextualized"
+            - "Related RFEs cross-referenced where relevant"
+          examples:
+            - "Outcome with 3 concrete opportunity areas, 2 related RFEs linked, and 4 open questions for user research"
+
+  verdicts:
+    PASS:
+      threshold: 8
+      description: "Outcome is ready for downstream work"
+      action: "Proceed to RFE creation and strategy planning"
+    REVISE:
+      threshold: 6
+      description: "Targeted improvements needed"
+      action: "Address specific dimension feedback and re-score"
+      condition: "No dimension may be 0"
+    REWORK:
+      threshold: 0
+      description: "Fundamental issues"
+      action: "Significant rethinking required before proceeding"
+
+  anti_patterns:
+    - name: "Output disguised as outcome"
+      description: "The 'outcome' is really a feature or deliverable"
+      test: "Ask: 'Is this a yes/no deliverable or a measurable change?'"
+    - name: "Vanity metric"
+      description: "The metric sounds good but doesn't reflect real user value"
+      test: "Ask: 'Could we game this metric without helping users?'"
+    - name: "Kitchen sink"
+      description: "Too many unrelated goals crammed into one outcome"
+      test: "Ask: 'Could one team own this, or does it need 5?'"
+    - name: "Feature in disguise"
+      description: "Narrow enough that only one solution could serve it"
+      test: "Ask: 'Can we imagine 3 different ways to achieve this?'"
+    - name: "Sentiment without behavior"
+      description: "Only measures how people feel, not what they do"
+      test: "Ask: 'What would we see change in the product if this succeeded?'"

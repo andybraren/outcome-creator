@@ -1,0 +1,69 @@
+pipeline:
+  name: "outcome-creator"
+  version: "0.1.0"
+
+jira:
+  project: "PROJSTRAT"
+  issue_type: "Outcome"
+  strategic_goals_project: "PROJGOALS"
+  strategic_goals_issue_type: "Strategic Goal"
+
+  labels:
+    auto_created: "outcome-creator-auto-created"
+    auto_updated: "outcome-creator-auto-updated"
+    auto_refined: "outcome-creator-auto-refined"
+    rubric_pass: "outcome-creator-rubric-pass"
+    needs_attention: "outcome-creator-needs-attention"
+    resubmitted: "outcome-creator-resubmitted"
+    signed_off: "outcome-creator-signed-off"
+
+  skip_labels:
+    - "outcome-creator-rubric-pass"
+    - "outcome-creator-needs-attention"
+    - "outcome-creator-signed-off"
+
+  excluded_statuses:
+    - "Closed"
+    - "Resolved"
+    - "Draft"
+
+  quality_labels:
+    - "outcome-creator-auto-created"
+    - "reviewed"
+
+batch:
+  default_size: 5
+  max_size: 20
+
+review:
+  max_auto_revise_cycles: 2
+  parallel_reviewers: true
+
+scoring:
+  pass_threshold: 8
+  revise_threshold: 6
+  require_no_zeros_for_revise: true
+
+research_sources:
+  types:
+    - name: "jtbd"
+      display: "Jobs-to-be-Done Research"
+      description: "Research identifying user jobs, tasks, and outcomes"
+    - name: "top_tasks"
+      display: "Top Tasks Survey"
+      description: "Survey data on user task importance and satisfaction"
+    - name: "user_outcomes"
+      display: "User Outcome Survey"
+      description: "Importance/satisfaction survey data for outcome statements"
+    - name: "customer_feedback"
+      display: "Customer Feedback"
+      description: "Direct customer quotes, interviews, support tickets"
+    - name: "analyst"
+      display: "Analyst Report"
+      description: "Industry analyst findings and recommendations"
+    - name: "telemetry"
+      display: "Product Telemetry"
+      description: "Usage data, adoption metrics, error rates"
+    - name: "competitive"
+      display: "Competitive Analysis"
+      description: "Competitor capabilities and market positioning"
