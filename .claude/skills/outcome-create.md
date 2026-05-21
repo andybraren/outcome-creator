@@ -17,7 +17,7 @@ User says `/outcome.create` optionally followed by:
 If `--headless` is NOT set, ask up to 5 clarifying questions to understand:
 
 1. **Strategic anchor**: Which strategic goal(s) does this outcome relate to? If a PROJGOALS key is provided, fetch it from Jira using the Atlassian MCP or REST API fallback.
-2. **User need**: What user problem or unmet need does this address? Who specifically is affected?
+2. **User need / JTBD**: What job is the user trying to get done? Who are the job executors? What context triggers the job? What struggle makes it hard today? (Multiple actors sharing one job is fine — flag unrelated jobs for sibling outcomes.)
 3. **Business context**: How does solving this benefit the organization? What business metric would improve?
 4. **Evidence**: What research, customer feedback, or data supports this need?
 5. **Scope**: Is this a broad thematic outcome or a focused product-level outcome?
@@ -34,7 +34,7 @@ Write the outcome to `artifacts/outcome-tasks/OUTCOME-NNN-<slug>.md` using the t
 
 The document MUST include all sections:
 
-1. **Problem Statement** — The user/market need, grounded in evidence
+1. **Problem Statement** — The user/market need as an explicit JTBD: *When [context], [job executor(s)] need to [job], but [struggle].* Name each actor and their role in the same job. Multiple actors on the same job is valid — only split when jobs are genuinely unrelated.
 2. **Business Outcome** — How the business benefits (lagging indicator)
    - Metric or directional indicator
    - Connection to strategic goals
@@ -43,13 +43,24 @@ The document MUST include all sections:
    - User outcome statements using importance/satisfaction framing
    - Who benefits (persona or segment)
    - What changes in their day-to-day
-4. **Product Outcome** — Measurable behavior change in the product (leading indicator)
+4. **End-to-End Customer Arc** — What the customer experiences when all releases are complete
+   - Story map with 3+ phases of capability statements per relevant actor (solution-independent — no module names or click paths)
+   - 2–3 scenarios, each explicitly tied to a phase (*(Phase: …)*)
+   - Each scenario: actors, context, today's pain, 5–10 step flow, win moment
+   - **Through-line:** every scenario must demonstrate a capability listed under that phase in the story map
+5. **Product Outcome** — Measurable behavior change in the product (leading indicator)
    - Specific product metrics or behavioral changes
    - How this connects to the user outcome
-5. **Evidence & Research** — Data supporting this outcome
-6. **Opportunity Assessment** — How underserved is this today
-7. **Downstream Opportunities** — Potential solution directions (not commitments)
-8. **Acceptance Signals** — How we'll know the outcome is being achieved
+6. **Evidence & Research** — Data supporting this outcome
+7. **Opportunity Assessment** — How underserved is this today
+8. **Release Milestones** — Customer capability milestones that sequence the story map into delivery phases
+   - Each milestone states what the customer can do — not what gets built
+   - **Three-solutions test:** Could engineering achieve this milestone three different ways and still satisfy the statement? If no, rewrite as customer capability
+   - Note value dependencies between milestones (e.g., "identity before access control")
+   - Each milestone includes a success signal (observable evidence of customer value)
+9. **Downstream Opportunities** — Potential solution directions (not commitments)
+10. **Out of Scope** — 3+ related but excluded items with brief rationale (sibling outcome, future phase, different team, etc.). The "why" prevents engineers from concluding the exclusion was an oversight.
+11. **Acceptance Signals** — How we'll know the outcome is being achieved
 
 ### Step 4: Write Frontmatter
 
@@ -83,6 +94,7 @@ Save the original inputs (strategic goal data, research excerpts, user prompt) t
 **Do:**
 - Write outcome statements that are solution-agnostic
 - Ground every claim in evidence or clearly mark assumptions
+- Frame the Problem Statement as an explicit JTBD with job, context, struggle, and job executors
 - Make user outcomes specific to a persona or user segment
 - Ensure business outcomes connect to at least one strategic goal
 - Include both quantitative and qualitative acceptance signals
@@ -93,3 +105,4 @@ Save the original inputs (strategic goal data, research excerpts, user prompt) t
 - Set unrealistic or unmeasurable acceptance criteria
 - Combine multiple unrelated outcomes into one document
 - Skip the evidence section — even thin evidence is better than none
+- Omit the Out of Scope section — ambiguity about scope compounds over months

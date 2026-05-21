@@ -25,6 +25,9 @@ Read the outcome document and its frontmatter. Read the original inputs from `ar
 For each section, apply the following refinement logic:
 
 #### Problem Statement
+- Ensure the problem is stated as an explicit JTBD: *When [context], [job executor(s)] need to [job], but [struggle].*
+- Name each job executor and their role in the same job — multiple actors on one job is valid
+- **JTBD coherence test:** Do all named actors share one job thread? If unrelated jobs are bundled, recommend splitting into sibling outcomes
 - Sharpen the problem definition with specific user pain points
 - Add concrete scenarios or quotes if available
 - Ensure the problem is framed around the user need, not a missing feature
@@ -42,6 +45,14 @@ For each section, apply the following refinement logic:
 - Validate that the stated persona or segment is specific enough to be actionable
 - Check: "Is it possible to have a happy customer who never uses a specific feature we'd build?" — if yes, the outcome is well-framed
 
+#### End-to-End Customer Arc
+- Ensure the story map has 3+ phases with capability statements per relevant actor
+- All capability statements must be solution-independent — no product names, feature names, or UI paths
+- Ensure 2–3 scenarios, each explicitly tied to a phase (*(Phase: …)*)
+- Each scenario must have: actors, context, today's pain, 5–10 step flow, win moment
+- **Through-line test:** For each scenario, can you point to the matching phase in the story map and say what capability is now true? If not, fix the map or the scenario
+- **Solution-independence test:** Does the arc describe what the customer experiences without referencing the product, features, or technology?
+
 #### Product Outcome
 - Ensure product outcomes are leading indicators of business outcomes
 - Add specific, measurable product metrics (not traction metrics for single features)
@@ -58,15 +69,31 @@ For each section, apply the following refinement logic:
 - Categorize: Underserved, Overserved, Appropriately-served, Table Stakes
 - Note if this is a new assessment or a revision of a previous one
 
+#### Release Milestones
+- Ensure milestones are customer capability statements — what the customer can do, not what gets built
+- **Three-solutions test:** Could engineering achieve each milestone three different ways and still satisfy the statement? If no, rewrite as customer capability
+- Verify milestones have a logical sequence based on customer value and dependencies
+- Note value dependencies between milestones (e.g., "you need identity before access control is meaningful")
+- Each milestone must have a success signal — observable evidence that customer value was delivered
+- Story map phases should align with milestones (map = experience, milestones = delivery slices)
+
 #### Downstream Opportunities
 - List potential solution directions without committing to any
 - Cross-reference existing RFEs that might serve this outcome
 - Note open questions that teams should explore during discovery
 
+#### Out of Scope
+- Ensure 3+ related but excluded items are named with brief rationale
+- Rationale should explain *why* each item is excluded (sibling outcome, future phase, different team, out of control, etc.)
+- Vague exclusions ("performance optimization is out of scope") need to name what's specifically excluded
+- **Readiness test:** Could an engineer answer the first 10 "are we doing X?" questions using the out-of-scope statement alone?
+
 #### Acceptance Signals
 - Ensure signals are observable and time-bound where possible
 - Include both quantitative signals (metrics, conversion rates) and qualitative signals (user feedback themes, support ticket patterns)
 - Verify that acceptance signals connect back to the product outcome metrics
+- **Milestone-level signals required:** Each release milestone needs its own success signal (in the Milestones section). Outcome-level signals alone score partial on measurability.
+- Signals in Release Milestones and Acceptance Signals must be consistent — milestone signals are checkpoints, outcome-level signals are the finish line
 
 ### Step 4: Update Frontmatter
 

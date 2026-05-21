@@ -49,25 +49,42 @@ The scorer evaluates 4 dimensions, each scored 0–2:
 - **1**: Scope is reasonable but downstream opportunities are unclear; teams would struggle to derive product work from this
 - **2**: Well-scoped; downstream opportunities are concrete; teams can immediately begin discovery; open questions are identified
 
-### Step 4: Run Prose Reviews
+### Step 4: Three-Solutions Test (pre-review check)
+
+Before prose reviews, run the three-solutions test on all milestone statements and arc capabilities:
+
+For each milestone or capability statement, ask: *"Could engineering satisfy this with three completely different technical approaches?"*
+- **Yes** → Problem-space language. No action needed.
+- **No** → Solution language detected. Flag the statement and trigger the reverse-engineering chain:
+
+> - Your solution: *[what they wrote]*
+> - Implied friction: *[what customer problem makes this solution obviously necessary]*
+> - Who is trying to do the job: *[job executor(s) + context]*
+> - What blocks the job today: *[struggle / friction]*
+> - How you'd know it's solved without specifying how: *[observable signal]*
+> - **Problem framing:** *[rewritten as a problem]*
+
+Include the translation chain in the review output so the writer can see the path from their natural framing to problem-space language.
+
+### Step 5: Run Prose Reviews
 
 After scoring, run 4 independent prose reviews (can be parallelized as separate agent forks):
 
-1. **Measurability Reviewer** — Are the metrics real? Can they actually be measured? Are baselines available?
-2. **User Focus Reviewer** — Is this a real user need or an internal assumption? Would users recognize this as their problem?
+1. **Measurability Reviewer** — Are the metrics real? Can they actually be measured? Are baselines available? Are milestone-level success signals present?
+2. **User Focus Reviewer** — Is this a real user need or an internal assumption? Would users recognize this as their problem? Does the E2E customer arc describe the full journey solution-independently?
 3. **Business Alignment Reviewer** — Does the business case hold up? Are the strategic connections genuine or forced?
-4. **Actionability Reviewer** — Could a product team take this and start discovery tomorrow? What's missing?
+4. **Actionability Reviewer** — Could a product team take this and start discovery tomorrow? Are release milestones customer-capability statements? Is out-of-scope explicit?
 
 Each reviewer writes findings to `artifacts/outcome-reviews/OUTCOME-NNN-<dimension>.md`.
 
-### Step 5: Determine Verdict
+### Step 6: Determine Verdict
 
 Combine scores into a total (0–8):
 - **8/8**: PASS — Ready for downstream work
 - **6–7/8**: REVISE — Targeted improvements needed
 - **<6/8**: REWORK — Fundamental issues
 
-### Step 6: Auto-Revise (if enabled)
+### Step 7: Auto-Revise (if enabled)
 
 If `--auto-revise` is on and verdict is REVISE:
 1. Read all reviewer findings
@@ -75,7 +92,7 @@ If `--auto-revise` is on and verdict is REVISE:
 3. Re-score (up to 2 revision cycles)
 4. If still REVISE after 2 cycles, stop and report
 
-### Step 7: Update Frontmatter
+### Step 8: Update Frontmatter
 
 Update the outcome document's frontmatter with scores:
 ```yaml
@@ -88,7 +105,7 @@ score:
   verdict: REVISE
 ```
 
-### Step 8: Apply Labels (CI mode only)
+### Step 9: Apply Labels (CI mode only)
 
 If NOT in local mode and outcome has a Jira key:
 - Score ≥ 6 (no zeros): Add `outcome-creator-rubric-pass` label
