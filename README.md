@@ -253,6 +253,10 @@ How does the story map sequence into customer capability phases?
 - Success signal per milestone
 - Value dependencies between milestones noted
 
+## Example Implementation
+One possible solution path — explicitly labeled as illustrative, not prescriptive.
+Authors naturally think in solutions; keeping that context here aids engineering clarity.
+
 ## Downstream Opportunities
 What product changes or features might serve this outcome?
 - Potential solution directions (not commitments)

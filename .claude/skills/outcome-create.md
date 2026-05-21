@@ -58,9 +58,10 @@ The document MUST include all sections:
    - **Three-solutions test:** Could engineering achieve this milestone three different ways and still satisfy the statement? If no, rewrite as customer capability
    - Note value dependencies between milestones (e.g., "identity before access control")
    - Each milestone includes a success signal (observable evidence of customer value)
-9. **Downstream Opportunities** — Potential solution directions (not commitments)
-10. **Out of Scope** — 3+ related but excluded items with brief rationale (sibling outcome, future phase, different team, etc.). The "why" prevents engineers from concluding the exclusion was an oversight.
-11. **Acceptance Signals** — How we'll know the outcome is being achieved
+9. **Example Implementation** — One possible solution path the author has in mind. Explicitly labeled as illustrative, not prescriptive. Authors naturally think in solutions — preserve that context here so it aids clarity without constraining engineering's solution space.
+10. **Downstream Opportunities** — Potential solution directions (not commitments)
+11. **Out of Scope** — 3+ related but excluded items with brief rationale (sibling outcome, future phase, different team, etc.). The "why" prevents engineers from concluding the exclusion was an oversight.
+12. **Acceptance Signals** — How we'll know the outcome is being achieved
 
 ### Step 4: Write Frontmatter
 
@@ -100,7 +101,7 @@ Save the original inputs (strategic goal data, research excerpts, user prompt) t
 - Include both quantitative and qualitative acceptance signals
 
 **Don't:**
-- Describe features or solutions (that's for RFEs and strategies)
+- Let solution language creep into the Problem Statement, Milestones, or Success Criteria — those must be problem-framed. Solution descriptions belong in the Example Implementation section.
 - Use vague language like "improve the experience" without specifics
 - Set unrealistic or unmeasurable acceptance criteria
 - Combine multiple unrelated outcomes into one document

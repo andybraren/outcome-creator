@@ -77,6 +77,13 @@ For each section, apply the following refinement logic:
 - Each milestone must have a success signal — observable evidence that customer value was delivered
 - Story map phases should align with milestones (map = experience, milestones = delivery slices)
 
+#### Example Implementation
+- If the author described a solution approach anywhere in the outcome (Problem Statement, Milestones, etc.), move that language here rather than deleting it
+- Ensure the section is clearly labeled as one possible path, not the definition
+- Note why the author considered this approach — what insight or constraint led to it
+- Flag known trade-offs or alternatives if mentioned
+- **Key principle:** Solution language aids clarity when it's in the right place. The Problem Statement, Milestones, and Success Criteria must be problem-framed. The Example Implementation preserves the author's solution thinking as useful context for engineering.
+
 #### Downstream Opportunities
 - List potential solution directions without committing to any
 - Cross-reference existing RFEs that might serve this outcome

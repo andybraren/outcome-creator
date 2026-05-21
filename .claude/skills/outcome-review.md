@@ -51,9 +51,9 @@ The scorer evaluates 4 dimensions, each scored 0–2:
 
 ### Step 4: Three-Solutions Test (pre-review check)
 
-Before prose reviews, run the three-solutions test on all milestone statements and arc capabilities:
+Before prose reviews, run the three-solutions test on Problem Statement, Milestones, and Arc capabilities:
 
-For each milestone or capability statement, ask: *"Could engineering satisfy this with three completely different technical approaches?"*
+For each statement, ask: *"Could engineering satisfy this with three completely different technical approaches?"*
 - **Yes** → Problem-space language. No action needed.
 - **No** → Solution language detected. Flag the statement and trigger the reverse-engineering chain:
 
@@ -63,8 +63,9 @@ For each milestone or capability statement, ask: *"Could engineering satisfy thi
 > - What blocks the job today: *[struggle / friction]*
 > - How you'd know it's solved without specifying how: *[observable signal]*
 > - **Problem framing:** *[rewritten as a problem]*
+> - **Example Implementation:** *[original solution language preserved here]*
 
-Include the translation chain in the review output so the writer can see the path from their natural framing to problem-space language.
+When solution language is detected in auto-revise: rewrite the statement as problem-framed and move the original solution language to the Example Implementation section. Don't discard it — the author's solution thinking is valuable context for engineering when it's in the right place.
 
 ### Step 5: Run Prose Reviews
 

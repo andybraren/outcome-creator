@@ -152,6 +152,20 @@ How does the story map sequence into major customer capability phases?
 → Success signal: [Observable signal]
 - Problem: [Customer problem]
 
+## Example Implementation
+
+How might this outcome be achieved? What solution directions has the team explored?
+
+<!-- This section is explicitly labeled as ONE possible path, not the definition.
+     Authors naturally think in solutions — that's valuable context for engineering.
+     Keep it here so it aids clarity without constraining the solution space.
+     The problem statement, milestones, and success criteria above define WHAT;
+     this section illustrates one possible HOW. -->
+
+- [Solution direction, technology approach, or architecture sketch]
+- [Why this approach was considered — what insight or constraint led here]
+- [Known trade-offs or alternatives considered]
+
 ## Downstream Opportunities
 
 What product changes or features might serve this outcome?
