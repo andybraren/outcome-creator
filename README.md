@@ -204,6 +204,10 @@ updated: 2026-01-15
 
 ## Problem Statement
 What user/market need does this outcome address? What pain exists today?
+- Job (JTBD): What the customer is trying to accomplish
+- Context: When/where the job arises
+- Struggle: What makes the job hard today
+- Who is involved: Job executor(s) sharing this job
 
 ## Business Outcome
 How does the business benefit when this outcome is achieved?
@@ -216,6 +220,12 @@ What can users do, feel, or achieve differently?
 - User outcome statements (importance + satisfaction framing)
 - Who specifically benefits (persona or segment)
 - What changes in their day-to-day experience
+
+## End-to-End Customer Arc
+What does the customer experience when all releases are complete?
+- Story map with 3+ phases of capability statements per actor
+- 2–3 scenarios tied to phases (actors, context, pain, flow, win moment)
+- Solution-independent language throughout
 
 ## Product Outcome
 What measurable behavior changes in the product?
@@ -237,11 +247,25 @@ How underserved is this outcome today?
 - Opportunity score (importance + max(importance - satisfaction, 0))
 - Category: Underserved | Overserved | Appropriately-served | Table Stakes
 
+## Release Milestones
+How does the story map sequence into customer capability phases?
+- Customer capability milestones (pass the three-solutions test)
+- Success signal per milestone
+- Value dependencies between milestones noted
+
+## Example Implementation
+One possible solution path — explicitly labeled as illustrative, not prescriptive.
+Authors naturally think in solutions; keeping that context here aids engineering clarity.
+
 ## Downstream Opportunities
 What product changes or features might serve this outcome?
 - Potential solution directions (not commitments)
 - Related existing RFEs
 - Open questions for discovery
+
+## Out of Scope
+What related problems are explicitly NOT part of this outcome?
+- 3+ exclusions with brief rationale
 
 ## Acceptance Signals
 How will we know this outcome is being achieved?

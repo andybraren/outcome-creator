@@ -16,8 +16,19 @@ updated: ${DATE}
 
 What user or market need does this outcome address? What pain exists today?
 
+State the JTBD explicitly: *When [context], [job executor(s)] need to [job], but [struggle].*
+Name each actor and their role in the same job when several are involved.
+
+- **Job (JTBD)**: [What the customer or organization is trying to accomplish — functional job, not a solution]
+- **Context**: [When or where the job arises — situation, trigger, environment]
+- **Struggle**: [What makes the job hard or fails today — friction, constraints, risks]
+- **Who is involved**: [Job executor(s) who share this job; name each and what part of the job they own]
+
 <!-- Ground this in evidence: customer quotes, research findings, telemetry data.
-     Frame around the user need, not a missing feature. -->
+     Frame around the user need, not a missing feature.
+     JTBD coherence test: Do all named actors share one job thread?
+     If unrelated jobs are bundled, recommend sibling outcomes.
+     Multiple personas on the SAME job is fine — unrelated jobs is not. -->
 
 ## Business Outcome
 
@@ -43,6 +54,33 @@ What can users do, feel, or achieve differently?
      They describe the human experience change.
      Good test: "Would this user recognize this as their problem?"
      Good test: "Is it possible to have a happy user who never uses a specific feature?" -->
+
+## End-to-End Customer Arc
+
+What does the customer experience when all releases of this long-lived effort are complete — across all contributing teams?
+
+### Story Map
+
+<!-- Solution-independent: no product names, feature names, or UI paths.
+     Each phase describes what the customer can do or what changes in their experience.
+     Every scenario below must trace back to a capability listed here. -->
+
+**Phase: [Name]** → **Phase: [Name]** → **Phase: [Name]**
+
+Under [Phase]:
+- [Actor]: [Capability / experience change — no product, feature, or UI names]
+
+### Scenarios
+
+<!-- 2–3 scenarios, each tied to a story map phase.
+     Rich enough to demo without reading Acceptance Criteria. -->
+
+#### [Title] *(Phase: [phase name])*
+- **Actors:** [Who is involved]
+- **Context:** [When/where this happens]
+- **Today's pain:** [What goes wrong or is hard today]
+- **Flow:** [5–10 plain-language steps — roles, decisions, handoffs]
+- **Win moment:** [Observable signal that this phase is real]
 
 ## Product Outcome
 
@@ -92,6 +130,42 @@ How underserved is this outcome today?
      - Overserved: Satisfied but not important — potential to deprioritize
      - Appropriately-served: Neither critical — monitor -->
 
+## Release Milestones
+
+How does the story map sequence into major customer capability phases?
+
+<!-- Each milestone is a customer capability statement, not a feature list.
+     Three-solutions test: Could engineering achieve this milestone three
+     different ways and still satisfy the statement? If no, rewrite.
+     Note value dependencies between milestones (e.g., "identity before access control"). -->
+
+**Milestone 1 — [What the customer can do after this phase]**
+→ Success signal: [Observable signal that this milestone delivered customer value]
+- Problem: [Customer problem this milestone addresses]
+- Problem: [Customer problem, note value dependency if any]
+
+**Milestone 2 — [Next customer capability, builds on Milestone 1]**
+→ Success signal: [Observable signal]
+- Problem: [Customer problem]
+
+**Milestone 3 — [Next customer capability]**
+→ Success signal: [Observable signal]
+- Problem: [Customer problem]
+
+## Example Implementation
+
+How might this outcome be achieved? What solution directions has the team explored?
+
+<!-- This section is explicitly labeled as ONE possible path, not the definition.
+     Authors naturally think in solutions — that's valuable context for engineering.
+     Keep it here so it aids clarity without constraining the solution space.
+     The problem statement, milestones, and success criteria above define WHAT;
+     this section illustrates one possible HOW. -->
+
+- [Solution direction, technology approach, or architecture sketch]
+- [Why this approach was considered — what insight or constraint led here]
+- [Known trade-offs or alternatives considered]
+
 ## Downstream Opportunities
 
 What product changes or features might serve this outcome?
@@ -104,6 +178,19 @@ What product changes or features might serve this outcome?
 1. **Opportunity Area**: [Description]
    - Related RFEs: [PROJRFE-XXX, if any]
    - Open Questions: [What we'd need to learn]
+
+## Out of Scope
+
+What related problems or capabilities are explicitly NOT part of this outcome?
+
+<!-- Name 3+ things that are related to the problem but explicitly excluded.
+     Include a brief rationale for each (deferred to sibling outcome, future phase,
+     different team, out of our control, etc.). The "why" prevents engineers from
+     concluding the exclusion was an oversight. -->
+
+- [Exclusion]: [Reason — sibling outcome, future phase, different team, etc.]
+- [Exclusion]: [Reason]
+- [Exclusion]: [Reason]
 
 ## Acceptance Signals
 

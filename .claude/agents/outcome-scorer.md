@@ -38,6 +38,8 @@ Read the outcome document carefully. For each dimension, assign a score of 0, 1,
 - Product outcome has specific, measurable behavioral changes
 - Acceptance signals are observable and include timeframes
 - Both quantitative and qualitative signals are present
+- Milestone-level success signals are present (not just outcome-level)
+- Signals in Release Milestones and Acceptance Signals are consistent
 
 #### User Focus (0–2)
 
@@ -46,18 +48,24 @@ Read the outcome document carefully. For each dimension, assign a score of 0, 1,
 - The outcome is purely technology-driven or internally focused
 - No persona or user segment is identified
 - The user outcome section is missing or reads like a feature spec
+- Problem statement lacks a JTBD framing (job, context, struggle, job executors)
 
 **Score 1** if:
 - A user need is stated but is generic ("users want better tools")
 - The persona is vague ("enterprises" without further specificity)
 - The user outcome describes a feature rather than a change in capability
 - Evidence for the user need is thin or absent
+- JTBD is implied but actors are not tied to a shared job thread
+- E2E customer arc is missing or only covers one team's contribution
 
 **Score 2** if:
+- Problem statement has an explicit JTBD with job, context, struggle, and job executors
+- All named actors share one coherent job thread (or explicit related sub-jobs)
 - A specific user persona or segment is identified with context
 - The user outcome describes a meaningful change in capability or experience
 - The outcome is grounded in research, customer feedback, or evidence
 - The user outcome is solution-agnostic — multiple features could serve it
+- For long-lived outcomes: E2E customer arc has story map (3+ phases) and 2–3 scenarios tied to phases
 - You can answer "yes" to: "Would a user recognize this as their problem?"
 
 #### Business Alignment (0–2)
@@ -88,12 +96,18 @@ Read the outcome document carefully. For each dimension, assign a score of 0, 1,
 
 **Score 1** if:
 - Scope is reasonable but downstream opportunities are unclear
+- Release milestones exist but are solution-shaped or lack sequencing
+- Out-of-scope statement is missing or vague
 - Teams would need significant additional context to start discovery
 - Open questions are not identified
 - The outcome spans features but doesn't suggest where to look
 
 **Score 2** if:
 - Well-scoped — not too broad, not too narrow
+- Release milestones are customer-capability statements that pass the three-solutions test
+- Milestones have a proposed sequence with value dependencies noted
+- Each milestone has a success signal (observable customer value)
+- Out-of-scope statement names 3+ related exclusions with brief rationale
 - Downstream opportunities are concrete and specific
 - Teams could begin discovery immediately
 - Open questions are identified and contextualized

@@ -36,9 +36,12 @@ rubric:
             - "Product outcome has specific, measurable behavioral changes"
             - "Acceptance signals are observable and time-bound"
             - "Both quantitative and qualitative signals present"
+            - "Milestone-level success signals present (not just outcome-level)"
+            - "Signals in Release Milestones and Acceptance Signals are consistent"
           examples:
             - "Increase trial-to-paid conversion from 15% to 25% within 6 months"
             - "80% of deployed agents have active tracing within 7 days"
+            - "Each of 3 milestones has an observable success signal; outcome-level signals tie them together"
 
     user_focus:
       weight: 1
@@ -73,6 +76,8 @@ rubric:
             - "Grounded in research, customer feedback, or evidence"
             - "Solution-agnostic — multiple features could serve it"
             - "A user would recognize this as their problem"
+            - "For long-lived outcomes: story map with 3+ phases and capability statements per actor"
+            - "For long-lived outcomes: 2–3 scenarios tied to phases, solution-independent, with through-line to story map"
           examples:
             - "AI engineers can diagnose agent failures in under 5 minutes without needing cluster access or ops team assistance"
             - "Platform engineers can see fleet-wide agent health at a glance during incident response"
@@ -114,14 +119,14 @@ rubric:
     actionability:
       weight: 1
       max: 2
-      description: "Can teams derive concrete work from this outcome?"
+      description: "Can teams derive concrete work from this outcome? Are release milestones customer-capability statements?"
       levels:
         0:
           label: "Missing"
           criteria:
             - "Too broad — could mean anything"
             - "Or too narrow — really just a feature request"
-            - "No downstream opportunities identified"
+            - "No downstream opportunities or release milestones identified"
             - "Teams cannot derive concrete work"
           examples:
             - "Improve the platform"
@@ -130,20 +135,28 @@ rubric:
           label: "Partial"
           criteria:
             - "Scope reasonable but downstream opportunities unclear"
+            - "Milestones exist but are solution-shaped or lack sequencing"
+            - "Out-of-scope statement missing or vague"
             - "Teams would need significant additional context"
             - "Open questions not identified"
           examples:
             - "Users need better agent management (no specifics on where to start)"
+            - "Milestones describe architecture components instead of customer capabilities"
+            - "Out of scope says 'performance optimization' without naming what's excluded"
         2:
           label: "Complete"
           criteria:
             - "Well-scoped — not too broad, not too narrow"
+            - "Release milestones are customer-capability statements that pass the three-solutions test"
+            - "Milestones have a proposed sequence with value dependencies noted"
+            - "Each milestone has a success signal (observable customer value)"
+            - "Out-of-scope statement names 3+ related exclusions with brief rationale"
             - "Downstream opportunities are concrete"
             - "Teams can begin discovery immediately"
             - "Open questions are identified and contextualized"
             - "Related RFEs cross-referenced where relevant"
           examples:
-            - "Outcome with 3 concrete opportunity areas, 2 related RFEs linked, and 4 open questions for user research"
+            - "Outcome with 3 customer-capability milestones, value dependencies noted, success signals per milestone, 4 named exclusions with rationale, and concrete downstream opportunities"
 
   verdicts:
     PASS:
