@@ -32,26 +32,26 @@ The scorer evaluates 4 dimensions, each scored 0–2:
 #### Measurability (0–2)
 - **0**: No metrics, no directional indicators, purely aspirational
 - **1**: Directional indicators present but no specific metrics; or metrics exist but aren't clearly tied to the outcome
-- **2**: Clear, specific metrics for business and product outcomes; acceptance signals are observable and time-bound
+- **2**: Success & Metrics has clear lagging and leading indicators; each Customer Arc phase has an observable success signal with timeframe
 
 #### User Focus (0–2)
-- **0**: No clear user need articulated; outcome is technology-driven or internally focused
-- **1**: User need is stated but generic; persona is vague; user outcome reads like a feature description
-- **2**: Specific user persona identified; user outcome describes a meaningful change in capability or experience; grounded in research or evidence
+- **0**: No clear user need articulated; outcome is technology-driven or internally focused; no JTBD or customer arc
+- **1**: User need is stated but generic; persona is vague; customer arc missing or solution-shaped
+- **2**: Problem Statement has explicit JTBD with coherent job executors; Customer Arc has 3+ phases with solution-independent capabilities and 2–3 scenarios; grounded in Evidence
 
 #### Business Alignment (0–2)
 - **0**: No connection to strategic goals; business value is absent or hand-wavy
-- **1**: Strategic goal is referenced but the connection is loose; business outcome is plausible but not substantiated
-- **2**: Direct connection to strategic goals with clear rationale; business outcome has specific metrics; evidence supports the business case
+- **1**: Strategic goal is referenced but the connection is loose; lagging metrics plausible but not substantiated
+- **2**: Direct connection to strategic goals; lagging metrics in Success & Metrics; Evidence supports the business case
 
 #### Actionability (0–2)
 - **0**: Too broad to act on ("improve everything") or too narrow (just a feature request in disguise)
-- **1**: Scope is reasonable but downstream opportunities are unclear; teams would struggle to derive product work from this
-- **2**: Well-scoped; downstream opportunities are concrete; teams can immediately begin discovery; open questions are identified
+- **1**: Scope reasonable but phases lack success signals or open questions; out-of-scope missing or vague
+- **2**: Customer Arc phases are customer-capability statements with sequencing; Example Implementation has open questions; Out of Scope has 3+ exclusions with rationale
 
 ### Step 4: Three-Solutions Test (pre-review check)
 
-Before prose reviews, run the three-solutions test on Problem Statement, Milestones, and Arc capabilities:
+Before prose reviews, run the three-solutions test on Problem Statement and Customer Arc phase capability headlines:
 
 For each statement, ask: *"Could engineering satisfy this with three completely different technical approaches?"*
 - **Yes** → Problem-space language. No action needed.
@@ -71,10 +71,10 @@ When solution language is detected in auto-revise: rewrite the statement as prob
 
 After scoring, run 4 independent prose reviews (can be parallelized as separate agent forks):
 
-1. **Measurability Reviewer** — Are the metrics real? Can they actually be measured? Are baselines available? Are milestone-level success signals present?
-2. **User Focus Reviewer** — Is this a real user need or an internal assumption? Would users recognize this as their problem? Does the E2E customer arc describe the full journey solution-independently?
-3. **Business Alignment Reviewer** — Does the business case hold up? Are the strategic connections genuine or forced?
-4. **Actionability Reviewer** — Could a product team take this and start discovery tomorrow? Are release milestones customer-capability statements? Is out-of-scope explicit?
+1. **Measurability Reviewer** — Are lagging/leading metrics in Success & Metrics real and measurable? Does each phase have a success signal with timeframe? Any redundant metric restatements to remove?
+2. **User Focus Reviewer** — Is JTBD coherent? Does the Customer Arc describe the full journey solution-independently? Are scenarios free of duplicated pain/quotes from Evidence?
+3. **Business Alignment Reviewer** — Does the business case hold up? Are strategic connections genuine? Is Evidence substantive?
+4. **Actionability Reviewer** — Can teams start discovery from the Customer Arc? Are open questions in Example Implementation? Is Out of Scope explicit? Flag legacy sections that should be consolidated.
 
 Each reviewer writes findings to `artifacts/outcome-reviews/OUTCOME-NNN-<dimension>.md`.
 

@@ -179,100 +179,39 @@ After CI finishes, humans use a separate `local/` workspace:
 
 ## Outcome Document Structure
 
-Each outcome artifact follows this structure:
+Each outcome artifact uses a **lean structure** — six sections, minimal redundancy:
 
 ```markdown
 ---
 id: PROJSTRAT-XXXX
 title: "Outcome Title"
-status: draft | review | approved | active
-strategic_goals: [PROJGOALS-314]
-components: [Platform, DevTools]
-priority: Critical | Major | Minor
-score:
-  measurability: 0-2
-  user_focus: 0-2
-  business_alignment: 0-2
-  actionability: 0-2
-  total: 0-8
-  verdict: PASS | REVISE | REWORK
-created: 2026-01-15
-updated: 2026-01-15
+...
 ---
 
 # Outcome Title
 
 ## Problem Statement
-What user/market need does this outcome address? What pain exists today?
-- Job (JTBD): What the customer is trying to accomplish
-- Context: When/where the job arises
-- Struggle: What makes the job hard today
-- Who is involved: Job executor(s) sharing this job
+JTBD only — job, context, struggle, who is involved. No quotes or named accounts here.
 
-## Business Outcome
-How does the business benefit when this outcome is achieved?
-- Metric or directional indicator
-- Connection to strategic goals
-- Expected business impact
+## Success & Metrics
+Lagging (business) and leading (product) indicators in one place.
 
-## User Outcome
-What can users do, feel, or achieve differently?
-- User outcome statements (importance + satisfaction framing)
-- Who specifically benefits (persona or segment)
-- What changes in their day-to-day experience
+## Customer Arc & Delivery Plan
+Phases combine experience arc and delivery plan (not separate story map + milestones):
+- Customer capability, when this is true, success signal + timeframe, problems addressed
+- Scenarios per phase: Actors, Context, Flow, Win moment (no "Today's pain")
 
-## End-to-End Customer Arc
-What does the customer experience when all releases are complete?
-- Story map with 3+ phases of capability statements per actor
-- 2–3 scenarios tied to phases (actors, context, pain, flow, win moment)
-- Solution-independent language throughout
+## Evidence
+Customer quotes, analyst/market data, platform gaps, one-line opportunity verdict.
 
-## Product Outcome
-What measurable behavior changes in the product?
-- Leading indicators that signal progress
-- Specific product metrics or behavioral changes
-- How this connects to the user outcome above
-
-## Evidence & Research
-What data supports this outcome?
-- Customer quotes or feedback
-- Research findings (JTBD, Top Tasks, surveys)
-- Market or analyst data
-- Product telemetry
-
-## Opportunity Assessment
-How underserved is this outcome today?
-- Importance score (from research, if available)
-- Satisfaction score (from research, if available)
-- Opportunity score (importance + max(importance - satisfaction, 0))
-- Category: Underserved | Overserved | Appropriately-served | Table Stakes
-
-## Release Milestones
-How does the story map sequence into customer capability phases?
-- Customer capability milestones (pass the three-solutions test)
-- Success signal per milestone
-- Value dependencies between milestones noted
-
-## Example Implementation
-One possible solution path — explicitly labeled as illustrative, not prescriptive.
-Authors naturally think in solutions; keeping that context here aids engineering clarity.
-
-## Downstream Opportunities
-What product changes or features might serve this outcome?
-- Potential solution directions (not commitments)
-- Related existing RFEs
-- Open questions for discovery
+## Example Implementation & Open Questions
+One illustrative solution path + open questions per capability area.
 
 ## Out of Scope
-What related problems are explicitly NOT part of this outcome?
-- 3+ exclusions with brief rationale
-
-## Acceptance Signals
-How will we know this outcome is being achieved?
-- Quantitative signals
-- Qualitative signals
-- Timeframe for measurement
+3+ related exclusions with brief rationale.
 ```
+
+`/outcome.refine` migrates legacy documents (Business/User/Product Outcome, separate milestones, Acceptance Signals) into this structure.
 
 ## Project Structure
 

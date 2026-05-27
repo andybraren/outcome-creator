@@ -20,93 +20,64 @@ User says `/outcome.refine` optionally followed by:
 
 Read the outcome document and its frontmatter. Read the original inputs from `artifacts/outcome-originals/` or `local/outcome-originals/` if available.
 
-### Step 3: Refine Each Section
+### Step 3: Consolidate to Lean Structure
 
-For each section, apply the following refinement logic:
+If the document uses legacy sections, migrate content without losing information:
+
+| Legacy section | Merge into |
+|---|---|
+| Business Outcome + Product Outcome | Success & Metrics (lagging / leading) |
+| User Outcome | Problem Statement (who) + Customer Arc (capabilities) — then delete User Outcome |
+| End-to-End Customer Arc + Story Map + Release Milestones | Customer Arc & Delivery Plan (one phase block per delivery slice) |
+| Opportunity Assessment | Evidence (one-line opportunity verdict) |
+| Downstream Opportunities | Example Implementation & Open Questions |
+| Acceptance Signals | Success & Metrics (outcome-level) + phase success signals — delete duplicate Measurement Timeframe |
+
+### Step 4: Refine Each Section
 
 #### Problem Statement
-- Ensure the problem is stated as an explicit JTBD: *When [context], [job executor(s)] need to [job], but [struggle].*
-- Name each job executor and their role in the same job — multiple actors on one job is valid
-- **JTBD coherence test:** Do all named actors share one job thread? If unrelated jobs are bundled, recommend splitting into sibling outcomes
-- Sharpen the problem definition with specific user pain points
-- Add concrete scenarios or quotes if available
-- Ensure the problem is framed around the user need, not a missing feature
+- JTBD only: job, context, struggle, who is involved
+- **JTBD coherence test:** Do all named actors share one job thread?
+- Move customer quotes and named accounts to Evidence
+- Remove solution language — move to Example Implementation
 
-#### Business Outcome
-- Verify connection to strategic goals — fetch the PROJGOALS issue if needed
-- Add or refine metrics (revenue impact, cost reduction, adoption targets)
-- Distinguish between leading and lagging indicators
-- Ensure the business outcome is a real outcome, not an output disguised as one
+#### Success & Metrics
+- **Lagging:** business outcomes, strategic connection, account-level targets
+- **Leading:** product/customer behaviors that predict lagging results
+- Remove content that duplicates phase-level success signals
 
-#### User Outcome
-- Apply the user outcome statement format: "Minimize/Maximize [direction] the [metric] of [task/activity]"
-- Add importance and satisfaction framing where research data is available
-- Ensure the user outcome describes a change in capability or experience, not a feature
-- Validate that the stated persona or segment is specific enough to be actionable
-- Check: "Is it possible to have a happy customer who never uses a specific feature we'd build?" — if yes, the outcome is well-framed
+#### Customer Arc & Delivery Plan
+- Each phase: customer capability, when this is true, success signal (with timeframe), problems addressed
+- **Three-solutions test** on every customer capability headline
+- Scenarios: Actors, Context, Flow, Win moment only — remove Today's pain if present
+- **Through-line test:** Each scenario demonstrates a capability from its phase
 
-#### End-to-End Customer Arc
-- Ensure the story map has 3+ phases with capability statements per relevant actor
-- All capability statements must be solution-independent — no product names, feature names, or UI paths
-- Ensure 2–3 scenarios, each explicitly tied to a phase (*(Phase: …)*)
-- Each scenario must have: actors, context, today's pain, 5–10 step flow, win moment
-- **Through-line test:** For each scenario, can you point to the matching phase in the story map and say what capability is now true? If not, fix the map or the scenario
-- **Solution-independence test:** Does the arc describe what the customer experiences without referencing the product, features, or technology?
+#### Evidence
+- Customer quotes, analyst data, platform gaps — single home for all proof points
+- End with one-line opportunity verdict (importance vs satisfaction)
+- Remove duplicate quotes from other sections after consolidating here
 
-#### Product Outcome
-- Ensure product outcomes are leading indicators of business outcomes
-- Add specific, measurable product metrics (not traction metrics for single features)
-- Verify product outcomes span features — they should describe value, not adoption of one tool
-- Pair sentiment metrics (satisfaction) with behavioral metrics (engagement, completion)
-
-#### Evidence & Research
-- Integrate any new research or customer data
-- Structure evidence by type: customer quotes, survey data, telemetry, analyst reports
-- Flag gaps in evidence that need further research
-
-#### Opportunity Assessment
-- Calculate or refine the opportunity score if importance/satisfaction data exists
-- Categorize: Underserved, Overserved, Appropriately-served, Table Stakes
-- Note if this is a new assessment or a revision of a previous one
-
-#### Release Milestones
-- Ensure milestones are customer capability statements — what the customer can do, not what gets built
-- **Three-solutions test:** Could engineering achieve each milestone three different ways and still satisfy the statement? If no, rewrite as customer capability
-- Verify milestones have a logical sequence based on customer value and dependencies
-- Note value dependencies between milestones (e.g., "you need identity before access control is meaningful")
-- Each milestone must have a success signal — observable evidence that customer value was delivered
-- Story map phases should align with milestones (map = experience, milestones = delivery slices)
-
-#### Example Implementation
-- If the author described a solution approach anywhere in the outcome (Problem Statement, Milestones, etc.), move that language here rather than deleting it
-- Ensure the section is clearly labeled as one possible path, not the definition
-- Note why the author considered this approach — what insight or constraint led to it
-- Flag known trade-offs or alternatives if mentioned
-- **Key principle:** Solution language aids clarity when it's in the right place. The Problem Statement, Milestones, and Success Criteria must be problem-framed. The Example Implementation preserves the author's solution thinking as useful context for engineering.
-
-#### Downstream Opportunities
-- List potential solution directions without committing to any
-- Cross-reference existing RFEs that might serve this outcome
-- Note open questions that teams should explore during discovery
+#### Example Implementation & Open Questions
+- Move solution language from Problem Statement or phases here (don't delete)
+- Inline open questions per capability area; remove separate Downstream Opportunities list if redundant
 
 #### Out of Scope
-- Ensure 3+ related but excluded items are named with brief rationale
-- Rationale should explain *why* each item is excluded (sibling outcome, future phase, different team, out of control, etc.)
-- Vague exclusions ("performance optimization is out of scope") need to name what's specifically excluded
-- **Readiness test:** Could an engineer answer the first 10 "are we doing X?" questions using the out-of-scope statement alone?
+- 3+ exclusions with rationale
+- **Readiness test:** Could an engineer answer "are we doing X?" from this list alone?
 
-#### Acceptance Signals
-- Ensure signals are observable and time-bound where possible
-- Include both quantitative signals (metrics, conversion rates) and qualitative signals (user feedback themes, support ticket patterns)
-- Verify that acceptance signals connect back to the product outcome metrics
-- **Milestone-level signals required:** Each release milestone needs its own success signal (in the Milestones section). Outcome-level signals alone score partial on measurability.
-- Signals in Release Milestones and Acceptance Signals must be consistent — milestone signals are checkpoints, outcome-level signals are the finish line
+### Step 5: Redundancy Pass
 
-### Step 4: Update Frontmatter
+Before finishing, check for and remove:
+- Same quote in Problem Statement and Evidence
+- Same metric in Success & Metrics and a phase success signal (keep the right level of granularity)
+- Same capability stated in a phase headline and "When this is true" bullets (tighten, don't repeat)
+- Separate Story Map + Milestones + Acceptance Signals sections (must be one Customer Arc & Delivery Plan)
+
+### Step 6: Update Frontmatter
 
 Update the `updated` timestamp. If components or strategic goals changed, update those too.
 
-### Step 5: Write Refined Document
+### Step 7: Write Refined Document
 
 Overwrite the outcome file with the refined version. Write a summary of changes to stdout.
 

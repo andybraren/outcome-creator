@@ -14,193 +14,117 @@ updated: ${DATE}
 
 ## Problem Statement
 
-What user or market need does this outcome address? What pain exists today?
-
-State the JTBD explicitly: *When [context], [job executor(s)] need to [job], but [struggle].*
-Name each actor and their role in the same job when several are involved.
+JTBD structure only — no customer quotes or named accounts here (those belong in Evidence).
 
 - **Job (JTBD)**: [What the customer or organization is trying to accomplish — functional job, not a solution]
 - **Context**: [When or where the job arises — situation, trigger, environment]
 - **Struggle**: [What makes the job hard or fails today — friction, constraints, risks]
 - **Who is involved**: [Job executor(s) who share this job; name each and what part of the job they own]
 
-<!-- Ground this in evidence: customer quotes, research findings, telemetry data.
-     Frame around the user need, not a missing feature.
-     JTBD coherence test: Do all named actors share one job thread?
+<!-- JTBD coherence test: Do all named actors share one job thread?
      If unrelated jobs are bundled, recommend sibling outcomes.
      Multiple personas on the SAME job is fine — unrelated jobs is not. -->
 
-## Business Outcome
+## Success & Metrics
 
-How does the business benefit when this outcome is achieved?
+How will we know this outcome is working — for customers and for the business?
 
-- **Metric**: [Specific metric or directional indicator]
-- **Strategic Connection**: [How this connects to ${STRATEGIC_GOALS}]
-- **Expected Impact**: [What changes for the business]
+**Lagging (business):**
+- [Specific business metric or directional indicator — e.g., strategic accounts, revenue, adoption]
+- [Connection to ${STRATEGIC_GOALS}]
 
-<!-- Business outcomes are lagging indicators. They tell you what already happened
-     as a result of shipping solutions. Examples: revenue growth, market share,
-     customer retention, cost reduction. -->
+**Leading (product):**
+- [Observable product or customer behavior that predicts the business outcome]
+- [Additional leading indicators as needed]
 
-## User Outcome
+<!-- Do not repeat per-phase success signals here — those live in Customer Arc & Delivery Plan.
+     Lagging = outcome complete; Leading = early signal you're on track. -->
 
-What can users do, feel, or achieve differently?
+## Customer Arc & Delivery Plan
 
-- **Who**: [Specific persona or user segment]
-- **Outcome Statement**: [Minimize/Maximize the [direction] of [metric] when [doing task/activity]]
-- **Experience Change**: [What's different in their day-to-day]
+**[Phase 1]** → **[Phase 2]** → **[Phase 3]** → ...
 
-<!-- User outcomes bridge business outcomes and product outcomes.
-     They describe the human experience change.
-     Good test: "Would this user recognize this as their problem?"
-     Good test: "Is it possible to have a happy user who never uses a specific feature?" -->
+One section: experience arc and delivery plan combined. Do not create separate Story Map, Release Milestones, or Acceptance Signals sections.
 
-## End-to-End Customer Arc
+### Phase 1: [Name]
 
-What does the customer experience when all releases of this long-lived effort are complete — across all contributing teams?
+**Customer capability:** [What the customer can do after this phase — passes the three-solutions test]
 
-### Story Map
-
-<!-- Solution-independent: no product names, feature names, or UI paths.
-     Each phase describes what the customer can do or what changes in their experience.
-     Every scenario below must trace back to a capability listed here. -->
-
-**Phase: [Name]** → **Phase: [Name]** → **Phase: [Name]**
-
-Under [Phase]:
+**When this is true:**
 - [Actor]: [Capability / experience change — no product, feature, or UI names]
+- [Actor]: [Capability / experience change]
 
-### Scenarios
+**Success signal:** [Observable evidence this phase delivered customer value] (target: [timeframe])
 
-<!-- 2–3 scenarios, each tied to a story map phase.
-     Rich enough to demo without reading Acceptance Criteria. -->
+**Problems this phase addresses:**
+- [Customer problem this phase addresses]
+- [Note value dependency on a prior phase if any]
 
-#### [Title] *(Phase: [phase name])*
+#### Scenario: [Title]
 - **Actors:** [Who is involved]
-- **Context:** [When/where this happens]
-- **Today's pain:** [What goes wrong or is hard today]
+- **Context:** [When/where this happens — set the scene only; do not restate struggle or quotes from Evidence]
 - **Flow:** [5–10 plain-language steps — roles, decisions, handoffs]
 - **Win moment:** [Observable signal that this phase is real]
 
-## Product Outcome
+<!-- 2–3 scenarios across phases. No "Today's pain" — Problem Statement and Evidence cover that.
+     Scenarios show the future experience, not re-litigate the problem. -->
 
-What measurable behavior changes in the product?
+### Phase 2: [Name]
 
-- **Leading Indicator**: [Specific product metric that predicts the business outcome]
-- **Behavioral Change**: [What users do differently in the product]
-- **Connection**: [How this product outcome drives the user outcome above]
+**Customer capability:** [...]
 
-<!-- Product outcomes are leading indicators. They give early signal.
-     Avoid traction metrics for single features.
-     Pair sentiment metrics with behavioral metrics. -->
+**When this is true:**
+- [...]
 
-## Evidence & Research
+**Success signal:** [...] (target: [...])
 
-What data supports this outcome?
+**Problems this phase addresses:**
+- [...]
 
-### Customer Evidence
-<!-- Direct quotes, interview findings, support ticket patterns -->
+#### Scenario: [Title]
+- **Actors:** [...]
+- **Context:** [...]
+- **Flow:** [...]
+- **Win moment:** [...]
 
-### Research Findings
-<!-- JTBD studies, Top Tasks surveys, user outcome surveys -->
+## Evidence
 
-### Market Data
-<!-- Analyst reports, competitive analysis, industry trends -->
+Single evidence section — no separate Opportunity Assessment.
 
-### Product Telemetry
-<!-- Usage data, error rates, adoption metrics -->
+**Customers** ([named accounts or segments]):
+- **[Account/source]:** [Quote or finding]
+- **[Account/source]:** [Quote or finding]
 
-## Opportunity Assessment
+**Analyst & market:**
+- [Analyst report, market trend, or industry data]
 
-How underserved is this outcome today?
+**Platform today:** [Current state — what exists vs. what's missing]
 
-- **Importance**: [High / Medium / Low — or survey score if available]
-- **Satisfaction**: [High / Medium / Low — or survey score if available]
-- **Opportunity Score**: [importance + max(importance - satisfaction, 0)]
-- **Category**: [Underserved | Overserved | Appropriately-served | Table Stakes]
+**Opportunity:** [Underserved | Overserved | etc.] — [one sentence: importance vs. satisfaction]
 
-<!-- Opportunity Score formula:
-     Importance = (% Very/Extremely Important) / (total responses)
-     Satisfaction = (% Very/Extremely Satisfied) / (total responses)
-     Opportunity = Importance + max(Importance - Satisfaction, 0)
-     
-     Categories:
-     - Underserved: Important but unsatisfied — highest opportunity
-     - Table Stakes: Important AND satisfied — must maintain
-     - Overserved: Satisfied but not important — potential to deprioritize
-     - Appropriately-served: Neither critical — monitor -->
+## Example Implementation & Open Questions
 
-## Release Milestones
+One possible path — illustrative, not prescriptive. Align items to customer arc phases where helpful.
 
-How does the story map sequence into major customer capability phases?
+**1. [Capability area]** *([Phase name])*
+- [Solution direction or architecture sketch — technology names OK here]
+- **Open questions:** [What engineering still needs to decide]
 
-<!-- Each milestone is a customer capability statement, not a feature list.
-     Three-solutions test: Could engineering achieve this milestone three
-     different ways and still satisfy the statement? If no, rewrite.
-     Note value dependencies between milestones (e.g., "identity before access control"). -->
+**2. [Capability area]** *([Phase name])*
+- [...]
+- **Open questions:** [...]
 
-**Milestone 1 — [What the customer can do after this phase]**
-→ Success signal: [Observable signal that this milestone delivered customer value]
-- Problem: [Customer problem this milestone addresses]
-- Problem: [Customer problem, note value dependency if any]
+**Assumptions:** [What must be true for this approach to work]
+**Integrations:** [Systems this path would touch]
 
-**Milestone 2 — [Next customer capability, builds on Milestone 1]**
-→ Success signal: [Observable signal]
-- Problem: [Customer problem]
-
-**Milestone 3 — [Next customer capability]**
-→ Success signal: [Observable signal]
-- Problem: [Customer problem]
-
-## Example Implementation
-
-How might this outcome be achieved? What solution directions has the team explored?
-
-<!-- This section is explicitly labeled as ONE possible path, not the definition.
-     Authors naturally think in solutions — that's valuable context for engineering.
-     Keep it here so it aids clarity without constraining the solution space.
-     The problem statement, milestones, and success criteria above define WHAT;
-     this section illustrates one possible HOW. -->
-
-- [Solution direction, technology approach, or architecture sketch]
-- [Why this approach was considered — what insight or constraint led here]
-- [Known trade-offs or alternatives considered]
-
-## Downstream Opportunities
-
-What product changes or features might serve this outcome?
-
-<!-- List potential solution directions without committing to any.
-     Cross-reference existing RFEs.
-     Note open questions for discovery.
-     Remember: multiple solutions can serve the same outcome. -->
-
-1. **Opportunity Area**: [Description]
-   - Related RFEs: [PROJRFE-XXX, if any]
-   - Open Questions: [What we'd need to learn]
+*Problem Statement and Customer Arc define what must be true — engineering owns how.*
 
 ## Out of Scope
 
 What related problems or capabilities are explicitly NOT part of this outcome?
 
-<!-- Name 3+ things that are related to the problem but explicitly excluded.
-     Include a brief rationale for each (deferred to sibling outcome, future phase,
-     different team, out of our control, etc.). The "why" prevents engineers from
-     concluding the exclusion was an oversight. -->
-
 - [Exclusion]: [Reason — sibling outcome, future phase, different team, etc.]
 - [Exclusion]: [Reason]
 - [Exclusion]: [Reason]
 
-## Acceptance Signals
-
-How will we know this outcome is being achieved?
-
-### Quantitative Signals
-<!-- Specific metrics with baselines and targets where possible -->
-
-### Qualitative Signals
-<!-- User feedback themes, support patterns, interview findings -->
-
-### Measurement Timeframe
-<!-- When should we expect to see change? -->
+<!-- Require ≥3 related exclusions with brief rationale. -->

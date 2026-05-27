@@ -12,6 +12,8 @@ You may NOT use: Bash, shell commands, network access, MCP tools, or any other t
 
 When given an outcome document path, score it across 4 dimensions.
 
+Accept both **lean structure** (preferred) and **legacy structure** (Business/User/Product Outcome, separate milestones, etc.) — score the substance, not section titles.
+
 ### Input
 
 You will receive a path to an outcome document (markdown with YAML frontmatter).
@@ -23,95 +25,65 @@ Read the outcome document carefully. For each dimension, assign a score of 0, 1,
 #### Measurability (0–2)
 
 **Score 0** if:
-- No metrics or directional indicators anywhere in the document
-- Acceptance signals are purely aspirational ("users will be happier")
-- Business and product outcomes have no quantitative or qualitative measures
+- No metrics or directional indicators anywhere
+- Purely aspirational statements only
 
 **Score 1** if:
-- Directional indicators are present but metrics are vague ("increase engagement")
-- Metrics exist but aren't clearly tied to the stated outcome
-- Acceptance signals exist but aren't observable or time-bound
-- Only one layer (business OR product) has clear metrics, not both
+- Directional indicators present but metrics are vague
+- Only lagging OR leading indicators present, not both
+- Phase success signals missing for long-lived outcomes
 
 **Score 2** if:
-- Business outcome has specific metrics or clear directional indicators
-- Product outcome has specific, measurable behavioral changes
-- Acceptance signals are observable and include timeframes
-- Both quantitative and qualitative signals are present
-- Milestone-level success signals are present (not just outcome-level)
-- Signals in Release Milestones and Acceptance Signals are consistent
+- Success & Metrics (or equivalent) has clear lagging (business) and leading (product) indicators
+- Each Customer Arc phase (or Release Milestone) has an observable success signal with timeframe
+- No contradictory duplicate metrics across sections
 
 #### User Focus (0–2)
 
 **Score 0** if:
-- No clear user need is articulated
-- The outcome is purely technology-driven or internally focused
-- No persona or user segment is identified
-- The user outcome section is missing or reads like a feature spec
-- Problem statement lacks a JTBD framing (job, context, struggle, job executors)
+- No clear user need articulated; technology-driven or internally focused
+- No JTBD framing and no customer arc
 
 **Score 1** if:
-- A user need is stated but is generic ("users want better tools")
-- The persona is vague ("enterprises" without further specificity)
-- The user outcome describes a feature rather than a change in capability
-- Evidence for the user need is thin or absent
-- JTBD is implied but actors are not tied to a shared job thread
-- E2E customer arc is missing or only covers one team's contribution
+- User need stated but generic; JTBD incomplete
+- Customer arc missing, solution-shaped, or only one team's view
+- Evidence thin or absent
 
 **Score 2** if:
-- Problem statement has an explicit JTBD with job, context, struggle, and job executors
-- All named actors share one coherent job thread (or explicit related sub-jobs)
-- A specific user persona or segment is identified with context
-- The user outcome describes a meaningful change in capability or experience
-- The outcome is grounded in research, customer feedback, or evidence
-- The user outcome is solution-agnostic — multiple features could serve it
-- For long-lived outcomes: E2E customer arc has story map (3+ phases) and 2–3 scenarios tied to phases
-- You can answer "yes" to: "Would a user recognize this as their problem?"
+- Problem Statement has explicit JTBD with job, context, struggle, job executors sharing one coherent job
+- Customer Arc & Delivery Plan (or equivalent) has 3+ phases with solution-independent capabilities
+- 2–3 scenarios with flow and win moments; grounded in Evidence
+- A user would recognize this as their problem
 
 #### Business Alignment (0–2)
 
 **Score 0** if:
-- No connection to any strategic goal
-- Business value is absent or purely hand-wavy
-- The outcome could apply to any product, not specifically this one
+- No connection to strategic goals; business value absent or hand-wavy
 
 **Score 1** if:
-- A strategic goal is referenced but the connection is loose or forced
-- Business outcome is plausible but not substantiated with evidence
-- The business metric is too broad ("increase revenue") without specifics
+- Strategic goal referenced but connection loose
+- Lagging metrics plausible but not substantiated
 
 **Score 2** if:
-- Direct, clear connection to one or more strategic goals with rationale
-- Business outcome has specific metrics or directional indicators
-- Evidence supports the business case (customer data, market analysis, analyst reports)
-- The business outcome is clearly a lagging indicator of the product outcome
+- Direct connection to strategic goals with rationale
+- Lagging metrics specific in Success & Metrics (or Business Outcome)
+- Evidence section supports the business case
 
 #### Actionability (0–2)
 
 **Score 0** if:
-- The outcome is so broad it could mean anything ("improve the platform")
-- OR it's so narrow it's really just a feature request in disguise
-- Teams cannot derive any concrete work from this outcome
-- No downstream opportunities are identified
+- Too broad or too narrow (feature in disguise)
+- Teams cannot derive concrete work; no phases or milestones
 
 **Score 1** if:
-- Scope is reasonable but downstream opportunities are unclear
-- Release milestones exist but are solution-shaped or lack sequencing
-- Out-of-scope statement is missing or vague
-- Teams would need significant additional context to start discovery
-- Open questions are not identified
-- The outcome spans features but doesn't suggest where to look
+- Phases exist but solution-shaped, lack sequencing, or missing success signals
+- Out-of-scope missing or vague; open questions absent
 
 **Score 2** if:
-- Well-scoped — not too broad, not too narrow
-- Release milestones are customer-capability statements that pass the three-solutions test
-- Milestones have a proposed sequence with value dependencies noted
-- Each milestone has a success signal (observable customer value)
-- Out-of-scope statement names 3+ related exclusions with brief rationale
-- Downstream opportunities are concrete and specific
-- Teams could begin discovery immediately
-- Open questions are identified and contextualized
-- Related existing RFEs are cross-referenced where relevant
+- Customer Arc phases are customer-capability statements passing the three-solutions test
+- Sequence with value dependencies; success signal per phase
+- Example Implementation & Open Questions (or equivalent) has discovery questions
+- Out of Scope names 3+ exclusions with rationale
 
 ### Output
 

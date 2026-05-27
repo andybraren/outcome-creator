@@ -8,7 +8,7 @@ rubric:
     measurability:
       weight: 1
       max: 2
-      description: "Does the outcome have clear, trackable metrics or directional indicators?"
+      description: "Does Success & Metrics have lagging/leading indicators, and does each Customer Arc phase have a success signal?"
       levels:
         0:
           label: "Missing"
@@ -34,19 +34,17 @@ rubric:
           criteria:
             - "Business outcome has specific metrics or clear directional indicators"
             - "Product outcome has specific, measurable behavioral changes"
-            - "Acceptance signals are observable and time-bound"
-            - "Both quantitative and qualitative signals present"
-            - "Milestone-level success signals present (not just outcome-level)"
-            - "Signals in Release Milestones and Acceptance Signals are consistent"
+            - "Success & Metrics has lagging (business) and leading (product) indicators"
+            - "Each Customer Arc phase has an observable success signal with timeframe"
+            - "No redundant restatement of the same metric across sections"
           examples:
-            - "Increase trial-to-paid conversion from 15% to 25% within 6 months"
-            - "80% of deployed agents have active tracing within 7 days"
-            - "Each of 3 milestones has an observable success signal; outcome-level signals tie them together"
+            - "Lagging: ≥3 strategic accounts in production within 12 months; Leading: governed deployments growing WoW"
+            - "Four phases each with success signal and 6/9/12 month targets"
 
     user_focus:
       weight: 1
       max: 2
-      description: "Is the user outcome grounded in real user needs and specific enough to act on?"
+      description: "Is the JTBD clear, and does the Customer Arc describe the full journey with scenarios?"
       levels:
         0:
           label: "Missing"
@@ -76,8 +74,8 @@ rubric:
             - "Grounded in research, customer feedback, or evidence"
             - "Solution-agnostic — multiple features could serve it"
             - "A user would recognize this as their problem"
-            - "For long-lived outcomes: story map with 3+ phases and capability statements per actor"
-            - "For long-lived outcomes: 2–3 scenarios tied to phases, solution-independent, with through-line to story map"
+            - "Customer Arc & Delivery Plan with 3+ phases and capability statements per actor"
+            - "2–3 scenarios (Actors, Context, Flow, Win moment) tied to phases; no duplicated pain/quotes"
           examples:
             - "AI engineers can diagnose agent failures in under 5 minutes without needing cluster access or ops team assistance"
             - "Platform engineers can see fleet-wide agent health at a glance during incident response"
@@ -147,11 +145,11 @@ rubric:
           label: "Complete"
           criteria:
             - "Well-scoped — not too broad, not too narrow"
-            - "Release milestones are customer-capability statements that pass the three-solutions test"
-            - "Milestones have a proposed sequence with value dependencies noted"
-            - "Each milestone has a success signal (observable customer value)"
+            - "Customer Arc phases are customer-capability statements that pass the three-solutions test"
+            - "Phases have a proposed sequence with value dependencies noted"
+            - "Each phase has a success signal (observable customer value)"
             - "Out-of-scope statement names 3+ related exclusions with brief rationale"
-            - "Downstream opportunities are concrete"
+            - "Example Implementation & Open Questions has discovery questions per capability area"
             - "Teams can begin discovery immediately"
             - "Open questions are identified and contextualized"
             - "Related RFEs cross-referenced where relevant"
