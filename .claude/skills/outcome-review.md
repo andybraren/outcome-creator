@@ -32,7 +32,7 @@ The scorer evaluates 4 dimensions, each scored 0–2:
 #### Measurability (0–2)
 - **0**: No metrics, no directional indicators, purely aspirational
 - **1**: Directional indicators present but no specific metrics; or metrics exist but aren't clearly tied to the outcome
-- **2**: Success & Metrics has clear lagging and leading indicators; each Customer Arc phase has an observable success signal with timeframe
+- **2**: Each Customer Arc phase has an observable success signal with timeframe; early phases have leading indicators, later phases include outcome-level lagging targets where appropriate
 
 #### User Focus (0–2)
 - **0**: No clear user need articulated; outcome is technology-driven or internally focused; no JTBD or customer arc
@@ -42,7 +42,7 @@ The scorer evaluates 4 dimensions, each scored 0–2:
 #### Business Alignment (0–2)
 - **0**: No connection to strategic goals; business value is absent or hand-wavy
 - **1**: Strategic goal is referenced but the connection is loose; lagging metrics plausible but not substantiated
-- **2**: Direct connection to strategic goals; lagging metrics in Success & Metrics; Evidence supports the business case
+- **2**: Direct connection to strategic goals; lagging targets in phase success signals or Evidence; Evidence supports the business case
 
 #### Actionability (0–2)
 - **0**: Too broad to act on ("improve everything") or too narrow (just a feature request in disguise)
@@ -67,14 +67,32 @@ For each statement, ask: *"Could engineering satisfy this with three completely 
 
 When solution language is detected in auto-revise: rewrite the statement as problem-framed and move the original solution language to the Example Implementation section. Don't discard it — the author's solution thinking is valuable context for engineering when it's in the right place.
 
+### Step 4.5: Milestone sizing check
+
+Read `docs/outcome-milestone-planning.md`. If `artifacts/outcome-plans/<OUTCOME-ID>-milestone-plan.yaml` exists, verify the Customer Arc matches it. If no plan exists, run checks inline:
+
+For each `### Phase` in Customer Arc & Delivery Plan:
+
+| Check | Flag when |
+|-------|-----------|
+| **One-sentence** | Capability headline needs unrelated "and" between user scenarios |
+| **Job thread** | Problem bullets serve different JTBD threads |
+| **Delivery coupling** | Prerequisite gap is in a later phase without `depends_on` note |
+| **Problem count** | 4+ unrelated problems in one phase → recommend `/outcome.plan-milestones --apply` or `/outcome.split` |
+| **RFE forecast** | 2+ independent problems → note `expected_rfe_count: 1..N` for export handoff |
+
+Write findings to `artifacts/outcome-reviews/OUTCOME-NNN-milestone-sizing.md`.
+
+If milestone issues are blocking actionability, include in auto-revise: recommend or run `/outcome.plan-milestones --apply` (one cycle).
+
 ### Step 5: Run Prose Reviews
 
 After scoring, run 4 independent prose reviews (can be parallelized as separate agent forks):
 
-1. **Measurability Reviewer** — Are lagging/leading metrics in Success & Metrics real and measurable? Does each phase have a success signal with timeframe? Any redundant metric restatements to remove?
+1. **Measurability Reviewer** — Does each phase have a real, measurable success signal with timeframe? Are leading vs lagging metrics placed in the right phases? Flag a legacy Success & Metrics section for migration. Any redundant metric restatements to remove?
 2. **User Focus Reviewer** — Is JTBD coherent? Does the Customer Arc describe the full journey solution-independently? Are scenarios free of duplicated pain/quotes from Evidence?
 3. **Business Alignment Reviewer** — Does the business case hold up? Are strategic connections genuine? Is Evidence substantive?
-4. **Actionability Reviewer** — Can teams start discovery from the Customer Arc? Are open questions in Example Implementation? Is Out of Scope explicit? Flag legacy sections that should be consolidated.
+4. **Actionability Reviewer** — Can teams start discovery from the Customer Arc? Are milestones gap-driven (not theme-only)? Read milestone-sizing findings. Are open questions in Example Implementation? Is Out of Scope explicit? Flag legacy sections that should be consolidated.
 
 Each reviewer writes findings to `artifacts/outcome-reviews/OUTCOME-NNN-<dimension>.md`.
 

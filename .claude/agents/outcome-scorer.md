@@ -34,9 +34,9 @@ Read the outcome document carefully. For each dimension, assign a score of 0, 1,
 - Phase success signals missing for long-lived outcomes
 
 **Score 2** if:
-- Success & Metrics (or equivalent) has clear lagging (business) and leading (product) indicators
-- Each Customer Arc phase (or Release Milestone) has an observable success signal with timeframe
-- No contradictory duplicate metrics across sections
+- Each Customer Arc phase has an observable success signal with timeframe (leading in early phases, lagging in later)
+- No separate Success & Metrics section required — metrics live in phase success signals
+- No contradictory duplicate metrics across phases
 
 #### User Focus (0–2)
 
@@ -66,7 +66,7 @@ Read the outcome document carefully. For each dimension, assign a score of 0, 1,
 
 **Score 2** if:
 - Direct connection to strategic goals with rationale
-- Lagging metrics specific in Success & Metrics (or Business Outcome)
+- Lagging targets in phase success signals or Evidence; strategic connection clear
 - Evidence section supports the business case
 
 #### Actionability (0–2)
@@ -76,11 +76,13 @@ Read the outcome document carefully. For each dimension, assign a score of 0, 1,
 - Teams cannot derive concrete work; no phases or milestones
 
 **Score 1** if:
-- Phases exist but solution-shaped, lack sequencing, or missing success signals
+- Phases exist but solution-shaped, theme-only, lack sequencing, or missing success signals
+- One or more phases bundle unrelated problems without delivery-coupling notes
 - Out-of-scope missing or vague; open questions absent
 
 **Score 2** if:
-- Customer Arc phases are customer-capability statements passing the three-solutions test
+- Customer Arc phases are gap-driven customer-capability statements passing the three-solutions test
+- Each phase is one capability thread (one-sentence test); value dependencies explicit
 - Sequence with value dependencies; success signal per phase
 - Example Implementation & Open Questions (or equivalent) has discovery questions
 - Out of Scope names 3+ exclusions with rationale

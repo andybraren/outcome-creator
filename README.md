@@ -50,11 +50,24 @@ outcome-creator (THE GOAL)     →  What change are we trying to achieve?
             └─ strat-creator (THE HOW)  →  How do we build them?
 ```
 
+### Outcome → RFE handoff (right-sized children)
+
+Customer Arc **phases are milestones**. Each milestone may become **one or several sibling RFEs** — export only seeds the batch. When an outcome is ready:
+
+1. `/outcome.export-rfe-batch` — emits a YAML batch (one phase-candidate per milestone by default; `--per-problem` for independent slices) for [rfe-creator](https://github.com/jwforres/rfe-creator)
+2. `/rfe.speedrun --input <batch>` — creates and reviews RFEs in RHAIRFE
+3. `/rfe.review` + `/rfe.split` — decompose oversized candidates into sibling RFEs under the same milestone labels
+
+If the **outcome** itself is too big (unrelated jobs bundled), use `/outcome.split` before exporting — sibling outcomes, not a kitchen-sink parent.
+
+See [docs/outcome-rfe-handoff.md](docs/outcome-rfe-handoff.md).
+
 ## Quick Start
 
 ```bash
 # Outcome Pipeline
 /outcome.create     # Write a new outcome from strategic goals + research
+/outcome.plan-milestones  # Bottom-up milestone plan (gap inventory + delivery coupling)
 /outcome.refine     # Refine with research data, user insights, measurability
 /outcome.review     # Score against the outcome rubric (4 dimensions)
 /outcome.submit     # Submit to Jira (PROJSTRAT project, Outcome issue type)
@@ -74,6 +87,10 @@ outcome-creator (THE GOAL)     →  What change are we trying to achieve?
 # Batch operations
 /outcome.speedrun --input batch.yaml --headless --dry-run
 /outcome.auto-fix --jql "project = PROJSTRAT AND issuetype = Outcome"
+
+# Hand off to rfe-creator (after outcome is ready)
+/outcome.export-rfe-batch artifacts/outcome-tasks/OUTCOME-155.md
+/outcome.split OUTCOME-155.md   # if outcome scope is too large
 ```
 
 ## Pipeline
@@ -83,6 +100,8 @@ outcome-creator (THE GOAL)     →  What change are we trying to achieve?
 ```
 /outcome.create → /outcome.refine → /outcome.review → /outcome.submit
 ```
+
+Create runs milestone planning before writing Customer Arc phases. Refine or `/outcome.plan-milestones --apply` when restructuring phases.
 
 `/outcome.review` auto-revises issues it finds (up to 2 cycles). You can also edit artifacts manually between steps.
 
@@ -179,7 +198,7 @@ After CI finishes, humans use a separate `local/` workspace:
 
 ## Outcome Document Structure
 
-Each outcome artifact uses a **lean structure** — six sections, minimal redundancy:
+Each outcome artifact uses a **lean structure** — five sections, minimal redundancy:
 
 ```markdown
 ---
@@ -193,12 +212,10 @@ title: "Outcome Title"
 ## Problem Statement
 JTBD only — job, context, struggle, who is involved. No quotes or named accounts here.
 
-## Success & Metrics
-Lagging (business) and leading (product) indicators in one place.
-
 ## Customer Arc & Delivery Plan
-Phases combine experience arc and delivery plan (not separate story map + milestones):
+Phases combine experience arc, delivery plan, and **all success metrics** (not a separate Success & Metrics section):
 - Customer capability, when this is true, success signal + timeframe, problems addressed
+- Early phases = leading indicators; later phases may include outcome-level lagging targets
 - Scenarios per phase: Actors, Context, Flow, Win moment (no "Today's pain")
 
 ## Evidence
@@ -225,7 +242,8 @@ outcome-creator/
 │   ├── list-outcomes.py            # List existing outcomes
 │   ├── pull_outcome.py             # Pull outcome from Jira into local/
 │   ├── generate-report.py          # Per-run HTML report
-│   └── generate-dashboard.py       # Aggregate dashboard across runs
+│   ├── generate-dashboard.py       # Aggregate dashboard across runs
+│   └── export_rfe_batch.py         # Export rfe-creator batch YAML from outcome phases
 ├── .claude/
 │   ├── settings.json               # Claude Code project settings
 │   ├── skills/                     # Claude Code skills (pipeline steps)
@@ -237,6 +255,9 @@ outcome-creator/
 │   │   ├── outcome-pull.md
 │   │   ├── outcome-push.md
 │   │   ├── outcome-signoff.md
+│   │   ├── outcome-plan-milestones.md
+│   │   ├── outcome-export-rfe-batch.md
+│   │   ├── outcome-split.md
 │   │   ├── assess-outcome.md
 │   │   └── export-rubric.md
 │   └── agents/
@@ -246,11 +267,14 @@ outcome-creator/
 │   └── rubric.yaml                 # Scoring rubric definition
 ├── templates/
 │   ├── outcome-template.md         # Outcome document template
+│   ├── milestone-plan-template.yaml
 │   └── review-template.md          # Review output template
 ├── docs/
 │   ├── human-review-guide.md       # Guide for human reviewers
 │   ├── outcome-framework.md        # Outcome theory and best practices
-│   └── pipeline-architecture.md    # Technical pipeline docs
+│   ├── outcome-milestone-planning.md  # Bottom-up phase design (from rfe.split patterns)
+│   ├── pipeline-architecture.md    # Technical pipeline docs
+│   └── outcome-rfe-handoff.md      # Outcome → rfe-creator sizing workflow
 ├── tests/                          # Test suite
 ├── local/                          # Human review workspace (gitignored)
 │   ├── outcome-tasks/

@@ -20,7 +20,7 @@ User says `/outcome.submit` optionally followed by:
 ### Step 2: Validate
 
 Before submission, validate:
-- All required sections are present (Problem Statement, Success & Metrics, Customer Arc & Delivery Plan, Evidence, Example Implementation & Open Questions, Out of Scope) — or legacy equivalents that `/outcome.refine` can migrate
+- All required sections are present (Problem Statement, Customer Arc & Delivery Plan, Evidence, Example Implementation & Open Questions, Out of Scope) — success metrics must be in phase success signals, not a separate Success & Metrics section; legacy equivalents `/outcome.refine` can migrate
 - Frontmatter has required fields (title, strategic_goals, priority)
 - If scored, verdict is at least REVISE (warn if submitting a REWORK)
 - Strategic goal references are valid PROJGOALS keys

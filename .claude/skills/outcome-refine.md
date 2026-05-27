@@ -26,12 +26,12 @@ If the document uses legacy sections, migrate content without losing information
 
 | Legacy section | Merge into |
 |---|---|
-| Business Outcome + Product Outcome | Success & Metrics (lagging / leading) |
+| Business Outcome + Product Outcome + Success & Metrics | Customer Arc phase success signals (lagging in later phases, leading in early) — then delete legacy sections |
 | User Outcome | Problem Statement (who) + Customer Arc (capabilities) — then delete User Outcome |
 | End-to-End Customer Arc + Story Map + Release Milestones | Customer Arc & Delivery Plan (one phase block per delivery slice) |
 | Opportunity Assessment | Evidence (one-line opportunity verdict) |
 | Downstream Opportunities | Example Implementation & Open Questions |
-| Acceptance Signals | Success & Metrics (outcome-level) + phase success signals — delete duplicate Measurement Timeframe |
+| Acceptance Signals | Merge into nearest phase success signals — delete duplicate Measurement Timeframe |
 
 ### Step 4: Refine Each Section
 
@@ -41,14 +41,21 @@ If the document uses legacy sections, migrate content without losing information
 - Move customer quotes and named accounts to Evidence
 - Remove solution language — move to Example Implementation
 
-#### Success & Metrics
-- **Lagging:** business outcomes, strategic connection, account-level targets
-- **Leading:** product/customer behaviors that predict lagging results
-- Remove content that duplicates phase-level success signals
-
 #### Customer Arc & Delivery Plan
+
+If a **Success & Metrics** section exists, migrate lagging/leading indicators into phase success signals (early phases = leading, final phase(s) = outcome-level lagging), then delete Success & Metrics.
+
+
+If phases are missing, theme-only, or bundle unrelated problems:
+
+1. Run `/outcome.plan-milestones` (see `docs/outcome-milestone-planning.md`) — atomic inventory, delivery-coupling, sizing checks.
+2. Apply with `--apply` or rewrite phases from `artifacts/outcome-plans/<ID>-milestone-plan.yaml`.
+
+Otherwise refine in place:
+
 - Each phase: customer capability, when this is true, success signal (with timeframe), problems addressed
 - **Three-solutions test** on every customer capability headline
+- **Milestone sizing:** one-sentence test per phase; flag phases with `expected_rfe_count: 1..N` in plan
 - Scenarios: Actors, Context, Flow, Win moment only — remove Today's pain if present
 - **Through-line test:** Each scenario demonstrates a capability from its phase
 
@@ -69,7 +76,7 @@ If the document uses legacy sections, migrate content without losing information
 
 Before finishing, check for and remove:
 - Same quote in Problem Statement and Evidence
-- Same metric in Success & Metrics and a phase success signal (keep the right level of granularity)
+- Same metric repeated verbatim in multiple phase success signals (keep one home per metric)
 - Same capability stated in a phase headline and "When this is true" bullets (tighten, don't repeat)
 - Separate Story Map + Milestones + Acceptance Signals sections (must be one Customer Arc & Delivery Plan)
 

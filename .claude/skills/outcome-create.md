@@ -28,6 +28,17 @@ If `--headless` IS set, derive answers from the input prompt and any `--strategi
 
 Check if `artifacts/outcome-rubric.md` exists. If not, run the `export-rubric` skill to generate it. Use the rubric to guide outcome creation — ensure each section addresses what the rubric scores.
 
+### Step 2.5: Plan milestones (before Customer Arc)
+
+Follow `/outcome.plan-milestones` (see `docs/outcome-milestone-planning.md`):
+
+1. Build an **atomic capability inventory** from JTBD, struggle, and evidence — bottom-up, not theme names.
+2. Group only **delivery-coupled** gaps into milestones; unrelated gaps → separate milestones.
+3. Run **milestone sizing checks** (three-solutions, one-sentence, job thread, RFE forecast).
+4. Write `artifacts/outcome-plans/OUTCOME-NNN-milestone-plan.yaml`.
+
+If unrelated job threads appear in the inventory, stop and recommend `/outcome.split` instead of one outcome.
+
 ### Step 3: Create Outcome Document
 
 Write the outcome to `artifacts/outcome-tasks/OUTCOME-NNN-<slug>.md` using the template from `templates/outcome-template.md`.
@@ -35,18 +46,18 @@ Write the outcome to `artifacts/outcome-tasks/OUTCOME-NNN-<slug>.md` using the t
 The document MUST include these sections only (lean structure — avoid redundant restatements):
 
 1. **Problem Statement** — JTBD only: job, context, struggle, who is involved. No customer quotes, no named accounts, no solution language.
-2. **Success & Metrics** — Lagging (business) and leading (product) indicators in one place. Do not duplicate per-phase success signals here.
-3. **Customer Arc & Delivery Plan** — Combined arc and milestones. For each phase (3+ for long-lived outcomes):
-   - Customer capability headline (three-solutions test)
+2. **Customer Arc & Delivery Plan** — Write phases from the milestone plan (Step 2.5). **All success metrics live here** — no separate Success & Metrics section. For each phase (3+ for long-lived outcomes):
+   - Customer capability headline (from plan; three-solutions test)
    - When this is true (actor capabilities, solution-independent)
-   - Success signal with target timeframe
-   - Problems this phase addresses (value dependencies noted)
+   - Success signal with target timeframe (from plan)
+   - Problems this phase addresses (from atomic inventory; value dependencies noted)
    - 2–3 scenarios nested under relevant phases: Actors, Context, Flow, Win moment — **no Today's pain** (Problem + Evidence cover that)
-4. **Evidence** — Customer quotes, analyst/market data, platform gaps, one-line opportunity verdict. No separate Opportunity Assessment section.
-5. **Example Implementation & Open Questions** — Author's solution sketch (illustrative) plus open questions per capability area. No separate Downstream Opportunities section.
-6. **Out of Scope** — 3+ related exclusions with brief rationale
+   - Set milestone plan `status: applied` after writing phases
+3. **Evidence** — Customer quotes, analyst/market data, platform gaps, one-line opportunity verdict. No separate Opportunity Assessment section.
+4. **Example Implementation & Open Questions** — Author's solution sketch (illustrative) plus open questions per capability area. No separate Downstream Opportunities section.
+5. **Out of Scope** — 3+ related exclusions with brief rationale
 
-Do NOT create: User Outcome, Product Outcome, Business Outcome (as separate sections), End-to-End Customer Arc, Story Map, Release Milestones, Opportunity Assessment, Downstream Opportunities, or Acceptance Signals.
+Do NOT create: Success & Metrics, User Outcome, Product Outcome, Business Outcome (as separate sections), End-to-End Customer Arc, Story Map, Release Milestones, Opportunity Assessment, Downstream Opportunities, or Acceptance Signals.
 
 ### Step 4: Write Frontmatter
 
@@ -73,18 +84,20 @@ Save the original inputs (strategic goal data, research excerpts, user prompt) t
 
 - `artifacts/outcome-tasks/OUTCOME-NNN-<slug>.md` — The outcome document
 - `artifacts/outcome-originals/OUTCOME-NNN-inputs.md` — Input snapshot
-- Console summary of what was created
+- `artifacts/outcome-plans/OUTCOME-NNN-milestone-plan.yaml` — Milestone plan (gap inventory + grouping)
+- Console summary of what was created (include milestone count and RFE forecast per phase)
 
 ## Quality Guidelines
 
 **Do:**
+- Plan milestones bottom-up before writing Customer Arc (`docs/outcome-milestone-planning.md`)
 - Write problem-framed statements that pass the three-solutions test in Problem Statement and Customer Arc phases
 - Put all customer quotes and named accounts in Evidence (once)
 - Put solution language only in Example Implementation & Open Questions
 - Preserve the author's solution thinking when converting from Jira — move it, don't delete it
 
 **Don't:**
-- Repeat the same metric in Success & Metrics and phase success signals (outcome-level vs phase-level only)
+- Repeat the same metric verbatim across multiple phase success signals (say it once in the right phase)
 - Repeat customer quotes in Problem Statement and scenarios
 - Add "Today's pain" to scenarios when Problem Statement and Evidence already describe the struggle
 - Create legacy sections (User Outcome, separate milestones, Acceptance Signals) — use the lean template

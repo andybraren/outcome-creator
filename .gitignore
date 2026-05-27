@@ -39,3 +39,6 @@ htmlcov/
 # Temporary files
 tmp/
 *.tmp
+
+# Local research clones
+.research/

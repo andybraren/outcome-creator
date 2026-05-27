@@ -25,26 +25,19 @@ JTBD structure only — no customer quotes or named accounts here (those belong 
      If unrelated jobs are bundled, recommend sibling outcomes.
      Multiple personas on the SAME job is fine — unrelated jobs is not. -->
 
-## Success & Metrics
-
-How will we know this outcome is working — for customers and for the business?
-
-**Lagging (business):**
-- [Specific business metric or directional indicator — e.g., strategic accounts, revenue, adoption]
-- [Connection to ${STRATEGIC_GOALS}]
-
-**Leading (product):**
-- [Observable product or customer behavior that predicts the business outcome]
-- [Additional leading indicators as needed]
-
-<!-- Do not repeat per-phase success signals here — those live in Customer Arc & Delivery Plan.
-     Lagging = outcome complete; Leading = early signal you're on track. -->
-
 ## Customer Arc & Delivery Plan
 
 **[Phase 1]** → **[Phase 2]** → **[Phase 3]** → ...
 
-One section: experience arc and delivery plan combined. Do not create separate Story Map, Release Milestones, or Acceptance Signals sections.
+One section: experience arc, delivery plan, and **all success metrics**. Do not create separate Success & Metrics, Story Map, Release Milestones, or Acceptance Signals sections.
+
+<!-- Per phase: observable success signal with timeframe.
+     Early phases = leading indicators; later phases may include outcome-level lagging targets.
+     Strategic goal connection can appear in the final phase success signal or Evidence. -->
+
+<!-- Milestones: plan bottom-up before writing (docs/outcome-milestone-planning.md).
+     /outcome.plan-milestones → artifacts/outcome-plans/<ID>-milestone-plan.yaml
+     Group delivery-coupled gaps only; each phase = one capability thread; may yield 1..N RFEs downstream. -->
 
 ### Phase 1: [Name]
 
@@ -54,7 +47,7 @@ One section: experience arc and delivery plan combined. Do not create separate S
 - [Actor]: [Capability / experience change — no product, feature, or UI names]
 - [Actor]: [Capability / experience change]
 
-**Success signal:** [Observable evidence this phase delivered customer value] (target: [timeframe])
+**Success signal:** [Observable evidence this phase delivered customer value — leading and/or lagging as appropriate] (target: [timeframe])
 
 **Problems this phase addresses:**
 - [Customer problem this phase addresses]

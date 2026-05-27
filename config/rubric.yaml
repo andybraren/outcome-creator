@@ -8,7 +8,7 @@ rubric:
     measurability:
       weight: 1
       max: 2
-      description: "Does Success & Metrics have lagging/leading indicators, and does each Customer Arc phase have a success signal?"
+      description: "Does each Customer Arc phase have an observable success signal with timeframe (leading in early phases, lagging where appropriate)?"
       levels:
         0:
           label: "Missing"
@@ -34,12 +34,12 @@ rubric:
           criteria:
             - "Business outcome has specific metrics or clear directional indicators"
             - "Product outcome has specific, measurable behavioral changes"
-            - "Success & Metrics has lagging (business) and leading (product) indicators"
             - "Each Customer Arc phase has an observable success signal with timeframe"
-            - "No redundant restatement of the same metric across sections"
+            - "Early phases carry leading indicators; final phase(s) include outcome-level lagging targets"
+            - "No redundant restatement of the same metric across phases"
           examples:
-            - "Lagging: ≥3 strategic accounts in production within 12 months; Leading: governed deployments growing WoW"
-            - "Four phases each with success signal and 6/9/12 month targets"
+            - "Four phases: leading signals at 6/9 months; ≥3 strategic accounts in production by 12 months in Phase 4 success signal"
+            - "Phase success signals are specific, time-bound, and observable"
 
     user_focus:
       weight: 1
@@ -133,7 +133,8 @@ rubric:
           label: "Partial"
           criteria:
             - "Scope reasonable but downstream opportunities unclear"
-            - "Milestones exist but are solution-shaped or lack sequencing"
+            - "Milestones exist but are solution-shaped, theme-only, or lack sequencing"
+            - "Phases bundle unrelated problems without delivery-coupling rationale"
             - "Out-of-scope statement missing or vague"
             - "Teams would need significant additional context"
             - "Open questions not identified"
@@ -146,6 +147,7 @@ rubric:
           criteria:
             - "Well-scoped — not too broad, not too narrow"
             - "Customer Arc phases are customer-capability statements that pass the three-solutions test"
+            - "Milestones are gap-driven (bottom-up), not theme buckets with unrelated problems bundled"
             - "Phases have a proposed sequence with value dependencies noted"
             - "Each phase has a success signal (observable customer value)"
             - "Out-of-scope statement names 3+ related exclusions with brief rationale"
