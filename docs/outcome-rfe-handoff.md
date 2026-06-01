@@ -6,7 +6,7 @@ Milestone structure should be planned first — see [outcome-milestone-planning.
 
 ## Milestone ↔ RFE cardinality
 
-A **milestone** (Customer Arc phase) is not assumed to map 1:1 to a single RFE.
+A **milestone** (User Journey phase) is not assumed to map 1:1 to a single RFE.
 
 | Situation | Typical result |
 |-----------|----------------|
@@ -20,7 +20,7 @@ Sibling RFEs from the same milestone should share labels: `source-outcome:<KEY>`
 
 ```
 outcome-creator (GOAL)
-  └─ Customer Arc phases = delivery milestones
+  └─ User Journey phases = delivery milestones
        └─ outcome.export-rfe-batch → YAML batch (seeds 1..N candidates per milestone)
             └─ rfe-creator /rfe.speedrun (WHAT)
                  └─ /rfe.review → scores right_sized (0–2)
@@ -50,7 +50,7 @@ outcome-creator uses the same *ideas* at the outcome layer in `/outcome.split` (
 
 ## Export modes (not final RFE count)
 
-`/outcome.export-rfe-batch` reads **Customer Arc & Delivery Plan**:
+`/outcome.export-rfe-batch` reads **User Journey & Milestones**:
 
 ### Default: phase-candidate per milestone
 
@@ -98,7 +98,7 @@ python3 scripts/export_rfe_batch.py artifacts/outcome-tasks/RHAISTRAT-155-*.md
 
 **A milestone is likely one RFE when:**
 
-- One customer capability headline (passes three-solutions test)
+- One user capability headline (passes three-solutions test)
 - 1–3 problem bullets on the same job thread
 - Could be delivered as one strategy feature with one summary sentence
 

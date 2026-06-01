@@ -1,13 +1,13 @@
 # /outcome.plan-milestones
 
-Plan or refactor **Customer Arc** milestones using bottom-up capability inventory and delivery-coupling rules (adapted from [rfe-creator `/rfe.split`](https://github.com/jwforres/rfe-creator)).
+Plan or refactor **User Journey** milestones using bottom-up capability inventory and delivery-coupling rules (adapted from [rfe-creator `/rfe.split`](https://github.com/jwforres/rfe-creator)).
 
 ## Trigger
 
 User says `/outcome.plan-milestones` optionally followed by:
 
 - A path to an outcome file in `artifacts/outcome-tasks/` or `local/outcome-tasks/`
-- `--apply` to rewrite the Customer Arc & Delivery Plan section from the approved plan
+- `--apply` to rewrite the User Journey & Milestones section from the approved plan
 - `--headless` to skip interactive confirmation of the recommended grouping
 
 ## When to use
@@ -36,12 +36,12 @@ Read `docs/outcome-milestone-planning.md` for full rules. Execute:
 
 1. Problem Statement — struggle bullets, who is involved
 2. Evidence — platform gaps, customer findings
-3. Existing Customer Arc — problem bullets per phase (if refactoring)
+3. Existing User Journey — problem bullets per phase (if refactoring)
 
 **Per gap, record:**
 
 - `id`: `cap-1`, `cap-2`, …
-- `summary`: one-sentence customer capability (problem-space)
+- `summary`: one-sentence user capability (problem-space)
 - `source`: where it came from
 - `job_thread`: `primary` or `unrelated` (if unrelated to JTBD → flag for `/outcome.split`, stop planning)
 - `delivery_coupled_with`: list of cap ids that must ship with this gap
@@ -101,10 +101,10 @@ Ask for confirmation before `--apply` unless `--headless`.
 
 ### Step 7: Apply (if `--apply`)
 
-Rewrite **only** `## Customer Arc & Delivery Plan` in the outcome file:
+Rewrite **only** `## User Journey & Milestones` in the outcome file:
 
 - `### Phase N: <name>` per planned milestone
-- **Customer capability:** from `capability_headline`
+- **User capability:** from `capability_headline`
 - **When this is true:** actor bullets derived from capabilities (solution-independent)
 - **Success signal:** from `success_signal_sketch`
 - **Problems this phase addresses:** from `problems_addressed`; inline `*(sequencing note)*` from `sequencing_notes`
@@ -126,11 +126,11 @@ Tell the user:
 ## Output
 
 - `artifacts/outcome-plans/<ID>-milestone-plan.yaml`
-- If `--apply`: updated outcome Customer Arc section
+- If `--apply`: updated User Journey section
 - Console: milestone count, RFE forecast summary, any split warnings
 
 ## Integration
 
-- `/outcome.create` — runs this process before writing Customer Arc (Step 2.5)
-- `/outcome.refine` — runs when Customer Arc is missing, weak, or theme-only
+- `/outcome.create` — runs this process before writing User Journey (Step 2.5)
+- `/outcome.refine` — runs when User Journey is missing, weak, or theme-only
 - `/outcome.review` — Step 4.5 validates plan exists or runs sizing checks inline

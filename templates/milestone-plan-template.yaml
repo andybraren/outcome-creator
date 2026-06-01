@@ -26,11 +26,11 @@ grouping_strategies:
     rationale: ""
     recommended: false
 
-# Recommended milestones → map to ### Phase N in Customer Arc
+# Recommended milestones → map to ### Phase N in User Journey
 milestones:
   - phase: 1
     name: PhaseName
-    capability_headline: "Customer capability — three-solutions test"
+    capability_headline: "User capability — three-solutions test"
     atomic_capability_ids: [cap-1, cap-2]
     problems_addressed:
       - "Problem bullet"

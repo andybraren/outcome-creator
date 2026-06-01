@@ -14,57 +14,42 @@ updated: ${DATE}
 
 ## Problem Statement
 
-JTBD structure only — no customer quotes or named accounts here (those belong in Evidence).
-
-- **Job (JTBD)**: [What the customer or organization is trying to accomplish — functional job, not a solution]
+- **Job (JTBD)**: [What the organization is trying to accomplish — functional job, not a solution]
 - **Context**: [When or where the job arises — situation, trigger, environment]
 - **Struggle**: [What makes the job hard or fails today — friction, constraints, risks]
-- **Who is involved**: [Job executor(s) who share this job; name each and what part of the job they own]
+- **Who is involved**:
+  - **[Name of job executor]** — [what part of the job they own]
+  - **[Name of additional job executor (if applicable)]** — [what part of the job they own]
 
-<!-- JTBD coherence test: Do all named actors share one job thread?
-     If unrelated jobs are bundled, recommend sibling outcomes.
-     Multiple personas on the SAME job is fine — unrelated jobs is not. -->
+## User Journey & Milestones
 
-## Customer Arc & Delivery Plan
+**[Phase 1]** → **[Phase 2]** → ...
 
-**[Phase 1]** → **[Phase 2]** → **[Phase 3]** → ...
-
-One section: experience arc, delivery plan, and **all success metrics**. Do not create separate Success & Metrics, Story Map, Release Milestones, or Acceptance Signals sections.
-
-<!-- Per phase: observable success signal with timeframe.
-     Early phases = leading indicators; later phases may include outcome-level lagging targets.
-     Strategic goal connection can appear in the final phase success signal or Evidence. -->
-
-<!-- Milestones: plan bottom-up before writing (docs/outcome-milestone-planning.md).
-     /outcome.plan-milestones → artifacts/outcome-plans/<ID>-milestone-plan.yaml
-     Group delivery-coupled gaps only; each phase = one capability thread; may yield 1..N RFEs downstream. -->
+What the user can do at each milestone, how we know it delivered value, and what it looks like in practice.
 
 ### Phase 1: [Name]
 
-**Customer capability:** [What the customer can do after this phase — passes the three-solutions test]
+**User capability:** [What the user can do after this phase — problem-space, passes the three-solutions test]
 
 **When this is true:**
-- [Actor]: [Capability / experience change — no product, feature, or UI names]
+- [Actor]: [Capability / experience change]
 - [Actor]: [Capability / experience change]
 
-**Success signal:** [Observable evidence this phase delivered customer value — leading and/or lagging as appropriate] (target: [timeframe])
+**Success signal:** [Observable evidence this phase delivered value — leading and/or lagging as appropriate] (target: [timeframe])
 
 **Problems this phase addresses:**
-- [Customer problem this phase addresses]
-- [Note value dependency on a prior phase if any]
+- [Problem this phase addresses]
+- [Value dependency on a prior phase, if any]
 
 #### Scenario: [Title]
 - **Actors:** [Who is involved]
-- **Context:** [When/where this happens — set the scene only; do not restate struggle or quotes from Evidence]
-- **Flow:** [5–10 plain-language steps — roles, decisions, handoffs]
+- **Context:** [When/where this happens]
+- **Flow:** [Concise, plain-language steps — roles, decisions, handoffs]
 - **Win moment:** [Observable signal that this phase is real]
-
-<!-- 2–3 scenarios across phases. No "Today's pain" — Problem Statement and Evidence cover that.
-     Scenarios show the future experience, not re-litigate the problem. -->
 
 ### Phase 2: [Name]
 
-**Customer capability:** [...]
+**User capability:** [...]
 
 **When this is true:**
 - [...]
@@ -82,14 +67,11 @@ One section: experience arc, delivery plan, and **all success metrics**. Do not 
 
 ## Evidence
 
-Single evidence section — no separate Opportunity Assessment.
-
 **Customers** ([named accounts or segments]):
-- **[Account/source]:** [Quote or finding]
-- **[Account/source]:** [Quote or finding]
+- **[Account/source]:** [Quote or finding] — [URL or document reference]
 
 **Analyst & market:**
-- [Analyst report, market trend, or industry data]
+- [Analyst report, market trend, or industry data] — [source link or citation]
 
 **Platform today:** [Current state — what exists vs. what's missing]
 
@@ -97,7 +79,7 @@ Single evidence section — no separate Opportunity Assessment.
 
 ## Example Implementation & Open Questions
 
-One possible path — illustrative, not prescriptive. Align items to customer arc phases where helpful.
+One possible path — illustrative, not prescriptive. Align items to user journey phases where helpful.
 
 **1. [Capability area]** *([Phase name])*
 - [Solution direction or architecture sketch — technology names OK here]
@@ -110,14 +92,12 @@ One possible path — illustrative, not prescriptive. Align items to customer ar
 **Assumptions:** [What must be true for this approach to work]
 **Integrations:** [Systems this path would touch]
 
-*Problem Statement and Customer Arc define what must be true — engineering owns how.*
+*Problem Statement and User Journey define what must be true — engineering owns how.*
 
 ## Out of Scope
 
 What related problems or capabilities are explicitly NOT part of this outcome?
 
-- [Exclusion]: [Reason — sibling outcome, future phase, different team, etc.]
 - [Exclusion]: [Reason]
 - [Exclusion]: [Reason]
-
-<!-- Require ≥3 related exclusions with brief rationale. -->
+- [Exclusion]: [Reason]

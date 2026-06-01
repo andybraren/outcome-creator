@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Export rfe-creator batch YAML from an outcome document's delivery phases.
 
-A milestone (Customer Arc phase) may become one or several sibling RFEs after
+A milestone (User Journey phase) may become one or several sibling RFEs after
 rfe-creator review/split — export only seeds the batch; it does not fix final count.
 
 Default: one phase-candidate prompt per milestone (often becomes 1 RFE; may become
@@ -22,7 +22,9 @@ import yaml
 from frontmatter import read_frontmatter
 
 PHASE_HEADER = re.compile(r"^### Phase (\d+):\s*(.+)\s*$", re.MULTILINE)
-FIELD_CAPABILITY = re.compile(r"^\*\*Customer capability:\*\*\s*(.+)\s*$", re.MULTILINE)
+FIELD_CAPABILITY = re.compile(
+    r"^\*\*(?:User|Customer) capability:\*\*\s*(.+)\s*$", re.MULTILINE
+)
 FIELD_SUCCESS = re.compile(r"^\*\*Success signal:\*\*\s*(.+)\s*$", re.MULTILINE)
 DEPENDENCY_MARKERS = ("depends on", "dependency")
 
@@ -54,9 +56,9 @@ def _is_sequencing_only_line(problem: str) -> bool:
 
 
 def parse_phases(body: str) -> list[OutcomePhase]:
-    """Parse ### Phase N: sections from Customer Arc & Delivery Plan."""
+    """Parse ### Phase N: sections from User Journey & Milestones."""
     arc_match = re.search(
-        r"^## Customer Arc & Delivery Plan\s*$",
+        r"^## (?:User Journey & Milestones|Customer Arc & Delivery Plan)\s*$",
         body,
         re.MULTILINE | re.IGNORECASE,
     )

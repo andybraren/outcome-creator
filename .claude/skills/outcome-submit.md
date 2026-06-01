@@ -20,7 +20,8 @@ User says `/outcome.submit` optionally followed by:
 ### Step 2: Validate
 
 Before submission, validate:
-- All required sections are present (Problem Statement, Customer Arc & Delivery Plan, Evidence, Example Implementation & Open Questions, Out of Scope) — success metrics must be in phase success signals, not a separate Success & Metrics section; legacy equivalents `/outcome.refine` can migrate
+- Required sections: Problem Statement, User Journey & Milestones, Evidence, Example Implementation & Open Questions, Out of Scope
+- Success metrics live in phase success signals only (no separate Success & Metrics section)
 - Frontmatter has required fields (title, strategic_goals, priority)
 - If scored, verdict is at least REVISE (warn if submitting a REWORK)
 - Strategic goal references are valid PROJGOALS keys
@@ -63,6 +64,8 @@ Links:
 For each strategic goal in `strategic_goals`:
 - Create an "is part of" link from the outcome to the PROJGOALS issue
 - This establishes the outcome → strategic goal traceability
+
+Links are created for keys already in frontmatter — the pipeline does not auto-discover or suggest strategic goal issues from outcome content (follow-up).
 
 ### Step 6: Update Local File
 

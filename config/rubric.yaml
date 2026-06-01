@@ -8,7 +8,7 @@ rubric:
     measurability:
       weight: 1
       max: 2
-      description: "Does each Customer Arc phase have an observable success signal with timeframe (leading in early phases, lagging where appropriate)?"
+      description: "Does each User Journey phase have an observable success signal with timeframe (leading in early phases, lagging where appropriate)?"
       levels:
         0:
           label: "Missing"
@@ -34,7 +34,7 @@ rubric:
           criteria:
             - "Business outcome has specific metrics or clear directional indicators"
             - "Product outcome has specific, measurable behavioral changes"
-            - "Each Customer Arc phase has an observable success signal with timeframe"
+            - "Each User Journey phase has an observable success signal with timeframe"
             - "Early phases carry leading indicators; final phase(s) include outcome-level lagging targets"
             - "No redundant restatement of the same metric across phases"
           examples:
@@ -44,7 +44,7 @@ rubric:
     user_focus:
       weight: 1
       max: 2
-      description: "Is the JTBD clear, and does the Customer Arc describe the full journey with scenarios?"
+      description: "Is the JTBD clear, and does the User Journey describe the full journey with scenarios?"
       levels:
         0:
           label: "Missing"
@@ -74,7 +74,7 @@ rubric:
             - "Grounded in research, customer feedback, or evidence"
             - "Solution-agnostic — multiple features could serve it"
             - "A user would recognize this as their problem"
-            - "Customer Arc & Delivery Plan with 3+ phases and capability statements per actor"
+            - "User Journey & Milestones with 2–4 phases and capability statements per actor"
             - "2–3 scenarios (Actors, Context, Flow, Win moment) tied to phases; no duplicated pain/quotes"
           examples:
             - "AI engineers can diagnose agent failures in under 5 minutes without needing cluster access or ops team assistance"
@@ -117,7 +117,7 @@ rubric:
     actionability:
       weight: 1
       max: 2
-      description: "Can teams derive concrete work from this outcome? Are release milestones customer-capability statements?"
+      description: "Can teams derive concrete work from this outcome? Are release milestones user-capability statements?"
       levels:
         0:
           label: "Missing"
@@ -146,7 +146,7 @@ rubric:
           label: "Complete"
           criteria:
             - "Well-scoped — not too broad, not too narrow"
-            - "Customer Arc phases are customer-capability statements that pass the three-solutions test"
+            - "User Journey phases are user-capability statements that pass the three-solutions test"
             - "Milestones are gap-driven (bottom-up), not theme buckets with unrelated problems bundled"
             - "Phases have a proposed sequence with value dependencies noted"
             - "Each phase has a success signal (observable customer value)"
@@ -156,7 +156,7 @@ rubric:
             - "Open questions are identified and contextualized"
             - "Related RFEs cross-referenced where relevant"
           examples:
-            - "Outcome with 3 customer-capability milestones, value dependencies noted, success signals per milestone, 4 named exclusions with rationale, and concrete downstream opportunities"
+            - "Outcome with 3 user-capability milestones, value dependencies noted, success signals per milestone, 4 named exclusions with rationale, and concrete downstream opportunities"
 
   verdicts:
     PASS:

@@ -26,9 +26,9 @@ If the document uses legacy sections, migrate content without losing information
 
 | Legacy section | Merge into |
 |---|---|
-| Business Outcome + Product Outcome + Success & Metrics | Customer Arc phase success signals (lagging in later phases, leading in early) — then delete legacy sections |
-| User Outcome | Problem Statement (who) + Customer Arc (capabilities) — then delete User Outcome |
-| End-to-End Customer Arc + Story Map + Release Milestones | Customer Arc & Delivery Plan (one phase block per delivery slice) |
+| Business Outcome + Product Outcome + Success & Metrics | User Journey phase success signals (lagging in later phases, leading in early) — then delete legacy sections |
+| User Outcome | Problem Statement (who) + User Journey (capabilities) — then delete User Outcome |
+| End-to-End Customer Arc + Story Map + Release Milestones | User Journey & Milestones (one phase block per delivery slice) |
 | Opportunity Assessment | Evidence (one-line opportunity verdict) |
 | Downstream Opportunities | Example Implementation & Open Questions |
 | Acceptance Signals | Merge into nearest phase success signals — delete duplicate Measurement Timeframe |
@@ -36,12 +36,12 @@ If the document uses legacy sections, migrate content without losing information
 ### Step 4: Refine Each Section
 
 #### Problem Statement
-- JTBD only: job, context, struggle, who is involved
+- JTBD only: job, context, struggle, who is involved (one sub-bullet per job executor — role and what they own)
 - **JTBD coherence test:** Do all named actors share one job thread?
 - Move customer quotes and named accounts to Evidence
 - Remove solution language — move to Example Implementation
 
-#### Customer Arc & Delivery Plan
+#### User Journey & Milestones
 
 If a **Success & Metrics** section exists, migrate lagging/leading indicators into phase success signals (early phases = leading, final phase(s) = outcome-level lagging), then delete Success & Metrics.
 
@@ -53,14 +53,15 @@ If phases are missing, theme-only, or bundle unrelated problems:
 
 Otherwise refine in place:
 
-- Each phase: customer capability, when this is true, success signal (with timeframe), problems addressed
-- **Three-solutions test** on every customer capability headline
+- Each phase: user capability, when this is true, success signal (with timeframe), problems addressed
+- **Three-solutions test** on every user capability headline
 - **Milestone sizing:** one-sentence test per phase; flag phases with `expected_rfe_count: 1..N` in plan
 - Scenarios: Actors, Context, Flow, Win moment only — remove Today's pain if present
 - **Through-line test:** Each scenario demonstrates a capability from its phase
 
 #### Evidence
 - Customer quotes, analyst data, platform gaps — single home for all proof points
+- **Cite every quote, statistic, and external claim** — include source name and link or document reference; verify quote and URL match exactly
 - End with one-line opportunity verdict (importance vs satisfaction)
 - Remove duplicate quotes from other sections after consolidating here
 
@@ -78,7 +79,7 @@ Before finishing, check for and remove:
 - Same quote in Problem Statement and Evidence
 - Same metric repeated verbatim in multiple phase success signals (keep one home per metric)
 - Same capability stated in a phase headline and "When this is true" bullets (tighten, don't repeat)
-- Separate Story Map + Milestones + Acceptance Signals sections (must be one Customer Arc & Delivery Plan)
+- Separate Story Map + Milestones + Acceptance Signals sections (must be one User Journey & Milestones)
 
 ### Step 6: Update Frontmatter
 

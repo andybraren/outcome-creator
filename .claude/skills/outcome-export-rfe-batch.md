@@ -1,6 +1,6 @@
 # /outcome.export-rfe-batch
 
-Export a rfe-creator batch YAML from an outcome's Customer Arc phases — **seeds** work for rfe-creator; does not assume one milestone = one RFE.
+Export a rfe-creator batch YAML from an outcome's User Journey phases — **seeds** work for rfe-creator; does not assume one milestone = one RFE.
 
 ## Trigger
 
@@ -11,12 +11,12 @@ User says `/outcome.export-rfe-batch` optionally followed by:
 
 ## Prerequisites
 
-- Outcome uses the **lean template** with **Customer Arc & Delivery Plan** (phases with customer capability, problems, success signals)
+- Outcome uses the **lean template** with **User Journey & Milestones** (phases with user capability, problems, success signals)
 - Outcome should pass `/outcome.review` (coherent JTBD, problem-framed phases)
 
 ## Milestone ↔ RFE cardinality
 
-Each Customer Arc **phase is a milestone**. After rfe-creator runs, that milestone may yield:
+Each User Journey **phase is a milestone**. After rfe-creator runs, that milestone may yield:
 
 - **One RFE** — phase-candidate passes `right_sized` on review
 - **Several sibling RFEs** — `/rfe.split` (or `--per-problem` export) when the milestone bundles multiple independent needs

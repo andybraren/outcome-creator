@@ -52,7 +52,7 @@ outcome-creator (THE GOAL)     →  What change are we trying to achieve?
 
 ### Outcome → RFE handoff (right-sized children)
 
-Customer Arc **phases are milestones**. Each milestone may become **one or several sibling RFEs** — export only seeds the batch. When an outcome is ready:
+User Journey **phases are milestones**. Each milestone may become **one or several sibling RFEs** — export only seeds the batch. When an outcome is ready:
 
 1. `/outcome.export-rfe-batch` — emits a YAML batch (one phase-candidate per milestone by default; `--per-problem` for independent slices) for [rfe-creator](https://github.com/jwforres/rfe-creator)
 2. `/rfe.speedrun --input <batch>` — creates and reviews RFEs in RHAIRFE
@@ -101,7 +101,7 @@ See [docs/outcome-rfe-handoff.md](docs/outcome-rfe-handoff.md).
 /outcome.create → /outcome.refine → /outcome.review → /outcome.submit
 ```
 
-Create runs milestone planning before writing Customer Arc phases. Refine or `/outcome.plan-milestones --apply` when restructuring phases.
+Create runs milestone planning before writing User Journey phases. Refine or `/outcome.plan-milestones --apply` when restructuring phases.
 
 `/outcome.review` auto-revises issues it finds (up to 2 cycles). You can also edit artifacts manually between steps.
 
@@ -212,9 +212,9 @@ title: "Outcome Title"
 ## Problem Statement
 JTBD only — job, context, struggle, who is involved. No quotes or named accounts here.
 
-## Customer Arc & Delivery Plan
+## User Journey & Milestones
 Phases combine experience arc, delivery plan, and **all success metrics** (not a separate Success & Metrics section):
-- Customer capability, when this is true, success signal + timeframe, problems addressed
+- User capability, when this is true, success signal + timeframe, problems addressed
 - Early phases = leading indicators; later phases may include outcome-level lagging targets
 - Scenarios per phase: Actors, Context, Flow, Win moment (no "Today's pain")
 

@@ -12,7 +12,7 @@ You may NOT use: Bash, shell commands, network access, MCP tools, or any other t
 
 When given an outcome document path, score it across 4 dimensions.
 
-Accept both **lean structure** (preferred) and **legacy structure** (Business/User/Product Outcome, separate milestones, etc.) — score the substance, not section titles.
+Score against the standard five-section structure: Problem Statement, User Journey & Milestones, Evidence, Example Implementation & Open Questions, Out of Scope. Score substance and quality, not minor section naming variations within that structure.
 
 ### Input
 
@@ -34,24 +34,23 @@ Read the outcome document carefully. For each dimension, assign a score of 0, 1,
 - Phase success signals missing for long-lived outcomes
 
 **Score 2** if:
-- Each Customer Arc phase has an observable success signal with timeframe (leading in early phases, lagging in later)
-- No separate Success & Metrics section required — metrics live in phase success signals
+- Each User Journey phase has an observable success signal with timeframe (leading in early phases, lagging in later)
 - No contradictory duplicate metrics across phases
 
 #### User Focus (0–2)
 
 **Score 0** if:
 - No clear user need articulated; technology-driven or internally focused
-- No JTBD framing and no customer arc
+- No JTBD framing and no user journey
 
 **Score 1** if:
 - User need stated but generic; JTBD incomplete
-- Customer arc missing, solution-shaped, or only one team's view
+- User journey missing, solution-shaped, or only one team's view
 - Evidence thin or absent
 
 **Score 2** if:
 - Problem Statement has explicit JTBD with job, context, struggle, job executors sharing one coherent job
-- Customer Arc & Delivery Plan (or equivalent) has 3+ phases with solution-independent capabilities
+- User Journey & Milestones has 2–4 phases with solution-independent capabilities (1 acceptable for narrowly scoped outcomes)
 - 2–3 scenarios with flow and win moments; grounded in Evidence
 - A user would recognize this as their problem
 
@@ -81,10 +80,10 @@ Read the outcome document carefully. For each dimension, assign a score of 0, 1,
 - Out-of-scope missing or vague; open questions absent
 
 **Score 2** if:
-- Customer Arc phases are gap-driven customer-capability statements passing the three-solutions test
+- User Journey phases are gap-driven user-capability statements passing the three-solutions test
 - Each phase is one capability thread (one-sentence test); value dependencies explicit
 - Sequence with value dependencies; success signal per phase
-- Example Implementation & Open Questions (or equivalent) has discovery questions
+- Example Implementation & Open Questions has discovery questions
 - Out of Scope names 3+ exclusions with rationale
 
 ### Output

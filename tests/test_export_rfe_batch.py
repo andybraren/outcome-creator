@@ -22,11 +22,11 @@ SAMPLE_PROBLEM = """
 """
 
 SAMPLE_ARC = """
-## Customer Arc & Delivery Plan
+## User Journey & Milestones
 
 ### Phase 1: Trust
 
-**Customer capability:** Security teams can establish identity and access boundaries.
+**User capability:** Security teams can establish identity and access boundaries.
 
 **Success signal:** ≥1 account in production (target: 6 months)
 
@@ -39,7 +39,7 @@ SAMPLE_ARC = """
 
 ### Phase 2: Operate
 
-**Customer capability:** Platform teams can deploy agents regardless of framework.
+**User capability:** Platform teams can deploy agents regardless of framework.
 
 **Problems this phase addresses:**
 - Lifecycle is tied to the specific framework

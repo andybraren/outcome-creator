@@ -1,6 +1,6 @@
-# Milestone planning (Customer Arc phases)
+# Milestone planning (User Journey phases)
 
-How to structure **Customer Arc & Delivery Plan** milestones before writing or refactoring an outcome. Adapted from [rfe-creator `/rfe.split`](https://github.com/jwforres/rfe-creator) — applied at the **milestone** layer, not the RFE layer.
+How to structure **User Journey & Milestones** milestones before writing or refactoring an outcome. Adapted from [rfe-creator `/rfe.split`](https://github.com/jwforres/rfe-creator) — applied at the **milestone** layer, not the RFE layer.
 
 ## Why this exists
 
@@ -16,7 +16,7 @@ Milestone planning runs **bottom-up** from atomic customer gaps, then groups onl
 
 | Layer | Typical cardinality |
 |-------|---------------------|
-| Outcome → milestones | 3–6 phases for long-lived outcomes; each phase = one customer-capability thread |
+| Outcome → milestones | Typically 2–4 phases (cap at ~4); each phase = one user-capability thread |
 | Milestone → RFEs | **1..N** sibling RFEs (see [outcome-rfe-handoff.md](outcome-rfe-handoff.md)) |
 
 Planning milestones well reduces painful `/rfe.split` later.
@@ -31,7 +31,7 @@ Start from **gaps**, not theme names. Sources:
 - Evidence (platform gaps, customer quotes)
 - Existing phase problem bullets (if refactoring)
 
-For each gap, write a one-sentence **customer capability** summary (problem-space, three-solutions test).
+For each gap, write a one-sentence **user capability** summary (problem-space, three-solutions test).
 
 Ask per gap:
 
@@ -72,7 +72,7 @@ Run on every proposed milestone:
 
 ### 4. Write or apply
 
-- **New outcome:** `/outcome.create` runs planning before Customer Arc (writes plan artifact, then phases).
+- **New outcome:** `/outcome.create` runs planning before User Journey (writes plan artifact, then phases).
 - **Existing outcome:** `/outcome.plan-milestones` writes plan; apply with `--apply` or `/outcome.refine`.
 - **Review:** `/outcome.review` runs milestone sizing checks in Step 4.5.
 
@@ -82,7 +82,7 @@ Run on every proposed milestone:
 
 `artifacts/outcome-plans/<OUTCOME-ID>-milestone-plan.yaml`
 
-See `templates/milestone-plan-template.yaml`. Set `status: applied` when the Customer Arc matches the plan.
+See `templates/milestone-plan-template.yaml`. Set `status: applied` when the User Journey matches the plan.
 
 ## Relationship to other skills
 

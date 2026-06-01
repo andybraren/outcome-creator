@@ -16,10 +16,10 @@ User says `/outcome.create` optionally followed by:
 
 If `--headless` is NOT set, ask up to 5 clarifying questions to understand:
 
-1. **Strategic anchor**: Which strategic goal(s) does this outcome relate to? If a PROJGOALS key is provided, fetch it from Jira using the Atlassian MCP or REST API fallback.
+1. **Strategic anchor**: Which strategic goal(s) does this outcome relate to? If a PROJGOALS key is provided, fetch it from Jira using the Atlassian MCP or REST API fallback. Strategic goals are used as context when provided — auto-discovery of related strat items from problem text alone is not implemented yet (follow-up).
 2. **User need / JTBD**: What job is the user trying to get done? Who are the job executors? What context triggers the job? What struggle makes it hard today? (Multiple actors sharing one job is fine — flag unrelated jobs for sibling outcomes.)
 3. **Business context**: How does solving this benefit the organization? What business metric would improve?
-4. **Evidence**: What research, customer feedback, or data supports this need?
+4. **Evidence**: What research, customer feedback, or data supports this need? (Automated market/analyst research is a follow-up — see `docs/follow-ups.md`.)
 5. **Scope**: Is this a broad thematic outcome or a focused product-level outcome?
 
 If `--headless` IS set, derive answers from the input prompt and any `--strategic-goal` context.
@@ -28,7 +28,7 @@ If `--headless` IS set, derive answers from the input prompt and any `--strategi
 
 Check if `artifacts/outcome-rubric.md` exists. If not, run the `export-rubric` skill to generate it. Use the rubric to guide outcome creation — ensure each section addresses what the rubric scores.
 
-### Step 2.5: Plan milestones (before Customer Arc)
+### Step 2.5: Plan milestones (before User Journey)
 
 Follow `/outcome.plan-milestones` (see `docs/outcome-milestone-planning.md`):
 
@@ -45,9 +45,9 @@ Write the outcome to `artifacts/outcome-tasks/OUTCOME-NNN-<slug>.md` using the t
 
 The document MUST include these sections only (lean structure — avoid redundant restatements):
 
-1. **Problem Statement** — JTBD only: job, context, struggle, who is involved. No customer quotes, no named accounts, no solution language.
-2. **Customer Arc & Delivery Plan** — Write phases from the milestone plan (Step 2.5). **All success metrics live here** — no separate Success & Metrics section. For each phase (3+ for long-lived outcomes):
-   - Customer capability headline (from plan; three-solutions test)
+1. **Problem Statement** — JTBD only: job, context, struggle, who is involved (sub-bullets per job executor). No customer quotes, no named accounts, no solution language.
+2. **User Journey & Milestones** — Write phases from the milestone plan (Step 2.5). **All success metrics live here** — no separate Success & Metrics section. Typically **2–4 phases** (fewer when delivery-coupled; cap at ~4). For each phase:
+   - User capability headline (from plan; three-solutions test)
    - When this is true (actor capabilities, solution-independent)
    - Success signal with target timeframe (from plan)
    - Problems this phase addresses (from atomic inventory; value dependencies noted)
@@ -89,10 +89,12 @@ Save the original inputs (strategic goal data, research excerpts, user prompt) t
 
 ## Quality Guidelines
 
+**Important:** ALWAYS cite sources for quotes, statistics, data points, or claims from other documents. Include a link or reference to the original source. Verify the quote and URL match the source exactly.
+
 **Do:**
-- Plan milestones bottom-up before writing Customer Arc (`docs/outcome-milestone-planning.md`)
-- Write problem-framed statements that pass the three-solutions test in Problem Statement and Customer Arc phases
-- Put all customer quotes and named accounts in Evidence (once)
+- Plan milestones bottom-up before writing User Journey (`docs/outcome-milestone-planning.md`)
+- Write problem-framed statements that pass the three-solutions test in Problem Statement and User Journey phases
+- Put all customer quotes and named accounts in Evidence (once), each with source citation
 - Put solution language only in Example Implementation & Open Questions
 - Preserve the author's solution thinking when converting from Jira — move it, don't delete it
 

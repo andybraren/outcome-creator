@@ -21,13 +21,13 @@ User says `/outcome.split` optionally followed by:
 
 ### Step 1: Load outcome
 
-Read Problem Statement, Customer Arc phases, Evidence, Out of Scope.
+Read Problem Statement, User Journey phases, Evidence, Out of Scope.
 
 ### Step 2: Atomic job inventory (from rfe.split pattern)
 
 For each struggle or problem bullet, ask:
 
-1. Could this ship as its own outcome without breaking a coherent customer arc?
+1. Could this ship as its own outcome without breaking a coherent user journey?
 2. Does it share a job thread with the others, or is it a different job?
 3. Are capabilities **delivery-coupled** (must ship together)? If yes, keep in one outcome/phase.
 
@@ -50,7 +50,7 @@ For each sibling:
 
 1. Copy lean template structure from `templates/outcome-template.md`
 2. Rewrite Problem Statement (JTBD) for that job thread only
-3. Keep only relevant Customer Arc phases
+3. Keep only relevant User Journey phases
 4. Add cross-reference in Out of Scope: "See sibling outcome: …"
 5. Write to `artifacts/outcome-tasks/OUTCOME-NNN-<slug>.md` with new frontmatter
 
