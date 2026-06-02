@@ -16,7 +16,7 @@ Fetch the outcome issue from Jira using the Atlassian MCP or REST API fallback (
 
 Parse the Jira issue and convert it to the standard outcome document format:
 - Extract title, description, priority, components, labels, status
-- Parse the description body into sections (Problem Statement, Business Outcome, User Outcome, Product Outcome, etc.)
+- Parse the description body into sections (lean structure preferred; legacy sections OK — run `/outcome.refine` to consolidate)
 - Build frontmatter from Jira fields
 
 ### Step 3: Write to Local Workspace

@@ -50,11 +50,24 @@ outcome-creator (THE GOAL)     →  What change are we trying to achieve?
             └─ strat-creator (THE HOW)  →  How do we build them?
 ```
 
+### Outcome → RFE handoff (right-sized children)
+
+User Journey **phases are milestones**. Each milestone may become **one or several sibling RFEs** — export only seeds the batch. When an outcome is ready:
+
+1. `/outcome.export-rfe-batch` — emits a YAML batch (one phase-candidate per milestone by default; `--per-problem` for independent slices) for [rfe-creator](https://github.com/jwforres/rfe-creator)
+2. `/rfe.speedrun --input <batch>` — creates and reviews RFEs in RHAIRFE
+3. `/rfe.review` + `/rfe.split` — decompose oversized candidates into sibling RFEs under the same milestone labels
+
+If the **outcome** itself is too big (unrelated jobs bundled), use `/outcome.split` before exporting — sibling outcomes, not a kitchen-sink parent.
+
+See [docs/outcome-rfe-handoff.md](docs/outcome-rfe-handoff.md).
+
 ## Quick Start
 
 ```bash
 # Outcome Pipeline
 /outcome.create     # Write a new outcome from strategic goals + research
+/outcome.plan-milestones  # Bottom-up milestone plan (gap inventory + delivery coupling)
 /outcome.refine     # Refine with research data, user insights, measurability
 /outcome.review     # Score against the outcome rubric (4 dimensions)
 /outcome.submit     # Submit to Jira (PROJSTRAT project, Outcome issue type)
@@ -74,6 +87,10 @@ outcome-creator (THE GOAL)     →  What change are we trying to achieve?
 # Batch operations
 /outcome.speedrun --input batch.yaml --headless --dry-run
 /outcome.auto-fix --jql "project = PROJSTRAT AND issuetype = Outcome"
+
+# Hand off to rfe-creator (after outcome is ready)
+/outcome.export-rfe-batch artifacts/outcome-tasks/OUTCOME-155.md
+/outcome.split OUTCOME-155.md   # if outcome scope is too large
 ```
 
 ## Pipeline
@@ -83,6 +100,8 @@ outcome-creator (THE GOAL)     →  What change are we trying to achieve?
 ```
 /outcome.create → /outcome.refine → /outcome.review → /outcome.submit
 ```
+
+Create runs milestone planning before writing User Journey phases. Refine or `/outcome.plan-milestones --apply` when restructuring phases.
 
 `/outcome.review` auto-revises issues it finds (up to 2 cycles). You can also edit artifacts manually between steps.
 
@@ -179,100 +198,37 @@ After CI finishes, humans use a separate `local/` workspace:
 
 ## Outcome Document Structure
 
-Each outcome artifact follows this structure:
+Each outcome artifact uses a **lean structure** — five sections, minimal redundancy:
 
 ```markdown
 ---
 id: PROJSTRAT-XXXX
 title: "Outcome Title"
-status: draft | review | approved | active
-strategic_goals: [PROJGOALS-314]
-components: [Platform, DevTools]
-priority: Critical | Major | Minor
-score:
-  measurability: 0-2
-  user_focus: 0-2
-  business_alignment: 0-2
-  actionability: 0-2
-  total: 0-8
-  verdict: PASS | REVISE | REWORK
-created: 2026-01-15
-updated: 2026-01-15
+...
 ---
 
 # Outcome Title
 
 ## Problem Statement
-What user/market need does this outcome address? What pain exists today?
-- Job (JTBD): What the customer is trying to accomplish
-- Context: When/where the job arises
-- Struggle: What makes the job hard today
-- Who is involved: Job executor(s) sharing this job
+JTBD only — job, context, struggle, who is involved. No quotes or named accounts here.
 
-## Business Outcome
-How does the business benefit when this outcome is achieved?
-- Metric or directional indicator
-- Connection to strategic goals
-- Expected business impact
+## User Journey & Milestones
+Phases combine experience arc, delivery plan, and **all success metrics** (not a separate Success & Metrics section):
+- User capability, when this is true, success signal + timeframe, problems addressed
+- Early phases = leading indicators; later phases may include outcome-level lagging targets
+- Scenarios per phase: Actors, Context, Flow, Win moment (no "Today's pain")
 
-## User Outcome
-What can users do, feel, or achieve differently?
-- User outcome statements (importance + satisfaction framing)
-- Who specifically benefits (persona or segment)
-- What changes in their day-to-day experience
+## Evidence
+Customer quotes, analyst/market data, platform gaps, one-line opportunity verdict.
 
-## End-to-End Customer Arc
-What does the customer experience when all releases are complete?
-- Story map with 3+ phases of capability statements per actor
-- 2–3 scenarios tied to phases (actors, context, pain, flow, win moment)
-- Solution-independent language throughout
-
-## Product Outcome
-What measurable behavior changes in the product?
-- Leading indicators that signal progress
-- Specific product metrics or behavioral changes
-- How this connects to the user outcome above
-
-## Evidence & Research
-What data supports this outcome?
-- Customer quotes or feedback
-- Research findings (JTBD, Top Tasks, surveys)
-- Market or analyst data
-- Product telemetry
-
-## Opportunity Assessment
-How underserved is this outcome today?
-- Importance score (from research, if available)
-- Satisfaction score (from research, if available)
-- Opportunity score (importance + max(importance - satisfaction, 0))
-- Category: Underserved | Overserved | Appropriately-served | Table Stakes
-
-## Release Milestones
-How does the story map sequence into customer capability phases?
-- Customer capability milestones (pass the three-solutions test)
-- Success signal per milestone
-- Value dependencies between milestones noted
-
-## Example Implementation
-One possible solution path — explicitly labeled as illustrative, not prescriptive.
-Authors naturally think in solutions; keeping that context here aids engineering clarity.
-
-## Downstream Opportunities
-What product changes or features might serve this outcome?
-- Potential solution directions (not commitments)
-- Related existing RFEs
-- Open questions for discovery
+## Example Implementation & Open Questions
+One illustrative solution path + open questions per capability area.
 
 ## Out of Scope
-What related problems are explicitly NOT part of this outcome?
-- 3+ exclusions with brief rationale
-
-## Acceptance Signals
-How will we know this outcome is being achieved?
-- Quantitative signals
-- Qualitative signals
-- Timeframe for measurement
+3+ related exclusions with brief rationale.
 ```
+
+`/outcome.refine` migrates legacy documents (Business/User/Product Outcome, separate milestones, Acceptance Signals) into this structure.
 
 ## Project Structure
 
@@ -286,7 +242,8 @@ outcome-creator/
 │   ├── list-outcomes.py            # List existing outcomes
 │   ├── pull_outcome.py             # Pull outcome from Jira into local/
 │   ├── generate-report.py          # Per-run HTML report
-│   └── generate-dashboard.py       # Aggregate dashboard across runs
+│   ├── generate-dashboard.py       # Aggregate dashboard across runs
+│   └── export_rfe_batch.py         # Export rfe-creator batch YAML from outcome phases
 ├── .claude/
 │   ├── settings.json               # Claude Code project settings
 │   ├── skills/                     # Claude Code skills (pipeline steps)
@@ -298,6 +255,9 @@ outcome-creator/
 │   │   ├── outcome-pull.md
 │   │   ├── outcome-push.md
 │   │   ├── outcome-signoff.md
+│   │   ├── outcome-plan-milestones.md
+│   │   ├── outcome-export-rfe-batch.md
+│   │   ├── outcome-split.md
 │   │   ├── assess-outcome.md
 │   │   └── export-rubric.md
 │   └── agents/
@@ -307,11 +267,14 @@ outcome-creator/
 │   └── rubric.yaml                 # Scoring rubric definition
 ├── templates/
 │   ├── outcome-template.md         # Outcome document template
+│   ├── milestone-plan-template.yaml
 │   └── review-template.md          # Review output template
 ├── docs/
 │   ├── human-review-guide.md       # Guide for human reviewers
 │   ├── outcome-framework.md        # Outcome theory and best practices
-│   └── pipeline-architecture.md    # Technical pipeline docs
+│   ├── outcome-milestone-planning.md  # Bottom-up phase design (from rfe.split patterns)
+│   ├── pipeline-architecture.md    # Technical pipeline docs
+│   └── outcome-rfe-handoff.md      # Outcome → rfe-creator sizing workflow
 ├── tests/                          # Test suite
 ├── local/                          # Human review workspace (gitignored)
 │   ├── outcome-tasks/
