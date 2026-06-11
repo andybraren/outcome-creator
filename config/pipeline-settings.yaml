@@ -46,9 +46,15 @@ scoring:
 
 research_sources:
   types:
+    - name: "jtbd_registry"
+      display: "JTBD Knowledge Registry (Red Hat OpenShift AI)"
+      description: >
+        Local clone of the UXR JTBD registry (knowledge/jtbd-registry/).
+        Sync via make sync-jtbd. Supports jobs, personas, phase, auto_match.
+        See config/jtbd-registry.yaml and /outcome.jtbd-lookup.
     - name: "jtbd"
       display: "Jobs-to-be-Done Research"
-      description: "Research identifying user jobs, tasks, and outcomes"
+      description: "Research identifying user jobs, tasks, and outcomes (external URL)"
     - name: "top_tasks"
       display: "Top Tasks Survey"
       description: "Survey data on user task importance and satisfaction"

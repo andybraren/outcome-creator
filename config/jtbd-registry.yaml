@@ -1,0 +1,35 @@
+# JTBD Knowledge Registry integration settings
+# See README "JTBD Knowledge Registry" for setup (Red Hat VPN + GitLab SAML required).
+
+registry:
+  # Local clone path (gitignored — never commit registry YAML to a public repo)
+  path: knowledge/jtbd-registry
+
+  # Internal GitLab source (Red Hat SAML). Override with JTBD_REGISTRY_URL env var.
+  git_url: https://gitlab.cee.redhat.com/yingzhou/jtbd-knowledge-registry.git
+
+  # Entry points (relative to path)
+  index_file: index.yaml
+  governance_file: governance.yaml
+
+matching:
+  # Max job files to load per lookup (progressive disclosure)
+  max_jobs: 3
+  # When auto_match is true, prefer underserved jobs (OpScore >= 10) on ties
+  prefer_underserved: true
+
+citations:
+  survey:
+    label: "JTBD Opportunity Survey, Q1 2026"
+    url: https://jtbd-survey-26-3dd23f.pages.redhat.com/
+  qualitative:
+    label: "JTBD Qualitative Research V2.5, March 2026"
+    url: https://rhai-jtbd-fdfadd.pages.redhat.com/
+  methodology:
+    label: "Opportunity Score methodology (Strategyn JTBD Framework)"
+    url: https://strategyn.com/jobs-to-be-done/customer-centered-innovation-map/
+
+output:
+  # JTBD context artifact written by /outcome.jtbd-lookup
+  context_suffix: jtbd-context.md
+  originals_dir: artifacts/outcome-originals

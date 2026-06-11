@@ -18,7 +18,7 @@ User says `/outcome.refine` optionally followed by:
 
 ### Step 2: Read Current State
 
-Read the outcome document and its frontmatter. Read the original inputs from `artifacts/outcome-originals/` or `local/outcome-originals/` if available.
+Read the outcome document and its frontmatter. Read the original inputs from `artifacts/outcome-originals/` or `local/outcome-originals/` if available. If `<ID>-jtbd-context.md` exists, use it to enrich Evidence (OpScores, verbatim quotes with citations) without duplicating content already in the outcome.
 
 ### Step 3: Consolidate to Lean Structure
 

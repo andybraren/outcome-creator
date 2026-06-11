@@ -129,17 +129,55 @@ YAML format:
 - prompt: "Enterprise customers need to trust agent behavior in production"
   strategic_goal: PROJGOALS-314
   research_sources:
+    - type: jtbd_registry
+      jobs: [16, 15]
     - type: jtbd
-      url: "https://drive.google.com/drive/folders/example"
-    - type: user_outcomes
       url: "https://drive.google.com/drive/folders/example"
   priority: Critical
   components: [Platform, DevTools]
 
 - prompt: "AI engineers waste hours debugging agent failures"
   strategic_goal: PROJGOALS-314
+  research_sources:
+    - type: jtbd_registry
+      auto_match: true
   priority: Major
 ```
+
+See `examples/batch-with-jtbd.yaml` for JTBD registry batch examples. Requires `make sync-jtbd` (Red Hat VPN).
+
+## JTBD Knowledge Registry (Red Hat OpenShift AI)
+
+The pipeline can ground outcomes in UXR research from the internal [JTBD Knowledge Registry](https://gitlab.cee.redhat.com/yingzhou/jtbd-knowledge-registry). The registry data is **confidential** — it is never committed to this repo.
+
+### Setup (private fork or local use)
+
+```bash
+make sync-jtbd   # clone/update into knowledge/jtbd-registry/ (gitignored)
+```
+
+Requires Red Hat VPN and GitLab SAML authentication. Override the clone URL with `JTBD_REGISTRY_URL` if needed.
+
+### How it affects outcomes
+
+When the registry is present, `/outcome.create` runs `/outcome.jtbd-lookup` before writing the outcome:
+
+1. Matches 1–3 relevant jobs from the prompt or batch YAML (`type: jtbd_registry`)
+2. Pre-populates Problem Statement (job, struggle, actors), Evidence (OpScores, verbatim quotes), and milestone capability inventory (`job_steps`)
+3. Writes traceability to `artifacts/outcome-originals/OUTCOME-NNN-jtbd-context.md`
+4. Adds optional frontmatter: `jtbd_jobs`, `jtbd_registry_id`
+
+Governance rules (retrieval-only, verbatim quotes, source citations) are enforced per the registry's `governance.yaml`. See `.claude/skills/jtbd-lookup.md` and `config/jtbd-registry.yaml`.
+
+### Batch example
+
+```bash
+/outcome.speedrun --headless --dry-run --input examples/batch-with-jtbd.yaml
+```
+
+### Public vs. private repo
+
+This integration adds **plumbing only** (skills, config, sync script). The registry YAML stays in `knowledge/jtbd-registry/` (gitignored). For Red Hat use, fork this repo as **private**, run `make sync-jtbd` on each machine, and optionally vendor the registry in your private fork by removing the gitignore entry — do not push confidential data to the public upstream.
 
 ## Input Sources
 
@@ -148,6 +186,7 @@ The outcome-creator draws from multiple data sources to build well-grounded outc
 | Source | How It's Used |
 |--------|---------------|
 | **Strategic Goals** (PROJGOALS) | High-level business direction; the outcome must connect back to at least one |
+| **JTBD Knowledge Registry** (Red Hat) | Local UXR research — jobs, pain points, OpScores, job steps → Problem Statement, Evidence, milestones |
 | **User Research** (JTBD, Top Tasks) | Identifies real user needs, pain points, and jobs-to-be-done |
 | **User Outcome Surveys** | Quantitative importance/satisfaction data for prioritization |
 | **Customer Feedback** | Direct quotes and scenarios that ground the outcome in reality |
@@ -248,6 +287,7 @@ outcome-creator/
 │   ├── settings.json               # Claude Code project settings
 │   ├── skills/                     # Claude Code skills (pipeline steps)
 │   │   ├── outcome-create.md
+│   │   ├── jtbd-lookup.md
 │   │   ├── outcome-refine.md
 │   │   ├── outcome-review.md
 │   │   ├── outcome-submit.md
@@ -264,11 +304,14 @@ outcome-creator/
 │       └── outcome-scorer.md       # Restricted scorer agent
 ├── config/
 │   ├── pipeline-settings.yaml      # JQL filters, batch size, labels
+│   ├── jtbd-registry.yaml          # JTBD registry path, citations, matching
 │   └── rubric.yaml                 # Scoring rubric definition
 ├── templates/
 │   ├── outcome-template.md         # Outcome document template
 │   ├── milestone-plan-template.yaml
 │   └── review-template.md          # Review output template
+├── examples/
+│   └── batch-with-jtbd.yaml        # Batch input using JTBD registry
 ├── docs/
 │   ├── human-review-guide.md       # Guide for human reviewers
 │   ├── outcome-framework.md        # Outcome theory and best practices
@@ -294,6 +337,7 @@ outcome-creator/
 
 ```bash
 uv sync
+make sync-jtbd   # optional — Red Hat VPN; JTBD Knowledge Registry
 ```
 
 ### Running Tests
