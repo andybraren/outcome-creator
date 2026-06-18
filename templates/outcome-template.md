@@ -14,12 +14,12 @@ updated: ${DATE}
 
 ## Problem Statement
 
-- **Job (JTBD)**: [What the organization is trying to accomplish — functional job, not a solution]
-- **Context**: [When or where the job arises — situation, trigger, environment]
-- **Struggle**: [What makes the job hard or fails today — friction, constraints, risks]
-- **Who is involved**:
-  - **[Name of job executor]** — [what part of the job they own]
-  - **[Name of additional job executor (if applicable)]** — [what part of the job they own]
+**Job (JTBD)**: [What the organization is trying to accomplish — functional job, not a solution]
+**Context**: [When or where the job arises — situation, trigger, environment]
+**Struggle**: [What makes the job hard or fails today — friction, constraints, risks]
+**Who is involved**:
+- **[Name of job executor]** — [what part of the job they own]
+- **[Name of additional job executor (if applicable)]** — [what part of the job they own]
 
 ## User Journey & Milestones
 
