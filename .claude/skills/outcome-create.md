@@ -14,12 +14,23 @@ User says `/outcome.create` optionally followed by:
 
 ### Step 1: Gather Context
 
+#### Step 1a: JTBD registry lookup (when available)
+
+If `knowledge/jtbd-registry/index.yaml` exists (see `config/jtbd-registry.yaml`):
+
+1. Run `/outcome.jtbd-lookup` with the user prompt, batch `research_sources` (`type: jtbd_registry`), or explicit `--jobs` flags.
+2. Write `artifacts/outcome-originals/OUTCOME-NNN-jtbd-context.md` per the jtbd-lookup skill.
+3. Use Problem Statement seeds, Evidence seeds, and atomic capability seeds when writing the outcome and milestone plan.
+4. Add optional frontmatter when jobs were matched: `jtbd_jobs`, `jtbd_registry_id`.
+
+If the registry is not synced (`make sync-jtbd`), skip this step — do not fail creation.
+
 If `--headless` is NOT set, ask up to 5 clarifying questions to understand:
 
 1. **Strategic anchor**: Which strategic goal(s) does this outcome relate to? If a PROJGOALS key is provided, fetch it from Jira using the Atlassian MCP or REST API fallback. Strategic goals are used as context when provided — auto-discovery of related strat items from problem text alone is not implemented yet (follow-up).
-2. **User need / JTBD**: What job is the user trying to get done? Who are the job executors? What context triggers the job? What struggle makes it hard today? (Multiple actors sharing one job is fine — flag unrelated jobs for sibling outcomes.)
+2. **User need / JTBD**: What job is the user trying to get done? Who are the job executors? What context triggers the job? What struggle makes it hard today? (Multiple actors sharing one job is fine — flag unrelated jobs for sibling outcomes.) If Step 1a produced a JTBD context artifact, pre-fill from registry data and ask only for gaps the registry does not cover.
 3. **Business context**: How does solving this benefit the organization? What business metric would improve?
-4. **Evidence**: What research, customer feedback, or data supports this need? (Automated market/analyst research is a follow-up — see `docs/follow-ups.md`.)
+4. **Evidence**: What research, customer feedback, or data supports this need? Prefer JTBD registry Evidence seeds (OpScores, verbatim quotes with citations) when Step 1a ran. (Automated market/analyst research is a follow-up — see `docs/follow-ups.md`.)
 5. **Scope**: Is this a broad thematic outcome or a focused product-level outcome?
 
 If `--headless` IS set, derive answers from the input prompt and any `--strategic-goal` context.
@@ -32,7 +43,7 @@ Check if `artifacts/outcome-rubric.md` exists. If not, run the `export-rubric` s
 
 Follow `/outcome.plan-milestones` (see `docs/outcome-milestone-planning.md`):
 
-1. Build an **atomic capability inventory** from JTBD, struggle, and evidence — bottom-up, not theme names.
+1. Build an **atomic capability inventory** from JTBD context seeds (`job_steps`), struggle, and evidence — bottom-up, not theme names.
 2. Group only **delivery-coupled** gaps into milestones; unrelated gaps → separate milestones.
 3. Run **milestone sizing checks** (three-solutions, one-sentence, job thread, RFE forecast).
 4. Write `artifacts/outcome-plans/OUTCOME-NNN-milestone-plan.yaml`.
@@ -71,6 +82,8 @@ strategic_goals: [PROJGOALS-XXX]
 components: []
 priority: Critical | Major | Minor
 score: null
+jtbd_jobs: []              # optional — registry job IDs when Step 1a matched
+jtbd_registry_id: null     # optional — e.g. jtbd-rhai-2026
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
 ---
@@ -78,12 +91,13 @@ updated: YYYY-MM-DD
 
 ### Step 5: Save Input Snapshot
 
-Save the original inputs (strategic goal data, research excerpts, user prompt) to `artifacts/outcome-originals/OUTCOME-NNN-inputs.md` for traceability.
+Save the original inputs (strategic goal data, research excerpts, user prompt) to `artifacts/outcome-originals/OUTCOME-NNN-inputs.md` for traceability. If Step 1a ran, the JTBD context artifact is separate: `OUTCOME-NNN-jtbd-context.md`.
 
 ## Output
 
 - `artifacts/outcome-tasks/OUTCOME-NNN-<slug>.md` — The outcome document
 - `artifacts/outcome-originals/OUTCOME-NNN-inputs.md` — Input snapshot
+- `artifacts/outcome-originals/OUTCOME-NNN-jtbd-context.md` — JTBD registry context (when registry present)
 - `artifacts/outcome-plans/OUTCOME-NNN-milestone-plan.yaml` — Milestone plan (gap inventory + grouping)
 - Console summary of what was created (include milestone count and RFE forecast per phase)
 

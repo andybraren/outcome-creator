@@ -18,7 +18,7 @@ User says `/outcome.speedrun` optionally followed by:
 
 ### Single Outcome (from prompt or Jira key)
 
-1. **Create or Fetch**: If a Jira key is provided, fetch the existing outcome. Otherwise, run `outcome-create` with the provided prompt.
+1. **Create or Fetch**: If a Jira key is provided, fetch the existing outcome. Otherwise, run `outcome-create` with the provided prompt. Create invokes `/outcome.jtbd-lookup` when `knowledge/jtbd-registry/` is synced.
 2. **Refine**: Run `outcome-refine` on the created/fetched outcome.
 3. **Review**: Run `outcome-review` with `--auto-revise` enabled. This scores and auto-fixes (up to 2 cycles).
 4. **Submit**: If not `--dry-run`, run `outcome-submit` to create/update in Jira.
@@ -29,12 +29,13 @@ User says `/outcome.speedrun` optionally followed by:
 1. Read the YAML input file. Each entry has:
    - `prompt` (required): Problem statement or need description
    - `strategic_goal` (optional): PROJGOALS key
-   - `research_sources` (optional): Array of research data references
+   - `research_sources` (optional): Array of research data references. For the JTBD registry use `type: jtbd_registry` with `jobs`, `personas`, `phase`, and/or `auto_match` (see `examples/batch-with-jtbd.yaml`)
    - `priority` (optional): Critical | Major | Minor
    - `components` (optional): Array of component names
-2. Process entries in batches of `--batch-size` (default 5).
-3. For each entry, run the single-outcome pipeline (create → refine → review → submit).
-4. Generate a batch report at `artifacts/pipeline-report.html`.
+2. For each entry with `jtbd_registry` research sources, pass selectors to `/outcome.jtbd-lookup` before create.
+3. Process entries in batches of `--batch-size` (default 5).
+4. For each entry, run the single-outcome pipeline (create → refine → review → submit).
+5. Generate a batch report at `artifacts/pipeline-report.html`.
 
 ### Existing Jira Outcome
 

@@ -1,0 +1,29 @@
+# Example batch input using the JTBD Knowledge Registry.
+# Requires: make sync-jtbd (Red Hat VPN + GitLab SAML)
+# Registry path: knowledge/jtbd-registry/ (gitignored)
+
+- prompt: "Production AI teams cannot triage failures quickly when latency spikes or errors burst"
+  strategic_goal: PROJGOALS-314
+  research_sources:
+    - type: jtbd_registry
+      jobs: [16, 15]
+      personas: [maude, alex]
+  priority: Critical
+  components: [Platform, Observability]
+
+- prompt: "Enterprises launch GenAI initiatives without validating ROI or data readiness"
+  strategic_goal: PROJGOALS-314
+  research_sources:
+    - type: jtbd_registry
+      auto_match: true
+      phase: day0
+  priority: Major
+  components: [AI Hub]
+
+- prompt: "AI engineers struggle to curate training data and stay compliant as datasets grow"
+  strategic_goal: PROJGOALS-314
+  research_sources:
+    - type: jtbd_registry
+      jobs: [2]
+  priority: Major
+  components: [Data, Governance]

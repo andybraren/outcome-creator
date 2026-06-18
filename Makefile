@@ -1,7 +1,10 @@
-.PHONY: test test-unit test-integration test-e2e lint format setup
+.PHONY: test test-unit test-integration test-e2e lint format setup sync-jtbd
 
 setup:
 	uv sync
+
+sync-jtbd:
+	@bash scripts/sync_jtbd_registry.sh
 
 test:
 	uv run pytest tests/ -v --tb=short

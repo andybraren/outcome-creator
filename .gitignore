@@ -42,3 +42,6 @@ tmp/
 
 # Local research clones
 .research/
+
+# JTBD Knowledge Registry (confidential — sync via make sync-jtbd, never commit to public repo)
+knowledge/jtbd-registry/

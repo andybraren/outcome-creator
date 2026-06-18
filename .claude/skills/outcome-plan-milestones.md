@@ -34,9 +34,12 @@ Read `docs/outcome-milestone-planning.md` for full rules. Execute:
 
 **Sources (in order):**
 
+0. JTBD context artifact (`artifacts/outcome-originals/<ID>-jtbd-context.md`) — `job_steps` → atomic capability seeds; use when Step 1a ran during create
 1. Problem Statement — struggle bullets, who is involved
 2. Evidence — platform gaps, customer findings
 3. Existing User Journey — problem bullets per phase (if refactoring)
+
+When loading from JTBD `job_steps`, set `source` to `Job <id> — <step name>` and keep summaries in problem-space (three-solutions test).
 
 **Per gap, record:**
 
