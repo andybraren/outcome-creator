@@ -18,7 +18,7 @@ Batch YAML may pass `research_sources` with `type: jtbd_registry` (see below).
 
 1. Registry synced locally: `make sync-jtbd` (requires Red Hat VPN + GitLab SAML)
 2. Path exists: `knowledge/jtbd-registry/index.yaml` (default from `config/jtbd-registry.yaml`)
-3. If registry is missing, skip silently and continue without JTBD context — do not fail the pipeline
+3. **If registry is missing, attempt `make sync-jtbd` once** before giving up. If the sync fails (network/auth), log the failure reason and continue without JTBD context — do not fail the pipeline. Tell the user: "JTBD registry sync failed ([reason]). Run `make sync-jtbd` manually when on VPN."
 
 ## Governance (mandatory)
 
