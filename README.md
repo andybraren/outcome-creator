@@ -260,11 +260,14 @@ Phases combine experience arc, delivery plan, and **all success metrics** (not a
 ## Evidence
 Customer quotes, analyst/market data, platform gaps, one-line opportunity verdict.
 
-## Example Implementation & Open Questions
-One illustrative solution path + open questions per capability area.
+## Open Questions
+Discovery questions per capability area — what engineering and product still need to decide.
 
 ## Out of Scope
 3+ related exclusions with brief rationale.
+
+## Related Resources
+Links to external docs: implementation sketch, design/prototype, evidence deep-dive.
 ```
 
 `/outcome.refine` migrates legacy documents (Business/User/Product Outcome, separate milestones, Acceptance Signals) into this structure.

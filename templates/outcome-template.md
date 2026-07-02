@@ -75,22 +75,13 @@ What the user can do at each milestone, how we know it delivered value, and what
 
 **Opportunity:** [Underserved | Overserved | etc.] — [one sentence: importance vs. satisfaction]
 
-## Example Implementation & Open Questions
+## Open Questions
 
-One possible path — illustrative, not prescriptive. Align items to user journey phases where helpful.
+What engineering and product still need to decide before or during implementation.
 
-**1. [Capability area]** *([Phase name])*
-- [Solution direction or architecture sketch — technology names OK here]
-- **Open questions:** [What engineering still needs to decide]
-
-**2. [Capability area]** *([Phase name])*
-- [...]
-- **Open questions:** [...]
-
-**Assumptions:** [What must be true for this approach to work]
-**Integrations:** [Systems this path would touch]
-
-*Problem Statement and User Journey define what must be true — engineering owns how.*
+- [Question about scope, architecture, dependency, or trade-off]
+- [Question about scope, architecture, dependency, or trade-off]
+- [Question about scope, architecture, dependency, or trade-off]
 
 ## Out of Scope
 
@@ -99,3 +90,12 @@ What related problems or capabilities are explicitly NOT part of this outcome?
 - [Exclusion]: [Reason]
 - [Exclusion]: [Reason]
 - [Exclusion]: [Reason]
+
+## Related Resources
+
+Link to external docs where implementation details, collaborative artifacts, and extended evidence live — keep the outcome body lean.
+
+- **Implementation sketch:** [URL or Jira link — solution direction, architecture, tech choices]
+- **Design / prototype:** [URL — UX flows, wireframes, prototypes]
+- **Evidence deep-dive:** [URL — extended research, customer call notes, data analysis]
+- **[Other relevant doc]:** [URL — description]

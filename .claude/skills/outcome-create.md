@@ -65,10 +65,11 @@ The document MUST include these sections only (lean structure — avoid redundan
    - 2–3 scenarios nested under relevant phases: Actors, Context, Flow, Win moment — **no Today's pain** (Problem + Evidence cover that)
    - Set milestone plan `status: applied` after writing phases
 3. **Evidence** — Customer quotes, analyst/market data, platform gaps, one-line opportunity verdict. No separate Opportunity Assessment section.
-4. **Example Implementation & Open Questions** — Author's solution sketch (illustrative) plus open questions per capability area. No separate Downstream Opportunities section.
+4. **Open Questions** — What engineering and product still need to decide. Discovery questions per capability area. No solution sketches in the body — link to external docs instead.
 5. **Out of Scope** — 3+ related exclusions with brief rationale
+6. **Related Resources** — Required links to external docs: implementation sketch, design/prototype, evidence deep-dive. Keep the outcome body lean; solution language, architecture details, and collaborative artifacts live in linked resources.
 
-Do NOT create: Success & Metrics, User Outcome, Product Outcome, Business Outcome (as separate sections), End-to-End Customer Arc, Story Map, Release Milestones, Opportunity Assessment, Downstream Opportunities, or Acceptance Signals.
+Do NOT create: Success & Metrics, User Outcome, Product Outcome, Business Outcome (as separate sections), End-to-End Customer Arc, Story Map, Release Milestones, Opportunity Assessment, Downstream Opportunities, Example Implementation (inline), Related Documents (use Related Resources), or Acceptance Signals.
 
 ### Step 4: Write Frontmatter
 
@@ -109,8 +110,8 @@ Save the original inputs (strategic goal data, research excerpts, user prompt) t
 - Plan milestones bottom-up before writing User Journey (`docs/outcome-milestone-planning.md`)
 - Write problem-framed statements that pass the three-solutions test in Problem Statement and User Journey phases
 - Put all customer quotes and named accounts in Evidence (once), each with source citation
-- Put solution language only in Example Implementation & Open Questions
-- Preserve the author's solution thinking when converting from Jira — move it, don't delete it
+- Put solution language in linked implementation docs (Related Documents), not in the outcome body
+- Preserve the author's solution thinking when converting from Jira — move it to a linked doc, don't delete it
 
 **Don't:**
 - Repeat the same metric verbatim across multiple phase success signals (say it once in the right phase)

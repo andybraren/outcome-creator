@@ -47,7 +47,7 @@ The scorer evaluates 4 dimensions, each scored 0–2:
 #### Actionability (0–2)
 - **0**: Too broad to act on ("improve everything") or too narrow (just a feature request in disguise)
 - **1**: Scope reasonable but phases lack success signals or open questions; out-of-scope missing or vague
-- **2**: User Journey phases are user-capability statements with sequencing; Example Implementation has open questions; Out of Scope has 3+ exclusions with rationale
+- **2**: User Journey phases are user-capability statements with sequencing; Open Questions section identifies discovery questions; Out of Scope has 3+ exclusions with rationale; Related Resources links to implementation sketch
 
 ### Step 4: Three-Solutions Test (pre-review check)
 
@@ -63,9 +63,9 @@ For each statement, ask: *"Could engineering satisfy this with three completely 
 > - What blocks the job today: *[struggle / friction]*
 > - How you'd know it's solved without specifying how: *[observable signal]*
 > - **Problem framing:** *[rewritten as a problem]*
-> - **Example Implementation:** *[original solution language preserved here]*
+> - **Solution language preserved:** *[original solution language — move to linked implementation doc]*
 
-When solution language is detected in auto-revise: rewrite the statement as problem-framed and move the original solution language to the Example Implementation section. Don't discard it — the author's solution thinking is valuable context for engineering when it's in the right place.
+When solution language is detected in auto-revise: rewrite the statement as problem-framed and move the original solution language to a linked implementation document (referenced in Related Resources). Don't discard it — the author's solution thinking is valuable context for engineering when it's in the right place.
 
 ### Step 4.5: Milestone sizing check
 
@@ -92,7 +92,7 @@ After scoring, run 4 independent prose reviews (can be parallelized as separate 
 1. **Measurability Reviewer** — Does each phase have a real, measurable success signal with timeframe? Are leading vs lagging metrics placed in the right phases? Flag a legacy Success & Metrics section for migration. Any redundant metric restatements to remove?
 2. **User Focus Reviewer** — Is JTBD coherent? Does the User Journey describe the full journey solution-independently? Are scenarios free of duplicated pain/quotes from Evidence?
 3. **Business Alignment Reviewer** — Does the business case hold up? Are strategic connections genuine? Is Evidence substantive?
-4. **Actionability Reviewer** — Can teams start discovery from the User Journey? Are milestones gap-driven (not theme-only)? Read milestone-sizing findings. Are open questions in Example Implementation? Is Out of Scope explicit? Flag legacy sections that should be consolidated.
+4. **Actionability Reviewer** — Can teams start discovery from the User Journey? Are milestones gap-driven (not theme-only)? Read milestone-sizing findings. Does Open Questions section identify discovery questions? Does Related Resources link to an implementation sketch? Is Out of Scope explicit? Flag legacy sections (including inline Example Implementation) that should be consolidated.
 
 Each reviewer writes findings to `artifacts/outcome-reviews/OUTCOME-NNN-<dimension>.md`.
 

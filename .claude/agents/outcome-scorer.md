@@ -12,7 +12,7 @@ You may NOT use: Bash, shell commands, network access, MCP tools, or any other t
 
 When given an outcome document path, score it across 4 dimensions.
 
-Score against the standard five-section structure: Problem Statement, User Journey & Milestones, Evidence, Example Implementation & Open Questions, Out of Scope. Score substance and quality, not minor section naming variations within that structure.
+Score against the standard six-section structure: Problem Statement, User Journey & Milestones, Evidence, Open Questions, Out of Scope, Related Resources. Score substance and quality, not minor section naming variations within that structure.
 
 ### Input
 
@@ -83,7 +83,8 @@ Read the outcome document carefully. For each dimension, assign a score of 0, 1,
 - User Journey phases are gap-driven user-capability statements passing the three-solutions test
 - Each phase is one capability thread (one-sentence test); value dependencies explicit
 - Sequence with value dependencies; success signal per phase
-- Example Implementation & Open Questions has discovery questions
+- Open Questions identifies discovery questions per capability area
+- Related Resources links to implementation sketch and other external docs
 - Out of Scope names 3+ exclusions with rationale
 
 ### Output

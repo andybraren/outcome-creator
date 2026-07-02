@@ -64,7 +64,7 @@ Run on every proposed milestone:
 
 | Check | Pass | Fail → action |
 |-------|------|----------------|
-| **Three-solutions test** | Capability is solution-independent | Rewrite headline; move solution language to Example Implementation |
+| **Three-solutions test** | Capability is solution-independent | Rewrite headline; move solution language to a linked implementation doc |
 | **One-sentence test** | One capability thread; "and" only links coupled sub-needs | Split milestone or mark `expected_rfe_count: 2+` |
 | **Job thread** | All problems serve the same JTBD | Split outcome (`/outcome.split`) or separate milestones |
 | **Delivery coupling** | Prerequisites live in same milestone or explicit `depends_on` | Merge coupled gaps; don't split identity from access control across phases |

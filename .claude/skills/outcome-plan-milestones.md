@@ -78,7 +78,7 @@ For each milestone in the recommended strategy, run:
 
 | Check | Action if fail |
 |-------|----------------|
-| **Three-solutions test** on `capability_headline` | Rewrite; solution language → Example Implementation |
+| **Three-solutions test** on `capability_headline` | Rewrite; solution language → linked implementation doc |
 | **One-sentence test** | Needs "and" between unrelated scenarios → split milestone or set `expected_rfe_count: "1..N"` |
 | **Job thread** | Unrelated problems → separate milestones or `/outcome.split` |
 | **Delivery coupling** | Prerequisite in wrong milestone → merge or fix `depends_on` |

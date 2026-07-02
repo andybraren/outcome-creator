@@ -20,7 +20,7 @@ User says `/outcome.submit` optionally followed by:
 ### Step 2: Validate
 
 Before submission, validate:
-- Required sections: Problem Statement, User Journey & Milestones, Evidence, Example Implementation & Open Questions, Out of Scope
+- Required sections: Problem Statement, User Journey & Milestones, Evidence, Open Questions, Out of Scope, Related Resources
 - Success metrics live in phase success signals only (no separate Success & Metrics section)
 - Frontmatter has required fields (title, strategic_goals, priority)
 - If scored, verdict is at least REVISE (warn if submitting a REWORK)
