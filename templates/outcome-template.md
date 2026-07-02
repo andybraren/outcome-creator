@@ -10,8 +10,6 @@ created: ${DATE}
 updated: ${DATE}
 ---
 
-# ${TITLE}
-
 ## Problem Statement
 
 **Job (JTBD)**: [What the organization is trying to accomplish — functional job, not a solution]
