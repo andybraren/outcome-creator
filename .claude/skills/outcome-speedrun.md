@@ -7,6 +7,7 @@ Full outcome pipeline end-to-end with minimal interaction.
 User says `/outcome.speedrun` optionally followed by:
 - A problem statement or strategic theme
 - A Jira key (e.g., `PROJSTRAT-1344`) to fetch and improve an existing outcome
+- Multiple Jira keys or `--derive-jql` to derive an outcome from existing features (see Derive Mode below)
 - `--strategic-goal PROJGOALS-XXX` to anchor to a specific strategic goal
 - `--input batch.yaml` to process multiple outcomes from a YAML file
 - `--headless` to run non-interactively (for CI)
@@ -37,9 +38,20 @@ User says `/outcome.speedrun` optionally followed by:
 4. For each entry, run the single-outcome pipeline (create → refine → review → submit).
 5. Generate a batch report at `artifacts/pipeline-report.html`.
 
+### Derive Mode (from existing features/RFEs)
+
+When multiple Jira keys are provided, or `--derive-jql` is used:
+1. **Derive**: Run `/outcome.derive` with the provided keys or JQL (clusters by JTBD, synthesizes problem-framed outcome from features)
+2. **Refine**: Run `outcome-refine` on the derived outcome
+3. **Review**: Run `outcome-review` with `--auto-revise` enabled
+4. **Submit**: If not `--dry-run`, run `outcome-submit`
+5. **Report**: Print summary with source issue count, scores, and Jira URL
+
+Detection: If 2+ Jira keys are provided and they are **not** PROJSTRAT Outcome-type issues, treat as derive mode. Single PROJSTRAT keys use Existing Jira Outcome mode (below).
+
 ### Existing Jira Outcome
 
-When a Jira key is provided:
+When a single Jira key is provided (typically a PROJSTRAT outcome):
 1. Fetch the issue from Jira
 2. Convert to outcome document format
 3. Run refine → review → submit (update)

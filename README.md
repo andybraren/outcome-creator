@@ -67,11 +67,17 @@ See [docs/outcome-rfe-handoff.md](docs/outcome-rfe-handoff.md).
 ```bash
 # Outcome Pipeline
 /outcome.create     # Write a new outcome from strategic goals + research
+/outcome.derive     # Derive an outcome from existing Jira features/RFEs
 /outcome.plan-milestones  # Bottom-up milestone plan (gap inventory + delivery coupling)
 /outcome.refine     # Refine with research data, user insights, measurability
 /outcome.review     # Score against the outcome rubric (4 dimensions)
 /outcome.submit     # Submit to Jira (PROJSTRAT project, Outcome issue type)
 /outcome.speedrun   # Full pipeline end-to-end with minimal interaction
+
+# Derive outcomes from existing Jira features
+/outcome.derive RHAIRFE-1234 RHAIRFE-1235 RHAIRFE-1240
+/outcome.derive --jql "project = RHAIRFE AND labels = maas"
+/outcome.derive RHAIRFE-1234 RHAIRFE-1235 --strategic-goal PROJGOALS-314
 
 # Work with existing Jira outcomes
 /outcome.review PROJSTRAT-1344    # Fetch, review, and auto-revise
@@ -106,6 +112,14 @@ Create runs milestone planning before writing User Journey phases. Refine or `/o
 `/outcome.review` auto-revises issues it finds (up to 2 cycles). You can also edit artifacts manually between steps.
 
 `/outcome.speedrun` runs the full pipeline with reasonable defaults.
+
+### Derived Outcomes (from existing Jira features)
+
+```
+/outcome.derive RHAIRFE-1234 RHAIRFE-1235 → /outcome.review → /outcome.submit
+```
+
+Derive synthesizes an experience-oriented outcome from existing feature requests, RFEs, or epics in Jira. It reverse-engineers the user job from solution-shaped issues, clusters them by JTBD, plans milestones bottom-up, and produces a proper outcome — with solution language preserved in linked implementation docs. Accepts explicit Jira keys or a `--jql` query.
 
 ### Existing Jira Outcomes
 
@@ -190,7 +204,7 @@ The outcome-creator draws from multiple data sources to build well-grounded outc
 | **User Research** (JTBD, Top Tasks) | Identifies real user needs, pain points, and jobs-to-be-done |
 | **User Outcome Surveys** | Quantitative importance/satisfaction data for prioritization |
 | **Customer Feedback** | Direct quotes and scenarios that ground the outcome in reality |
-| **Existing RFEs** | Feature requests that hint at unmet needs; outcomes can be synthesized from clusters of related RFEs |
+| **Existing RFEs / Features** | Feature requests that hint at unmet needs; `/outcome.derive` synthesizes outcomes from clusters of related Jira issues |
 | **Market / Analyst Data** | Industry trends, competitive gaps, analyst recommendations |
 | **Product Telemetry** | Usage data showing where users struggle or succeed |
 
@@ -290,6 +304,7 @@ outcome-creator/
 │   ├── settings.json               # Claude Code project settings
 │   ├── skills/                     # Claude Code skills (pipeline steps)
 │   │   ├── outcome-create.md
+│   │   ├── outcome-derive.md
 │   │   ├── jtbd-lookup.md
 │   │   ├── outcome-refine.md
 │   │   ├── outcome-review.md
