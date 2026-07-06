@@ -16,14 +16,21 @@ User says `/outcome.create` optionally followed by:
 
 #### Step 1a: JTBD registry lookup (when available)
 
-If `knowledge/jtbd-registry/index.yaml` exists (see `config/jtbd-registry.yaml`):
+**Check and sync the registry:**
+
+1. Check if `knowledge/jtbd-registry/index.yaml` exists.
+2. If it does NOT exist, **attempt to sync it** by running `make sync-jtbd` (which clones from internal GitLab — requires Red Hat VPN + GitLab SAML). This is a one-time setup; subsequent runs will just `git pull`.
+3. If the sync fails (network error, auth error, VPN not connected), log the failure reason in the console summary and continue without JTBD context — do not fail creation. Tell the user: "JTBD registry sync failed ([reason]). Run `make sync-jtbd` manually when on VPN to enable research-backed personas and evidence."
+4. If `knowledge/jtbd-registry/index.yaml` exists (either already present or just synced), proceed with the lookup.
+
+**Run the lookup:**
 
 1. Run `/outcome.jtbd-lookup` with the user prompt, batch `research_sources` (`type: jtbd_registry`), or explicit `--jobs` flags.
 2. Write `artifacts/outcome-originals/OUTCOME-NNN-jtbd-context.md` per the jtbd-lookup skill.
 3. Use Problem Statement seeds, Evidence seeds, and atomic capability seeds when writing the outcome and milestone plan.
 4. Add optional frontmatter when jobs were matched: `jtbd_jobs`, `jtbd_registry_id`.
 
-If the registry is not synced (`make sync-jtbd`), skip this step — do not fail creation.
+**When the registry is unavailable** (sync failed or user skipped), log it in the console summary and note in the inputs snapshot that "Who is involved" was derived from Jira context rather than JTBD research personas. The JTBD registry is the preferred source for the "Who is involved" section — when present, populate job executors from matched persona files (role names, pain themes, and job ownership) rather than inferring from Jira issue descriptions.
 
 If `--headless` is NOT set, ask up to 5 clarifying questions to understand:
 
@@ -118,3 +125,13 @@ Save the original inputs (strategic goal data, research excerpts, user prompt) t
 - Repeat customer quotes in Problem Statement and scenarios
 - Add "Today's pain" to scenarios when Problem Statement and Evidence already describe the struggle
 - Create legacy sections (User Outcome, separate milestones, Acceptance Signals) — use the lean template
+- Leave Jira issue keys as plain text — always hyperlink them (see Jira references rule below)
+
+### Jira Issue References
+
+All Jira issue key references (e.g. `RHAISTRAT-1070`, `RHAIRFE-2494`) MUST be rendered as markdown hyperlinks in the outcome document:
+
+- **Format:** `[RHAISTRAT-1070](https://redhat.atlassian.net/browse/RHAISTRAT-1070)`
+- **Why:** When the outcome is pushed to Jira (via `/outcome.push` or manual upload), plain-text issue keys may or may not auto-link depending on Jira's rendering context. Explicit hyperlinks guarantee clickable cross-references in all contexts (Jira description, Confluence, exported markdown).
+- **Scope:** Apply to all sections — Problem Statement, Evidence, Out of Scope, Example Implementation, and anywhere else an issue key appears.
+- **Base URL:** Use `https://redhat.atlassian.net/browse/` as the base. If a different Jira instance is configured, derive the base URL from the `cloudId` or site URL used in Atlassian MCP calls.
