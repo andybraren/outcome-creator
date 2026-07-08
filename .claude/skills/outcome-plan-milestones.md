@@ -1,3 +1,7 @@
+---
+name: outcome.plan-milestones
+description: Plan or refactor User Journey milestones using bottom-up capability inventory
+---
 # /outcome.plan-milestones
 
 Plan or refactor **User Journey** milestones using bottom-up capability inventory and delivery-coupling rules (adapted from [rfe-creator `/rfe.split`](https://github.com/jwforres/rfe-creator)).

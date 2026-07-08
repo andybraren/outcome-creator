@@ -1,3 +1,7 @@
+---
+name: outcome.export-rfe-batch
+description: Export an rfe-creator batch YAML from an outcome User Journey phases
+---
 # /outcome.export-rfe-batch
 
 Export a rfe-creator batch YAML from an outcome's User Journey phases — **seeds** work for rfe-creator; does not assume one milestone = one RFE.

@@ -1,3 +1,7 @@
+---
+name: outcome.derive
+description: Derive a new experience-oriented outcome from existing Jira issues
+---
 # /outcome.derive
 
 Derive a new experience-oriented outcome from existing Jira issues (RFEs, features, epics, bugs, or any issue type).

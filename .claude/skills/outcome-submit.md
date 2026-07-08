@@ -1,3 +1,7 @@
+---
+name: outcome.submit
+description: Submit a new outcome to Jira or update an existing one
+---
 # /outcome.submit
 
 Submit a new outcome to Jira or update an existing one.

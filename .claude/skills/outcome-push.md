@@ -1,3 +1,7 @@
+---
+name: outcome.push
+description: Resubmit a locally-revised outcome back to CI for re-processing
+---
 # /outcome.push
 
 Resubmit a locally-revised outcome back to CI for re-processing.

@@ -1,3 +1,7 @@
+---
+name: outcome.refine
+description: Refine an existing outcome document with additional research and structural improvements
+---
 # /outcome.refine
 
 Refine an existing outcome document with additional research, data, and structural improvements.

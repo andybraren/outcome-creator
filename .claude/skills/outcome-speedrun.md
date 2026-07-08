@@ -1,3 +1,7 @@
+---
+name: outcome.speedrun
+description: Full outcome pipeline end-to-end with minimal interaction
+---
 # /outcome.speedrun
 
 Full outcome pipeline end-to-end with minimal interaction.
