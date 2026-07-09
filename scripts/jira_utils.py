@@ -128,6 +128,24 @@ def list_outcomes(project: str = "PROJSTRAT", status: str | None = None) -> list
     return search_issues(jql, max_results=200)
 
 
+def create_child_issue(parent_key: str, project: str, issue_type: str,
+                       summary: str, description: str,
+                       labels: list[str] | None = None) -> dict[str, Any]:
+    """Create a child issue linked to a parent via 'is child of'."""
+    fields: dict[str, Any] = {
+        "project": {"key": project},
+        "issuetype": {"name": issue_type},
+        "summary": summary,
+        "description": _text_to_adf(description),
+        "parent": {"key": parent_key},
+    }
+
+    if labels:
+        fields["labels"] = labels
+
+    return jira_request("POST", "issue", {"fields": fields})
+
+
 def find_outcomes_for_goal(goal_key: str) -> list[dict[str, Any]]:
     """Find outcomes linked to a specific strategic goal."""
     issue = fetch_issue(goal_key)

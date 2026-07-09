@@ -25,6 +25,8 @@ updated: ${DATE}
 
 What the user can do at each milestone, how we know it delivered value, and what it looks like in practice.
 
+> **Post-release verification:** A dedicated story is created with this outcome to verify these success signals are actually being met after release. Define *what* success looks like here; the verification story handles the follow-through.
+
 ### Phase 1: [Name]
 
 **User capability:** [What the user can do after this phase — problem-space, passes the three-solutions test]

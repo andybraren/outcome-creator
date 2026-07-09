@@ -44,6 +44,24 @@ scoring:
   revise_threshold: 6
   require_no_zeros_for_revise: true
 
+success_verification:
+  enabled: true
+  issue_type: "Story"
+  title: "Post-release: verify outcome success achievement"
+  description: |
+    After the features and capabilities in this outcome have been released,
+    verify whether the originally defined success signals are being met.
+
+    **Actions:**
+    - Review each phase's success signal and target timeframe
+    - Confirm we are measuring the right things
+    - Determine whether the outcome has been achieved or needs course-correction
+    - Document findings and next steps
+
+    This story is a reminder to close the loop — ship is not done until
+    we know the outcome was actually reached.
+  link_type: "is child of"
+
 research_sources:
   types:
     - name: "jtbd_registry"

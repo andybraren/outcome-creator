@@ -50,6 +50,8 @@ outcome-creator (THE GOAL)     →  What change are we trying to achieve?
             └─ strat-creator (THE HOW)  →  How do we build them?
 ```
 
+The same relationship holds for actual code implementation. Outcomes ground the implementing agents — when engineers or coding agents pick up a strat or RFE, the outcome provides the broader context they need to make good decisions. Without it, implementation drifts toward the literal spec of an individual ticket and loses sight of the end-to-end experience. Linking outcomes to the codebase (via Related Resources) closes the loop: the outcome says *why*, the code delivers *how*, and both stay connected.
+
 ### Outcome → RFE handoff (right-sized children)
 
 User Journey **phases are milestones**. Each milestone may become **one or several sibling RFEs** — export only seeds the batch. When an outcome is ready:
