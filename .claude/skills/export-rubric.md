@@ -1,3 +1,7 @@
+---
+name: export-rubric
+description: Export the outcome scoring rubric to a human-readable markdown file
+---
 # /export-rubric
 
 Export the outcome scoring rubric to a human-readable markdown file.

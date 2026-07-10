@@ -8,10 +8,10 @@ The pipeline scores every outcome so the team knows what's ready for downstream 
 
 This pipeline:
 
-1. **Creates** an outcome stub from inputs — strategic goals, research, pain points (`outcome-create`)
-2. **Refines** the stub into a structured outcome with business, user, and product outcome sections (`outcome-refine`)
-3. **Reviews** the outcome across 4 dimensions — measurability, user focus, business alignment, actionability (`outcome-review`)
-4. **Human sign-off** — a product leader or strategist reviews and marks it ready (`outcome-signoff`)
+1. **Creates** an outcome stub from inputs — strategic goals, research, pain points (`outcome.create`)
+2. **Refines** the stub into a structured outcome with business, user, and product outcome sections (`outcome.refine`)
+3. **Reviews** the outcome across 4 dimensions — measurability, user focus, business alignment, actionability (`outcome.review`)
+4. **Human sign-off** — a product leader or strategist reviews and marks it ready (`outcome.signoff`)
 
 Steps 1–3 run in CI. Step 4 is a human workflow using a separate `local/` workspace.
 
@@ -183,7 +183,7 @@ When the registry is present, `/outcome.create` runs `/outcome.jtbd-lookup` befo
 3. Writes traceability to `artifacts/outcome-originals/OUTCOME-NNN-jtbd-context.md`
 4. Adds optional frontmatter: `jtbd_jobs`, `jtbd_registry_id`
 
-Governance rules (retrieval-only, verbatim quotes, source citations) are enforced per the registry's `governance.yaml`. See `.claude/skills/jtbd-lookup.md` and `config/jtbd-registry.yaml`.
+Governance rules (retrieval-only, verbatim quotes, source citations) are enforced per the registry's `governance.yaml`. See `.claude/skills/outcome.jtbd-lookup.md` and `config/jtbd-registry.yaml`.
 
 ### Batch example
 
@@ -230,7 +230,7 @@ Scoring:
 
 ### CI Pipeline (automated)
 
-The CI pipeline runs `outcome-create` → `outcome-refine` → `outcome-review` in sequence. Each step runs in its own Claude session with artifacts on disk as the handoff. Output lands in `artifacts/`.
+The CI pipeline runs `outcome.create` → `outcome.refine` → `outcome.review` in sequence. Each step runs in its own Claude session with artifacts on disk as the handoff. Output lands in `artifacts/`.
 
 Outcomes that score 6+ total (no zeros) get `outcome-creator-rubric-pass`. Everything else gets `outcome-creator-needs-attention`.
 
@@ -306,19 +306,19 @@ outcome-creator/
 ├── .claude/
 │   ├── settings.json               # Claude Code project settings
 │   ├── skills/                     # Claude Code skills (pipeline steps)
-│   │   ├── outcome-create.md
-│   │   ├── outcome-derive.md
-│   │   ├── jtbd-lookup.md
-│   │   ├── outcome-refine.md
-│   │   ├── outcome-review.md
-│   │   ├── outcome-submit.md
-│   │   ├── outcome-speedrun.md
-│   │   ├── outcome-pull.md
-│   │   ├── outcome-push.md
-│   │   ├── outcome-signoff.md
-│   │   ├── outcome-plan-milestones.md
-│   │   ├── outcome-export-rfe-batch.md
-│   │   ├── outcome-split.md
+│   │   ├── outcome.create.md
+│   │   ├── outcome.derive.md
+│   │   ├── outcome.jtbd-lookup.md
+│   │   ├── outcome.refine.md
+│   │   ├── outcome.review.md
+│   │   ├── outcome.submit.md
+│   │   ├── outcome.speedrun.md
+│   │   ├── outcome.pull.md
+│   │   ├── outcome.push.md
+│   │   ├── outcome.signoff.md
+│   │   ├── outcome.plan-milestones.md
+│   │   ├── outcome.export-rfe-batch.md
+│   │   ├── outcome.split.md
 │   │   ├── assess-outcome.md
 │   │   └── export-rubric.md
 │   └── agents/

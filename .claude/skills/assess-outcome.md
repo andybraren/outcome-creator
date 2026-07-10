@@ -1,3 +1,7 @@
+---
+name: assess-outcome
+description: Score a single outcome or directory of outcomes against the quality rubric
+---
 # /assess-outcome
 
 Score a single outcome or directory of outcomes against the quality rubric.

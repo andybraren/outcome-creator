@@ -1,3 +1,7 @@
+---
+name: outcome.review
+description: Score and review an outcome against the quality rubric across 4 dimensions
+---
 # /outcome.review
 
 Score and review an outcome against the quality rubric across 4 dimensions.

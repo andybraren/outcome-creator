@@ -1,3 +1,7 @@
+---
+name: outcome.split
+description: Split an oversized outcome into sibling outcomes or narrow phases
+---
 # /outcome.split
 
 Split an oversized outcome into sibling outcomes or narrow phases — analogous to `/rfe.split` in [rfe-creator](https://github.com/jwforres/rfe-creator), but at the **outcome** layer.
