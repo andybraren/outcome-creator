@@ -1,3 +1,7 @@
+---
+name: outcome.create
+description: Create a new outcome from strategic goals, research, and/or a problem statement
+---
 # /outcome.create
 
 Create a new outcome from strategic goals, research, and/or a problem statement.

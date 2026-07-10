@@ -1,3 +1,7 @@
+---
+name: outcome.signoff
+description: Sign off a rubric-pass outcome as ready for downstream work
+---
 # /outcome.signoff
 
 Sign off a rubric-pass outcome as ready for downstream work (RFE creation, strategy planning).

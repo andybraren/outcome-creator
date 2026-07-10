@@ -1,3 +1,7 @@
+---
+name: outcome.jtbd-lookup
+description: Resolve Red Hat OpenShift AI JTBD research from the local knowledge registry
+---
 # /outcome.jtbd-lookup
 
 Resolve Red Hat OpenShift AI JTBD research from the local knowledge registry and produce structured context for outcome creation.

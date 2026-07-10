@@ -1,3 +1,7 @@
+---
+name: outcome.pull
+description: Pull a post-CI outcome from Jira into the local workspace for human review
+---
 # /outcome.pull
 
 Pull a post-CI outcome from Jira into the local/ workspace for human review.
