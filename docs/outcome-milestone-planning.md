@@ -1,6 +1,6 @@
 # Milestone planning (User Journey phases)
 
-How to structure **User Journey & Milestones** milestones before writing or refactoring an outcome. Adapted from [rfe-creator `/rfe.split`](https://github.com/jwforres/rfe-creator) — applied at the **milestone** layer, not the RFE layer.
+How to structure **User Journey & Phases** milestones before writing or refactoring an outcome. Adapted from [rfe-creator `/rfe.split`](https://github.com/jwforres/rfe-creator) — applied at the **milestone** layer, not the RFE layer.
 
 ## Why this exists
 

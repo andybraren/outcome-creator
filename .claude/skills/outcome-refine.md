@@ -28,7 +28,7 @@ If the document uses legacy sections, migrate content without losing information
 |---|---|
 | Business Outcome + Product Outcome + Success & Metrics | User Journey phase success signals (lagging in later phases, leading in early) — then delete legacy sections |
 | User Outcome | Problem Statement (who) + User Journey (capabilities) — then delete User Outcome |
-| End-to-End Customer Arc + Story Map + Release Milestones | User Journey & Milestones (one phase block per delivery slice) |
+| End-to-End Customer Arc + Story Map + Release Milestones | User Journey & Phases (one phase block per delivery slice) |
 | Opportunity Assessment | Evidence (one-line opportunity verdict) |
 | Downstream Opportunities | Open Questions (questions only) + Related Resources (link to implementation doc with solution details) |
 | Example Implementation (inline) | Open Questions (extract questions) + Related Resources (link to implementation doc with solution details) |
@@ -42,7 +42,7 @@ If the document uses legacy sections, migrate content without losing information
 - Move customer quotes and named accounts to Evidence
 - Remove solution language — move to a linked implementation doc (add link in Related Resources)
 
-#### User Journey & Milestones
+#### User Journey & Phases
 
 If a **Success & Metrics** section exists, migrate lagging/leading indicators into phase success signals (early phases = leading, final phase(s) = outcome-level lagging), then delete Success & Metrics.
 
@@ -54,7 +54,9 @@ If phases are missing, theme-only, or bundle unrelated problems:
 
 Otherwise refine in place:
 
-- Each phase: user capability, when this is true, success signal (with timeframe), problems addressed
+- Each phase: user capability, when this is true, success signal (with timeframe), problems addressed, **Features to deliver**
+- Separate consecutive phases with a horizontal rule (`---`) for Jira rendering
+- **Features to deliver:** If Jira keys are buried in problem bullets, Evidence, or Related Resources, move them into a per-phase `**Features to deliver:**` list as `[KEY](url) — summary`. Keep problem bullets problem-framed. When deriving from strat/RFE work, every in-scope source issue should appear in exactly one phase's delivery list.
 - **Three-solutions test** on every user capability headline
 - **Milestone sizing:** one-sentence test per phase; flag phases with `expected_rfe_count: 1..N` in plan
 - Scenarios: Actors, Context, Flow, Win moment only — remove Today's pain if present
@@ -86,7 +88,7 @@ Before finishing, check for and remove:
 - Same quote in Problem Statement and Evidence
 - Same metric repeated verbatim in multiple phase success signals (keep one home per metric)
 - Same capability stated in a phase headline and "When this is true" bullets (tighten, don't repeat)
-- Separate Story Map + Milestones + Acceptance Signals sections (must be one User Journey & Milestones)
+- Separate Story Map + Milestones + Acceptance Signals sections (must be one User Journey & Phases)
 
 ### Step 6: Update Frontmatter
 

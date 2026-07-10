@@ -50,7 +50,7 @@ outcome-creator uses the same *ideas* at the outcome layer in `/outcome.split` (
 
 ## Export modes (not final RFE count)
 
-`/outcome.export-rfe-batch` reads **User Journey & Milestones**:
+`/outcome.export-rfe-batch` reads **User Journey & Phases**:
 
 ### Default: phase-candidate per milestone
 

@@ -71,7 +71,7 @@ When solution language is detected in auto-revise: rewrite the statement as prob
 
 Read `docs/outcome-milestone-planning.md`. If `artifacts/outcome-plans/<OUTCOME-ID>-milestone-plan.yaml` exists, verify the User Journey matches it. If no plan exists, run checks inline:
 
-For each `### Phase` in User Journey & Milestones:
+For each `### Phase` in User Journey & Phases:
 
 | Check | Flag when |
 |-------|-----------|
@@ -92,7 +92,7 @@ After scoring, run 4 independent prose reviews (can be parallelized as separate 
 1. **Measurability Reviewer** — Does each phase have a real, measurable success signal with timeframe? Are leading vs lagging metrics placed in the right phases? Flag a legacy Success & Metrics section for migration. Any redundant metric restatements to remove?
 2. **User Focus Reviewer** — Is JTBD coherent? Does the User Journey describe the full journey solution-independently? Are scenarios free of duplicated pain/quotes from Evidence?
 3. **Business Alignment Reviewer** — Does the business case hold up? Are strategic connections genuine? Is Evidence substantive?
-4. **Actionability Reviewer** — Can teams start discovery from the User Journey? Are milestones gap-driven (not theme-only)? Read milestone-sizing findings. Does Open Questions section identify discovery questions? Does Related Resources link to an implementation sketch? Is Out of Scope explicit? Flag legacy sections (including inline Example Implementation) that should be consolidated.
+4. **Actionability Reviewer** — Can teams start discovery from the User Journey? Are milestones gap-driven (not theme-only)? Read milestone-sizing findings. Does each phase list **Features to deliver** when source Stories/Features/RFEs are known (or explicitly TBD)? Does Open Questions section identify discovery questions? Does Related Resources link to an implementation sketch? Is Out of Scope explicit? Flag legacy sections (including inline Example Implementation) that should be consolidated.
 
 Each reviewer writes findings to `artifacts/outcome-reviews/OUTCOME-NNN-<dimension>.md`.
 

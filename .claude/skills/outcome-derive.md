@@ -55,6 +55,17 @@ Read all fetched issues. For each issue, extract:
 - **Priority** and **status**
 - **Comments** (for additional context — customer names, use cases, rationale)
 
+#### Cohesion check (do this before synthesizing)
+
+PMs often brain-dump a bag of features or point at "these existing tickets" without checking whether they belong in one outcome. **Do not skip this check.** Before clustering or writing a JTBD, ask:
+
+1. **Related?** Are these features generally about the same user need / experience, or a grab-bag of unrelated asks?
+2. **Natural fit?** Does it make sense for them to ship under one outcome, or are they only grouped because they share a label, component, or backlog owner?
+3. **Higher-level bridge?** Is there a coherent end-to-end experience (one job thread / journey) that ties them together — not just a theme name like "multi-tenancy" or "governance"?
+4. **Progression?** Do they form a natural progression of the same journey (discover → configure → operate), or parallel unrelated journeys?
+
+If the answer to (1)–(3) is weak, **push back** before deriving. Prefer clarifying or splitting over forcing a kitchen-sink outcome.
+
 #### Cluster by job thread
 
 Group the issues by the user job they serve. Ask per issue:
@@ -63,14 +74,25 @@ Group the issues by the user job they serve. Ask per issue:
 2. Who is trying to do the job (the actor)?
 3. What struggle or friction does it solve?
 
-Issues that serve the **same JTBD** cluster together → one outcome. Issues that serve **different JTBDs** → recommend separate `/outcome.derive` invocations or flag for `/outcome.split` after creation.
+Issues that serve the **same JTBD** cluster together → one outcome. Issues that serve **different JTBDs** (different experience journeys) → recommend separate `/outcome.derive` invocations or flag for `/outcome.split` after creation. Do not paper over that with a vague umbrella JTBD.
 
 If clusters are ambiguous and `--headless` is NOT set, present the proposed clustering and ask the user to confirm or adjust.
 
-#### Signal unrelated jobs
+#### Flag outliers and push back
 
-If the source issues span 2+ unrelated job threads:
-- **Interactive mode:** Present the clusters and ask the user which cluster to derive first. Note the remaining clusters as candidates for separate outcomes.
+When most issues cohere but one or two do not:
+
+- **Interactive mode:** Call them out explicitly. Ask the user to clarify how the outlier connects to the shared journey, or confirm it can be dropped / deferred to a separate outcome. Example prompts:
+  - "This one looks like an outlier — it doesn't clearly serve the same job as the others. How is it related?"
+  - "Can we remove it from this outcome and handle it separately?"
+  - "These two clusters look like different experience journeys. Should we derive two outcomes instead of one?"
+- Do **not** silently fold an unrelated feature into the outcome just because the user listed it.
+- Put confirmed exclusions in **Out of Scope** (and in the inputs snapshot) with a one-line rationale.
+
+#### Signal unrelated jobs / split into sibling outcomes
+
+If the source issues span 2+ unrelated job threads (or two distinct experience journeys with no shared bridge):
+- **Interactive mode:** Present the clusters and ask which cluster to derive first. Recommend separate outcomes for the rest — do not force one outcome across different journeys.
 - **Headless mode:** Derive from the largest coherent cluster. Write a warning listing the unrelated issues with a recommendation to run `/outcome.derive` again for each remaining cluster.
 
 ### Step 3: Synthesize JTBD from Features
@@ -136,7 +158,7 @@ Write the outcome to `artifacts/outcome-tasks/OUTCOME-NNN-<slug>.md` using the t
 Follow the **same section rules as `/outcome.create`** — the document MUST include only:
 
 1. **Problem Statement** — Synthesized JTBD (Step 3). No solution language, no feature names from source issues.
-2. **User Journey & Milestones** — Phases from the milestone plan (Step 5). Source issue capabilities become the "problems this phase addresses" bullets. Feature-level detail stays in linked implementation docs.
+2. **User Journey & Phases** — Phases from the milestone plan (Step 5). Source issue **customer gaps** become the "problems this phase addresses" bullets (problem-framed, no feature names). Source issues themselves go under **Features to deliver** as linked bullets (`[KEY](url) — summary`) grouped into the phase that delivers them. Solution/architecture detail still lives in linked implementation docs.
 3. **Evidence** — Customer quotes and data extracted from source issue descriptions and comments (with citations back to Jira keys). Analyst/market data if available. Platform gap assessment based on what the features reveal about current state.
 4. **Open Questions** — Discovery questions surfaced during synthesis. Questions from source issue comments. Architectural decisions that need resolution.
 5. **Out of Scope** — Features from the source issues that were excluded (different JTBD, too narrow, out of cluster). At least 3 exclusions with rationale.
@@ -186,7 +208,8 @@ Check if `artifacts/outcome-rubric.md` exists. If not, run the `export-rubric` s
 Unless `--headless`, present a summary:
 
 - Source issues used (count and keys)
-- Source issues excluded (if any, with reasons)
+- Source issues excluded (if any, with reasons) — including outliers the user confirmed to drop
+- Cohesion check result (one shared journey vs. split recommended)
 - Synthesized JTBD (one sentence)
 - Milestone count and names
 - Any warnings (unrelated job threads, missing evidence, source issues with no description)
@@ -216,17 +239,21 @@ If invoked with files in `local/outcome-tasks/`, write outputs to `local/` inste
 ## Quality Guidelines
 
 **Do:**
+- Run the cohesion check before synthesizing — relatedness, higher-level journey bridge, natural progression
+- Push back on outliers: ask how they connect, or confirm remove / separate outcome
 - Reverse-engineer the user job from feature requests — the outcome must be experience-oriented, not a feature list
+- Prefer two coherent outcomes over one kitchen-sink when source issues target different experience journeys
 - Preserve all solution language from source issues — move it to linked implementation docs, never discard
 - Cite source Jira keys when extracting evidence (customer quotes, rationale)
 - Use `derived_from` frontmatter to maintain traceability
 - Run the three-solutions test on every capability headline and the synthesized JTBD
 
 **Don't:**
+- Silently fold unrelated features into one outcome because the user listed them together
 - Copy-paste feature summaries as outcome phases — phases are user capabilities, not feature names
 - Lose context from source issue comments — customer names, use cases, and rationale are valuable evidence
 - Create a "feature umbrella" outcome that just lists features without a coherent job thread
-- Skip the clustering step — unrelated features in one outcome will fail review
+- Skip the cohesion / clustering step — unrelated features in one outcome will fail review
 
 ## Output
 

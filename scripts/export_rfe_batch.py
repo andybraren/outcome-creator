@@ -56,9 +56,9 @@ def _is_sequencing_only_line(problem: str) -> bool:
 
 
 def parse_phases(body: str) -> list[OutcomePhase]:
-    """Parse ### Phase N: sections from User Journey & Milestones."""
+    """Parse ### Phase N: sections from User Journey & Phases."""
     arc_match = re.search(
-        r"^## (?:User Journey & Milestones|Customer Arc & Delivery Plan)\s*$",
+        r"^## (?:User Journey & Phases|User Journey & Milestones|Customer Arc & Delivery Plan)\s*$",
         body,
         re.MULTILINE | re.IGNORECASE,
     )

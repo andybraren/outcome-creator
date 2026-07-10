@@ -12,7 +12,7 @@ You may NOT use: Bash, shell commands, network access, MCP tools, or any other t
 
 When given an outcome document path, score it across 4 dimensions.
 
-Score against the standard six-section structure: Problem Statement, User Journey & Milestones, Evidence, Open Questions, Out of Scope, Related Resources. Score substance and quality, not minor section naming variations within that structure.
+Score against the standard six-section structure: Problem Statement, User Journey & Phases, Evidence, Open Questions, Out of Scope, Related Resources. Score substance and quality, not minor section naming variations within that structure.
 
 ### Input
 
@@ -50,7 +50,7 @@ Read the outcome document carefully. For each dimension, assign a score of 0, 1,
 
 **Score 2** if:
 - Problem Statement has explicit JTBD with job, context, struggle, job executors sharing one coherent job
-- User Journey & Milestones has 2–4 phases with solution-independent capabilities (1 acceptable for narrowly scoped outcomes)
+- User Journey & Phases has 2–4 phases with solution-independent capabilities (1 acceptable for narrowly scoped outcomes)
 - 2–3 scenarios with flow and win moments; grounded in Evidence
 - A user would recognize this as their problem
 
@@ -72,11 +72,13 @@ Read the outcome document carefully. For each dimension, assign a score of 0, 1,
 
 **Score 0** if:
 - Too broad or too narrow (feature in disguise)
+- Kitchen sink: unrelated features / job threads forced into one outcome with no shared journey bridge
 - Teams cannot derive concrete work; no phases or milestones
 
 **Score 1** if:
 - Phases exist but solution-shaped, theme-only, lack sequencing, or missing success signals
 - One or more phases bundle unrelated problems without delivery-coupling notes
+- Outliers or mixed journeys present but not flagged for `/outcome.split`
 - Out-of-scope missing or vague; open questions absent
 
 **Score 2** if:

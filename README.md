@@ -121,7 +121,7 @@ Create runs milestone planning before writing User Journey phases. Refine or `/o
 /outcome.derive RHAIRFE-1234 RHAIRFE-1235 → /outcome.review → /outcome.submit
 ```
 
-Derive synthesizes an experience-oriented outcome from existing feature requests, RFEs, or epics in Jira. It reverse-engineers the user job from solution-shaped issues, clusters them by JTBD, plans milestones bottom-up, and produces a proper outcome — with solution language preserved in linked implementation docs. Accepts explicit Jira keys or a `--jql` query.
+Derive synthesizes an experience-oriented outcome from existing feature requests, RFEs, or epics in Jira. It reverse-engineers the user job from solution-shaped issues, runs a **cohesion check** (are these related? is there a shared journey bridge? any outliers?), clusters by JTBD, plans milestones bottom-up, and produces a proper outcome — with solution language preserved in linked implementation docs. Unrelated clusters or different experience journeys become sibling outcomes, not a kitchen sink. Accepts explicit Jira keys or a `--jql` query.
 
 ### Existing Jira Outcomes
 
@@ -267,9 +267,10 @@ title: "Outcome Title"
 ## Problem Statement
 JTBD only — job, context, struggle, who is involved. No quotes or named accounts here.
 
-## User Journey & Milestones
+## User Journey & Phases
 Phases combine experience arc, delivery plan, and **all success metrics** (not a separate Success & Metrics section):
 - User capability, when this is true, success signal + timeframe, problems addressed
+- **Features to deliver** — linked Stories / Features / RFEs that realize the phase (`[KEY](url) — summary`)
 - Early phases = leading indicators; later phases may include outcome-level lagging targets
 - Scenarios per phase: Actors, Context, Flow, Win moment (no "Today's pain")
 

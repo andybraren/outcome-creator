@@ -11,7 +11,7 @@ User says `/outcome.export-rfe-batch` optionally followed by:
 
 ## Prerequisites
 
-- Outcome uses the **lean template** with **User Journey & Milestones** (phases with user capability, problems, success signals)
+- Outcome uses the **lean template** with **User Journey & Phases** (phases with user capability, problems, success signals)
 - Outcome should pass `/outcome.review` (coherent JTBD, problem-framed phases)
 
 ## Milestone ↔ RFE cardinality

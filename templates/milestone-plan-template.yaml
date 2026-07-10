@@ -34,6 +34,9 @@ milestones:
     atomic_capability_ids: [cap-1, cap-2]
     problems_addressed:
       - "Problem bullet"
+    features_to_deliver:
+      - key: PROJ-123
+        summary: "Story / Feature / RFE summary"
     depends_on: []  # prior phase numbers
     sequencing_notes:
       - "Value dependency explanation"

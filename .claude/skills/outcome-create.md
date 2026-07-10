@@ -42,6 +42,17 @@ If `--headless` is NOT set, ask up to 5 clarifying questions to understand:
 
 If `--headless` IS set, derive answers from the input prompt and any `--strategic-goal` context.
 
+#### Cohesion check (when the input is a feature / idea dump)
+
+If the user (often a PM) pastes a list of features, capabilities, or "things we should build" rather than a single job:
+
+1. **Related?** Do these items generally serve one user need / experience, or are they a grab-bag?
+2. **Higher-level bridge?** Is there a coherent end-to-end journey that ties them together — not just a shared theme, label, or backlog owner?
+3. **Outliers?** Call out items that don't connect to the rest. Ask: "This one seems like an outlier — how is it related?" or "Can we drop it / put it in a separate outcome?"
+4. **Split?** If items target different experience journeys, recommend **two (or more) outcomes** instead of one kitchen-sink outcome. Prefer `/outcome.derive` when the dump is mostly existing Jira issues.
+
+Do **not** silently accept an unrelated bag of features as one outcome. Push back early — clarifying or splitting is cheaper than failing review later.
+
 ### Step 2: Bootstrap Rubric
 
 Check if `artifacts/outcome-rubric.md` exists. If not, run the `export-rubric` skill to generate it. Use the rubric to guide outcome creation — ensure each section addresses what the rubric scores.
@@ -64,11 +75,12 @@ Write the outcome to `artifacts/outcome-tasks/OUTCOME-NNN-<slug>.md` using the t
 The document MUST include these sections only (lean structure — avoid redundant restatements):
 
 1. **Problem Statement** — JTBD only: job, context, struggle, who is involved (sub-bullets per job executor). No customer quotes, no named accounts, no solution language.
-2. **User Journey & Milestones** — Write phases from the milestone plan (Step 2.5). **All success metrics live here** — no separate Success & Metrics section. Typically **2–4 phases** (fewer when delivery-coupled; cap at ~4). For each phase:
+2. **User Journey & Phases** — Write phases from the milestone plan (Step 2.5). **All success metrics live here** — no separate Success & Metrics section. Typically **2–4 phases** (fewer when delivery-coupled; cap at ~4). Separate phases with a horizontal rule (`---`) so they render as dividers in Jira. For each phase:
    - User capability headline (from plan; three-solutions test)
    - When this is true (actor capabilities, solution-independent)
    - Success signal with target timeframe (from plan)
-   - Problems this phase addresses (from atomic inventory; value dependencies noted)
+   - Problems this phase addresses (from atomic inventory; value dependencies noted) — problem-framed only; do not bury Jira keys here
+   - **Features to deliver** — bulleted list of linked Stories / Features / RFEs that realize this phase (`[KEY](url) — summary`). Populate from known source issues when deriving or when strat/RFE work already exists; use `TBD` only when no delivery tickets exist yet
    - 2–3 scenarios nested under relevant phases: Actors, Context, Flow, Win moment — **no Today's pain** (Problem + Evidence cover that)
    - Set milestone plan `status: applied` after writing phases
 3. **Evidence** — Customer quotes, analyst/market data, platform gaps, one-line opportunity verdict. No separate Opportunity Assessment section.
@@ -115,12 +127,15 @@ Save the original inputs (strategic goal data, research excerpts, user prompt) t
 
 **Do:**
 - Plan milestones bottom-up before writing User Journey (`docs/outcome-milestone-planning.md`)
+- Run the cohesion check when the input is a feature/idea dump — confirm one shared journey before writing
 - Write problem-framed statements that pass the three-solutions test in Problem Statement and User Journey phases
 - Put all customer quotes and named accounts in Evidence (once), each with source citation
 - Put solution language in linked implementation docs (Related Documents), not in the outcome body
 - Preserve the author's solution thinking when converting from Jira — move it to a linked doc, don't delete it
+- Flag outliers and recommend sibling outcomes when items target different experience journeys
 
 **Don't:**
+- Accept a kitchen-sink feature list as one outcome without checking cohesion
 - Repeat the same metric verbatim across multiple phase success signals (say it once in the right phase)
 - Repeat customer quotes in Problem Statement and scenarios
 - Add "Today's pain" to scenarios when Problem Statement and Evidence already describe the struggle

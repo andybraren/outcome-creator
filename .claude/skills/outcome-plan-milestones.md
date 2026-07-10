@@ -7,7 +7,7 @@ Plan or refactor **User Journey** milestones using bottom-up capability inventor
 User says `/outcome.plan-milestones` optionally followed by:
 
 - A path to an outcome file in `artifacts/outcome-tasks/` or `local/outcome-tasks/`
-- `--apply` to rewrite the User Journey & Milestones section from the approved plan
+- `--apply` to rewrite the User Journey & Phases section from the approved plan
 - `--headless` to skip interactive confirmation of the recommended grouping
 
 ## When to use
@@ -104,13 +104,15 @@ Ask for confirmation before `--apply` unless `--headless`.
 
 ### Step 7: Apply (if `--apply`)
 
-Rewrite **only** `## User Journey & Milestones` in the outcome file:
+Rewrite **only** `## User Journey & Phases` in the outcome file:
 
 - `### Phase N: <name>` per planned milestone
+- Separate consecutive phases with a horizontal rule (`---`) for Jira rendering
 - **User capability:** from `capability_headline`
 - **When this is true:** actor bullets derived from capabilities (solution-independent)
 - **Success signal:** from `success_signal_sketch`
 - **Problems this phase addresses:** from `problems_addressed`; inline `*(sequencing note)*` from `sequencing_notes`
+- **Features to deliver:** from `features_to_deliver` / `source_issues` on atomic capabilities — linked `[KEY](url) — summary` bullets; one home per issue across phases
 - Preserve existing scenarios where they still map to a phase; add/move scenarios if needed (2–3 total across arc)
 - Do not duplicate content into phase success signals or Evidence (metrics belong in phase success signals only)
 

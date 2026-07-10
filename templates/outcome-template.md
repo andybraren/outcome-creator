@@ -19,11 +19,11 @@ updated: ${DATE}
 - **[Name of job executor]** — [what part of the job they own]
 - **[Name of additional job executor (if applicable)]** — [what part of the job they own]
 
-## User Journey & Milestones
+## User Journey & Phases
 
 **[Phase 1]** → **[Phase 2]** → ...
 
-What the user can do at each milestone, how we know it delivered value, and what it looks like in practice.
+What the user can do at each phase, how we know it delivered value, and what it looks like in practice.
 
 > **Post-release verification:** A dedicated story is created with this outcome to verify these success signals are actually being met after release. Define *what* success looks like here; the verification story handles the follow-through.
 
@@ -41,11 +41,17 @@ What the user can do at each milestone, how we know it delivered value, and what
 - [Problem this phase addresses]
 - [Value dependency on a prior phase, if any]
 
+**Features to deliver:**
+- [PROJ-123](https://redhat.atlassian.net/browse/PROJ-123) — [Story / Feature / RFE summary]
+- [PROJ-456](https://redhat.atlassian.net/browse/PROJ-456) — [Story / Feature / RFE summary]
+
 #### Scenario: [Title]
 - **Actors:** [Who is involved]
 - **Context:** [When/where this happens]
 - **Flow:** [Concise, plain-language steps — roles, decisions, handoffs]
 - **Win moment:** [Observable signal that this phase is real]
+
+---
 
 ### Phase 2: [Name]
 
@@ -57,6 +63,9 @@ What the user can do at each milestone, how we know it delivered value, and what
 **Success signal:** [...] (target: [...])
 
 **Problems this phase addresses:**
+- [...]
+
+**Features to deliver:**
 - [...]
 
 #### Scenario: [Title]

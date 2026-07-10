@@ -22,7 +22,7 @@ SAMPLE_PROBLEM = """
 """
 
 SAMPLE_ARC = """
-## User Journey & Milestones
+## User Journey & Phases
 
 ### Phase 1: Trust
 
