@@ -54,9 +54,9 @@ The same relationship holds for actual code implementation. Outcomes ground the 
 
 ### Outcome → RFE handoff (right-sized children)
 
-User Journey **phases are milestones**. Each milestone may become **one or several sibling RFEs** — export only seeds the batch. When an outcome is ready:
+User Journey uses exactly **Next** (near-term) and **Future** (later features). **Next** may become **one or several sibling RFEs** — export only seeds the batch. When an outcome is ready:
 
-1. `/outcome.export-rfe-batch` — emits a YAML batch (one phase-candidate per milestone by default; `--per-problem` for independent slices) for [rfe-creator](https://github.com/jwforres/rfe-creator)
+1. `/outcome.export-rfe-batch` — emits a YAML batch from Next (one phase-candidate by default; `--per-problem` for independent slices) for [rfe-creator](https://github.com/jwforres/rfe-creator)
 2. `/rfe.speedrun --input <batch>` — creates and reviews RFEs in RHAIRFE
 3. `/rfe.review` + `/rfe.split` — decompose oversized candidates into sibling RFEs under the same milestone labels
 
@@ -109,7 +109,7 @@ See [docs/outcome-rfe-handoff.md](docs/outcome-rfe-handoff.md).
 /outcome.create → /outcome.refine → /outcome.review → /outcome.submit
 ```
 
-Create runs milestone planning before writing User Journey phases. Refine or `/outcome.plan-milestones --apply` when restructuring phases.
+Create runs milestone planning before writing User Journey (Next + Future). Refine or `/outcome.plan-milestones --apply` when restructuring Next vs Future.
 
 `/outcome.review` auto-revises issues it finds (up to 2 cycles). You can also edit artifacts manually between steps.
 
@@ -179,7 +179,7 @@ Requires Red Hat VPN and GitLab SAML authentication. Override the clone URL with
 When the registry is present, `/outcome.create` runs `/outcome.jtbd-lookup` before writing the outcome:
 
 1. Matches 1–3 relevant jobs from the prompt or batch YAML (`type: jtbd_registry`)
-2. Pre-populates Problem Statement (job, struggle, actors), Evidence (OpScores, verbatim quotes), and milestone capability inventory (`job_steps`)
+2. Pre-populates Problem Statement (context, struggle, goal, personas), Evidence (OpScores, verbatim quotes), and milestone capability inventory (`job_steps`)
 3. Writes traceability to `artifacts/outcome-originals/OUTCOME-NNN-jtbd-context.md`
 4. Adds optional frontmatter: `jtbd_jobs`, `jtbd_registry_id`
 
@@ -265,14 +265,14 @@ title: "Outcome Title"
 # Outcome Title
 
 ## Problem Statement
-JTBD only — job, context, struggle, who is involved. No quotes or named accounts here.
+Context → Struggle → Goal → Personas (JTBD). No quotes or named accounts here.
 
 ## User Journey & Phases
-Phases combine experience arc, delivery plan, and **all success metrics** (not a separate Success & Metrics section):
-- User capability, when this is true, success signal + timeframe, problems addressed
-- **Features to deliver** — linked Stories / Features / RFEs that realize the phase (`[KEY](url) — summary`)
-- Early phases = leading indicators; later phases may include outcome-level lagging targets
-- Scenarios per phase: Actors, Context, Flow, Win moment (no "Today's pain")
+Exactly two subsections — **Next** (near-term) and **Future** (later). Do not add more phases.
+- **Next:** Problems to address → Personas this helps → Features to deliver (`(P1)`, `(P2)`, … ranked) → Success signal → Scenario(s)
+- **Future:** Features to deliver only (unranked)
+- All success metrics live under Next (not a separate Success & Metrics section)
+- Scenarios under Next: Actors, Context, Flow, Win moment (no "Today's pain")
 
 ## Evidence
 Customer quotes, analyst/market data, platform gaps, one-line opportunity verdict.

@@ -1,25 +1,29 @@
-# Milestone planning (User Journey phases)
+# Milestone planning (Next + Future)
 
-How to structure **User Journey & Phases** milestones before writing or refactoring an outcome. Adapted from [rfe-creator `/rfe.split`](https://github.com/jwforres/rfe-creator) — applied at the **milestone** layer, not the RFE layer.
+How to structure **User Journey & Phases** before writing or refactoring an outcome. Adapted from [rfe-creator `/rfe.split`](https://github.com/jwforres/rfe-creator) — applied at the **milestone** layer, not the RFE layer.
+
+Outcomes use exactly two subsections: **Next** (near-term delivery with full detail) and **Future** (later features only). Do not invent Phase 3 / thematic multi-phase arcs.
 
 ## Why this exists
 
-Theme-based phases ("Trust", "Operate", "Observe") are easy to write but often hide:
+Theme-based phase arcs ("Trust" → "Operate" → "Observe") are easy to write but often hide:
 
 - Unrelated problems bundled in one milestone
 - Prerequisites split across milestones incorrectly
 - Milestones that will explode into many sibling RFEs downstream
+- Over-specified roadmaps that age poorly
 
-Milestone planning runs **bottom-up** from atomic customer gaps, then groups only what is **delivery-coupled**.
+Milestone planning runs **bottom-up** from atomic customer gaps, then assigns each gap to **Next** or **Future**.
 
 ## Cardinality
 
 | Layer | Typical cardinality |
 |-------|---------------------|
-| Outcome → milestones | Typically 2–4 phases (cap at ~4); each phase = one user-capability thread |
-| Milestone → RFEs | **1..N** sibling RFEs (see [outcome-rfe-handoff.md](outcome-rfe-handoff.md)) |
+| Outcome → journey | Exactly **Next** + **Future** |
+| Next → RFEs | **1..N** sibling RFEs (see [outcome-rfe-handoff.md](outcome-rfe-handoff.md)) |
+| Future → RFEs | Deferred — promote into Next later; export focuses on Next |
 
-Planning milestones well reduces painful `/rfe.split` later.
+Planning Next well reduces painful `/rfe.split` later.
 
 ## Process
 
@@ -27,9 +31,9 @@ Planning milestones well reduces painful `/rfe.split` later.
 
 Start from **gaps**, not theme names. Sources:
 
-- Problem Statement (struggle, who is involved)
+- Problem Statement (struggle, goal, Personas (JTBD))
 - Evidence (platform gaps, customer quotes)
-- Existing phase problem bullets (if refactoring)
+- Existing Next / legacy phase problem bullets (if refactoring)
 
 For each gap, write a one-sentence **user capability** summary (problem-space, three-solutions test).
 
@@ -39,42 +43,48 @@ Ask per gap:
 2. Does it **require** another gap to function at all?
 3. Does it serve a **different job thread** than adjacent gaps?
 4. Would shipping one without the other create a **broken experience**?
+5. Is this **near-term (Next)** or **later (Future)**?
 
 Mark **delivery-coupled** pairs (e.g. identity before access control; capability + its prerequisite).
 
-**Avoid:** grouping by theme when gaps serve different segments or can ship independently.
+**Avoid:** grouping by theme when gaps serve different segments or can ship independently. **Avoid:** inventing more than two journey subsections.
 
-### 2. Propose milestone groupings
+### 2. Assign Next vs Future
 
-Group only gaps that are **inseparable** (delivery-coupled or same job thread). Everything else gets its own milestone candidate.
+- **Next** — the near-term delivery-coupled slice that delivers customer value soonest
+- **Future** — remaining in-scope work that can wait (features list only in the outcome body)
 
-For each proposed milestone:
+For Next, capture:
 
-- **Name** — short phase label (e.g. Trust, Operate)
-- **One-sentence capability** — single headline for the phase
 - **Problems addressed** — bullets from the inventory
-- **Sequencing** — `depends_on` prior milestone numbers; note value dependencies
+- **Personas helped** — actor + experience change (solution-independent)
+- **Sequencing** — value dependencies noted inline when needed
 - **Success signal sketch** — observable customer value + rough timeframe
+- **Features to deliver** — known source issues
 
-Propose **2–3 grouping strategies** when ambiguous; recommend the fewest milestones where each still passes checks below.
+For Future, capture:
 
-### 3. Milestone sizing checks
+- **Features to deliver** only
 
-Run on every proposed milestone:
+Propose an alternate grouping when ambiguous; recommend the **tightest Next** that still passes checks below.
+
+### 3. Next sizing checks
+
+Run on Next (Future is a feature backlog — re-check when promoting items into Next):
 
 | Check | Pass | Fail → action |
 |-------|------|----------------|
-| **Three-solutions test** | Capability is solution-independent | Rewrite headline; move solution language to a linked implementation doc |
-| **One-sentence test** | One capability thread; "and" only links coupled sub-needs | Split milestone or mark `expected_rfe_count: 2+` |
-| **Job thread** | All problems serve the same JTBD | Split outcome (`/outcome.split`) or separate milestones |
-| **Delivery coupling** | Prerequisites live in same milestone or explicit `depends_on` | Merge coupled gaps; don't split identity from access control across phases |
+| **Three-solutions test** | Persona/capability language is solution-independent | Rewrite; move solution language to a linked implementation doc |
+| **One-sentence test** | One capability thread; "and" only links coupled sub-needs | Park some gaps in Future, split outcome, or mark `expected_rfe_count: 2+` |
+| **Job thread** | All problems serve the same JTBD | Split outcome (`/outcome.split`) or move outliers out of Next |
+| **Delivery coupling** | Prerequisites live in Next or have an explicit sequencing note | Merge coupled gaps into Next |
 | **RFE forecast** | 1–3 related problems → likely 1 RFE; 2–3 independent problems → plan 1..N RFEs | Use `--per-problem` export or expect `/rfe.split` |
 
 ### 4. Write or apply
 
-- **New outcome:** `/outcome.create` runs planning before User Journey (writes plan artifact, then phases).
+- **New outcome:** `/outcome.create` runs planning before User Journey (writes plan artifact, then Next + Future).
 - **Existing outcome:** `/outcome.plan-milestones` writes plan; apply with `--apply` or `/outcome.refine`.
-- **Review:** `/outcome.review` runs milestone sizing checks in Step 4.5.
+- **Review:** `/outcome.review` runs Next/Future structure + sizing checks in Step 4.5.
 
 ## Plan artifact
 
@@ -88,7 +98,7 @@ See `templates/milestone-plan-template.yaml`. Set `status: applied` when the Use
 
 | Skill | Layer |
 |-------|--------|
-| `/outcome.plan-milestones` | Design milestones (this doc) |
+| `/outcome.plan-milestones` | Design Next vs Future (this doc) |
 | `/outcome.split` | Split **outcomes** (unrelated JTBDs) |
-| `/outcome.export-rfe-batch` | Seed **RFE** candidates per milestone |
+| `/outcome.export-rfe-batch` | Seed **RFE** candidates from **Next** |
 | `/rfe.split` (rfe-creator) | Split **RFEs** when still oversized |

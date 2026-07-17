@@ -1,10 +1,10 @@
 ---
 name: outcome.export-rfe-batch
-description: Export an rfe-creator batch YAML from an outcome User Journey phases
+description: Export an rfe-creator batch YAML from an outcome Next subsection
 ---
 # /outcome.export-rfe-batch
 
-Export a rfe-creator batch YAML from an outcome's User Journey phases — **seeds** work for rfe-creator; does not assume one milestone = one RFE.
+Export a rfe-creator batch YAML from an outcome's **Next** subsection — **seeds** work for rfe-creator; does not assume Next = one RFE.
 
 ## Trigger
 
@@ -15,17 +15,17 @@ User says `/outcome.export-rfe-batch` optionally followed by:
 
 ## Prerequisites
 
-- Outcome uses the **lean template** with **User Journey & Phases** (phases with user capability, problems, success signals)
-- Outcome should pass `/outcome.review` (coherent JTBD, problem-framed phases)
+- Outcome uses the **lean template** with **User Journey & Phases** (`### Next` + `### Future`; Next has problems, personas, success signal)
+- Outcome should pass `/outcome.review` (coherent JTBD, Next + Future only)
 
 ## Milestone ↔ RFE cardinality
 
-Each User Journey **phase is a milestone**. After rfe-creator runs, that milestone may yield:
+**Next** is the exportable milestone. **Future** is skipped (promote items into Next before exporting). After rfe-creator runs, Next may yield:
 
 - **One RFE** — phase-candidate passes `right_sized` on review
-- **Several sibling RFEs** — `/rfe.split` (or `--per-problem` export) when the milestone bundles multiple independent needs
+- **Several sibling RFEs** — `/rfe.split` (or `--per-problem` export) when Next bundles multiple independent needs
 
-Do not treat the batch entry count as the final RFE count per milestone.
+Do not treat the batch entry count as the final RFE count.
 
 ## Behavior
 
@@ -43,18 +43,18 @@ Default output: `artifacts/rfe-batches/<slug>-rfe-batch.yaml`
 
 | Mode | Export produces | Typical downstream |
 |------|-----------------|-------------------|
-| Default | One `export-role:phase-candidate` per milestone | Often 1 RFE; `/rfe.split` if oversized |
-| `--per-problem` | One `export-role:problem-slice` per problem bullet | 1..N RFEs per milestone; split if any slice still oversized |
+| Default | One `export-role:phase-candidate` for Next | Often 1 RFE; `/rfe.split` if oversized |
+| `--per-problem` | One `export-role:problem-slice` per Next problem bullet | 1..N RFEs; split if any slice still oversized |
 
 ### Step 3: Sanity-check entries
 
 For each batch entry, verify:
 
 - **prompt** is problem-space only (no product names, no solution language)
-- **labels** include `source-outcome:<KEY>`, `milestone-phase:<N>`, `milestone:<name>`, and `export-role`
-- **sequencing-note** label present when the phase had value dependencies
-- Milestone with 2–3 **independent** problems → prefer `--per-problem` or plan for `/rfe.split` siblings
-- Milestone with 4+ unrelated problems → fix outcome (`/outcome.split` or narrow phase) before export
+- **labels** include `source-outcome:<KEY>`, `milestone-phase:next`, `milestone:Next`, and `export-role`
+- **sequencing-note** label present when Next had value dependencies
+- Next with 2–3 **independent** problems → prefer `--per-problem` or plan for `/rfe.split` siblings
+- Next with 4+ unrelated problems → fix outcome (`/outcome.split` or tighten Next / move work to Future) before export
 
 ### Step 4: Tell user next steps
 
@@ -71,8 +71,8 @@ Preserve `milestone-phase` / `milestone` labels on split children. See `docs/out
 ## Output
 
 - YAML batch file ready for `/rfe.speedrun --input`
-- Console: count of **export entries** (not final RFE count per milestone)
+- Console: count of **export entries** (not final RFE count)
 
 ## When to use `--per-problem`
 
-Use when a milestone already lists multiple **independent** customer problems that should not be merged into one phase-candidate. Prefer fixing the outcome (split phase or sibling outcome via `/outcome.split`) if problems are unrelated **jobs**, not just unrelated features within one job.
+Use when Next already lists multiple **independent** customer problems that should not be merged into one phase-candidate. Prefer fixing the outcome (move work to Future or sibling outcome via `/outcome.split`) if problems are unrelated **jobs**, not just unrelated features within one job.

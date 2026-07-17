@@ -8,7 +8,7 @@ rubric:
     measurability:
       weight: 1
       max: 2
-      description: "Does each User Journey phase have an observable success signal with timeframe (leading in early phases, lagging where appropriate)?"
+      description: "Does Next have an observable success signal with timeframe (leading and/or lagging as appropriate)?"
       levels:
         0:
           label: "Missing"
@@ -34,12 +34,12 @@ rubric:
           criteria:
             - "Business outcome has specific metrics or clear directional indicators"
             - "Product outcome has specific, measurable behavioral changes"
-            - "Each User Journey phase has an observable success signal with timeframe"
-            - "Early phases carry leading indicators; final phase(s) include outcome-level lagging targets"
-            - "No redundant restatement of the same metric across phases"
+            - "Next has an observable success signal with timeframe"
+            - "Success signal is specific, time-bound, and observable"
+            - "No redundant restatement of the same metric elsewhere in the document"
           examples:
-            - "Four phases: leading signals at 6/9 months; ≥3 strategic accounts in production by 12 months in Phase 4 success signal"
-            - "Phase success signals are specific, time-bound, and observable"
+            - "Next success signal: ≥3 strategic accounts in production by 12 months"
+            - "Leading adoption signal at 6 months with a clear lagging target"
 
     user_focus:
       weight: 1
@@ -74,8 +74,8 @@ rubric:
             - "Grounded in research, customer feedback, or evidence"
             - "Solution-agnostic — multiple features could serve it"
             - "A user would recognize this as their problem"
-            - "User Journey & Phases with 2–4 phases and capability statements per actor"
-            - "2–3 scenarios (Actors, Context, Flow, Win moment) tied to phases; no duplicated pain/quotes"
+            - "User Journey & Phases with exactly Next + Future; Personas this helps per actor under Next"
+            - "1–2 scenarios under Next (Actors, Context, Flow, Win moment); no duplicated pain/quotes"
           examples:
             - "AI engineers can diagnose agent failures in under 5 minutes without needing cluster access or ops team assistance"
             - "Platform engineers can see fleet-wide agent health at a glance during incident response"
@@ -117,14 +117,14 @@ rubric:
     actionability:
       weight: 1
       max: 2
-      description: "Can teams derive concrete work from this outcome? Are release milestones user-capability statements?"
+      description: "Can teams derive concrete work from this outcome? Is the journey Next + Future with gap-driven Next detail?"
       levels:
         0:
           label: "Missing"
           criteria:
             - "Too broad — could mean anything"
             - "Or too narrow — really just a feature request"
-            - "No downstream opportunities or release milestones identified"
+            - "No Next/Future journey identified"
             - "Teams cannot derive concrete work"
           examples:
             - "Improve the platform"
@@ -132,24 +132,25 @@ rubric:
         1:
           label: "Partial"
           criteria:
-            - "Scope reasonable but downstream opportunities unclear"
-            - "Milestones exist but are solution-shaped, theme-only, or lack sequencing"
-            - "Phases bundle unrelated problems without delivery-coupling rationale"
+            - "Scope reasonable but Next vs Future unclear"
+            - "Journey exists but is solution-shaped, theme-only, or a multi-phase arc instead of Next + Future"
+            - "Next bundles unrelated problems without delivery-coupling rationale"
+            - "Future includes problems, personas, success signals, or scenarios"
             - "Out-of-scope statement missing or vague"
             - "Teams would need significant additional context"
             - "Open questions not identified"
           examples:
             - "Users need better agent management (no specifics on where to start)"
-            - "Milestones describe architecture components instead of customer capabilities"
+            - "Four thematic phases instead of Next + Future"
             - "Out of scope says 'performance optimization' without naming what's excluded"
         2:
           label: "Complete"
           criteria:
             - "Well-scoped — not too broad, not too narrow"
-            - "User Journey phases are user-capability statements that pass the three-solutions test"
-            - "Milestones are gap-driven (bottom-up), not theme buckets with unrelated problems bundled"
-            - "Phases have a proposed sequence with value dependencies noted"
-            - "Each phase has a success signal (observable customer value)"
+            - "User Journey is exactly Next + Future"
+            - "Next is gap-driven (problems → personas → features → success signal) and passes the three-solutions test"
+            - "Future is features-only"
+            - "Next has a success signal (observable customer value)"
             - "Out-of-scope statement names 3+ related exclusions with brief rationale"
             - "Open Questions identifies discovery questions per capability area"
             - "Related Resources links to implementation sketch, design, and/or evidence docs"
@@ -157,7 +158,7 @@ rubric:
             - "Open questions are identified and contextualized"
             - "Related RFEs cross-referenced where relevant"
           examples:
-            - "Outcome with 3 user-capability milestones, value dependencies noted, success signals per milestone, 4 named exclusions with rationale, and concrete downstream opportunities"
+            - "Outcome with Next (problems, personas, features, success signal, scenarios) and Future (features only), 4 named exclusions with rationale"
 
   verdicts:
     PASS:

@@ -18,14 +18,14 @@ User says `/outcome.split` optionally followed by:
 |--------|--------|
 | JTBD coherence fails — unrelated jobs in one outcome | Split into **sibling outcomes** (new outcome docs) |
 | Kitchen sink anti-pattern — 5+ teams, no shared job thread | Split by job thread |
-| Single phase has 4+ unrelated problem bullets | **`/outcome.plan-milestones --apply`** to split phase, or export with `--per-problem` |
-| Phase passes three-solutions test, 1–3 related problems | **Do not split** — use `/outcome.export-rfe-batch` |
+| Next has 4+ unrelated problem bullets | **`/outcome.plan-milestones --apply`** to tighten Next / move work to Future, or export with `--per-problem` |
+| Next passes three-solutions test, 1–3 related problems | **Do not split** — use `/outcome.export-rfe-batch` |
 
 ## Behavior
 
 ### Step 1: Load outcome
 
-Read Problem Statement, User Journey phases, Evidence, Out of Scope.
+Read Problem Statement, User Journey (Next + Future), Evidence, Out of Scope.
 
 ### Step 2: Atomic job inventory (from rfe.split pattern)
 
@@ -33,7 +33,7 @@ For each struggle or problem bullet, ask:
 
 1. Could this ship as its own outcome without breaking a coherent user journey?
 2. Does it share a job thread with the others, or is it a different job?
-3. Are capabilities **delivery-coupled** (must ship together)? If yes, keep in one outcome/phase.
+3. Are capabilities **delivery-coupled** (must ship together)? If yes, keep in one outcome (typically under Next).
 
 List atomic items with one-sentence job statements. Mark delivery-coupled groups.
 

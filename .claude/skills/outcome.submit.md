@@ -79,12 +79,12 @@ After successful creation of a **new** outcome (not updates), check `config/pipe
 1. Create a child Story under the newly-created outcome issue:
    - **Issue type:** from `success_verification.issue_type` (default: Story)
    - **Summary:** from `success_verification.title` (default: "Post-release: verify outcome success achievement")
-   - **Description:** from `success_verification.description` — a reminder to check whether the outcome's success signals are being met after release
+   - **Description:** from `success_verification.description` — a reminder to check whether the **Next** success signal is being met after release
    - **Parent:** the outcome issue just created (via `parent` field in Jira — hierarchy link)
    - **Labels:** `[outcome-creator-auto-created]`
 2. Log the created story key to the console
 
-This story serves as a team reminder: shipping features is not done until we verify the outcome was actually achieved. The story should remain open until the team has checked in against the success criteria post-release.
+This story serves as a team reminder: shipping Next features is not done until we verify the Next success signal was actually achieved. The story should remain open until the team has checked in against that criteria post-release. Do not put this reminder text in the outcome template body.
 
 Skip this step if:
 - `--update` was provided (existing outcome)

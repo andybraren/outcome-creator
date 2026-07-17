@@ -30,41 +30,47 @@ If the document uses legacy sections, migrate content without losing information
 
 | Legacy section | Merge into |
 |---|---|
-| Business Outcome + Product Outcome + Success & Metrics | User Journey phase success signals (lagging in later phases, leading in early) — then delete legacy sections |
-| User Outcome | Problem Statement (who) + User Journey (capabilities) — then delete User Outcome |
-| End-to-End Customer Arc + Story Map + Release Milestones | User Journey & Phases (one phase block per delivery slice) |
+| Business Outcome + Product Outcome + Success & Metrics | Next **Success signal** (leading and/or lagging as appropriate) — then delete legacy sections |
+| User Outcome | Problem Statement (who) + Next **Personas this helps** — then delete User Outcome |
+| End-to-End Customer Arc + Story Map + Release Milestones | User Journey & Phases (`### Next` + `### Future` only) |
+| Multi-phase arcs (Phase 1/2/3/4, thematic Trust/Operate/…) | Collapse near-term into **Next**; park later features under **Future** |
 | Opportunity Assessment | Evidence (one-line opportunity verdict) |
 | Downstream Opportunities | Open Questions (questions only) + Related Resources (link to implementation doc with solution details) |
 | Example Implementation (inline) | Open Questions (extract questions) + Related Resources (link to implementation doc with solution details) |
-| Acceptance Signals | Merge into nearest phase success signals — delete duplicate Measurement Timeframe |
+| Acceptance Signals | Merge into Next success signal — delete duplicate Measurement Timeframe |
+| User capability / When this is true | Merge into **Personas this helps** (drop duplicate capability headline) |
 
 ### Step 4: Refine Each Section
 
 #### Problem Statement
-- JTBD only: job, context, struggle, who is involved (one sub-bullet per job executor — role and what they own)
-- **JTBD coherence test:** Do all named actors share one job thread?
+- Order: Context → Struggle → Goal → Personas (JTBD)
+- **Goal:** org-level enablement for customers as a whole (migrated from legacy Job (JTBD) when present)
+- **Personas (JTBD):** one sub-bullet per persona with their job-to-be-done (merge legacy Who is involved + per-actor JTBD)
+- **JTBD coherence test:** Do all named personas share one job thread?
 - Move customer quotes and named accounts to Evidence
 - Remove solution language — move to a linked implementation doc (add link in Related Resources)
 
 #### User Journey & Phases
 
-If a **Success & Metrics** section exists, migrate lagging/leading indicators into phase success signals (early phases = leading, final phase(s) = outcome-level lagging), then delete Success & Metrics.
+If a **Success & Metrics** section exists, migrate indicators into Next **Success signal**, then delete Success & Metrics.
 
+If the journey has more than Next + Future, is missing subsections, is theme-only, or bundles unrelated problems into Next:
 
-If phases are missing, theme-only, or bundle unrelated problems:
-
-1. Run `/outcome.plan-milestones` (see `docs/outcome-milestone-planning.md`) — atomic inventory, delivery-coupling, sizing checks.
-2. Apply with `--apply` or rewrite phases from `artifacts/outcome-plans/<ID>-milestone-plan.yaml`.
+1. Run `/outcome.plan-milestones` (see `docs/outcome-milestone-planning.md`) — atomic inventory, Next vs Future assignment, sizing checks.
+2. Apply with `--apply` or rewrite from `artifacts/outcome-plans/<ID>-milestone-plan.yaml`.
 
 Otherwise refine in place:
 
-- Each phase: user capability, when this is true, success signal (with timeframe), problems addressed, **Features to deliver**
-- Separate consecutive phases with a horizontal rule (`---`) for Jira rendering
-- **Features to deliver:** If Jira keys are buried in problem bullets, Evidence, or Related Resources, move them into a per-phase `**Features to deliver:**` list as `[KEY](url) — summary`. Keep problem bullets problem-framed. When deriving from strat/RFE work, every in-scope source issue should appear in exactly one phase's delivery list.
-- **Three-solutions test** on every user capability headline
-- **Milestone sizing:** one-sentence test per phase; flag phases with `expected_rfe_count: 1..N` in plan
-- Scenarios: Actors, Context, Flow, Win moment only — remove Today's pain if present
-- **Through-line test:** Each scenario demonstrates a capability from its phase
+- **Enforce structure:** only `### Next` and `### Future` — collapse extra phases into these two
+- **Next** order: Problems to address → Personas this helps → Features to deliver → Success signal → Scenario(s)
+- **Future:** Features to deliver only (strip problems, personas, success signals, scenarios if present)
+- Separate Next and Future with a horizontal rule (`---`) for Jira rendering
+- **Features to deliver:** If Jira keys are buried in problem bullets, Evidence, or Related Resources, move them into the appropriate bucket's list as `[KEY](url) — summary`. Keep problem bullets problem-framed. Every in-scope source issue appears in exactly one of Next or Future.
+- **Next feature ranking:** Rank-order Next features as `(P1)`, `(P2)`, `(P3)`, … based on what most unlocks Next problems / personas / success signal (prerequisites and delivery coupling first). Prefix only — do **not** write ranking justification. Future features do not need P-ranks.
+- **Three-solutions test** on Personas this helps language
+- **Milestone sizing:** one-sentence test on Next; flag `expected_rfe_count: 1..N` in plan when needed
+- Scenarios only under Next: Actors, Context, Flow, Win moment — remove Today's pain if present
+- **Through-line test:** Each scenario demonstrates a Next persona capability
 
 #### Evidence
 - Customer quotes, analyst data, platform gaps — single home for all proof points
@@ -90,8 +96,9 @@ Otherwise refine in place:
 
 Before finishing, check for and remove:
 - Same quote in Problem Statement and Evidence
-- Same metric repeated verbatim in multiple phase success signals (keep one home per metric)
-- Same capability stated in a phase headline and "When this is true" bullets (tighten, don't repeat)
+- Duplicate User capability + Personas this helps (keep Personas only)
+- Problems, personas, success signals, or scenarios under Future
+- Extra phase headings beyond Next and Future
 - Separate Story Map + Milestones + Acceptance Signals sections (must be one User Journey & Phases)
 
 ### Step 6: Update Frontmatter

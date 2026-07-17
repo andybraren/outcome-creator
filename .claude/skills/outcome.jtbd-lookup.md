@@ -82,17 +82,17 @@ matched_personas: [maude, alex]
 
 ## Problem Statement seeds
 
-### Job (JTBD)
-<from job_statement — solution-agnostic, no paraphrasing that changes meaning>
-
 ### Context
 <when/where the job arises — derived from job phase + job_steps context only>
 
 ### Struggle
 <from pain_points — summarize themes in problem statement; verbatim quotes go to Evidence section below>
 
-### Who is involved
-<from personas linked to matched jobs; load persona files for role names and pain themes>
+### Goal
+<from job_statement — org-level enablement for customers as a whole; solution-agnostic>
+
+### Personas (JTBD)
+<from personas linked to matched jobs; load persona files for role names and each persona's job-to-be-done>
 
 ## Atomic capability seeds (for milestone planning)
 
@@ -122,10 +122,10 @@ Source: JTBD Qualitative Research V2.5, March 2026 — <url from config>
 
 | Registry field | Outcome destination |
 |----------------|---------------------|
-| `job_statement` | Problem Statement → Job (JTBD) |
+| `job_statement` | Problem Statement → Goal |
 | `pain_points` (themes) | Problem Statement → Struggle |
 | `pain_points` (verbatim) | Evidence → Customers |
-| `personas` + persona files | Problem Statement → Who is involved |
+| `personas` + persona files | Problem Statement → Personas (JTBD) |
 | `job_steps` | Milestone plan → `atomic_capabilities` |
 | `quant.opportunity_score`, `zone` | Evidence → Opportunity |
 | `quant.by_segment` | Scenarios → persona-specific actors |

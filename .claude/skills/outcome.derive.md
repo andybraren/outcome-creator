@@ -111,7 +111,7 @@ From the clustered features, work backwards:
 2. **Common job:** What single job-to-be-done ties these capabilities together? Write it in JTBD format: "When [context], [actor] wants to [job], so that [desired outcome]."
 3. **Context:** When or where does this job arise?
 4. **Struggle:** What makes the job hard today? (Extract from issue descriptions, comments, and linked customer feedback)
-5. **Who is involved:** Which actors (personas, roles) appear across the source issues?
+5. **Personas (JTBD):** Which actors (personas, roles) appear across the source issues, and what job is each trying to get done?
 
 #### Three-solutions test
 
@@ -161,8 +161,8 @@ Write the outcome to `artifacts/outcome-tasks/OUTCOME-NNN-<slug>.md` using the t
 
 Follow the **same section rules as `/outcome.create`** — the document MUST include only:
 
-1. **Problem Statement** — Synthesized JTBD (Step 3). No solution language, no feature names from source issues.
-2. **User Journey & Phases** — Phases from the milestone plan (Step 5). Source issue **customer gaps** become the "problems this phase addresses" bullets (problem-framed, no feature names). Source issues themselves go under **Features to deliver** as linked bullets (`[KEY](url) — summary`) grouped into the phase that delivers them. Solution/architecture detail still lives in linked implementation docs.
+1. **Problem Statement** — Context, Struggle, Goal, Personas (JTBD) from Step 3. No solution language, no feature names from source issues.
+2. **User Journey & Phases** — Exactly `### Next` and `### Future` from the milestone plan (Step 5). Source issue **customer gaps** for near-term work become Next "Problems to address" (problem-framed, no feature names) plus "Personas this helps". Source issues go under **Features to deliver** in Next or Future. Next features are rank-ordered as `(P1) [KEY](url) — summary`, `(P2) …` by what most unlocks Next (no ranking justification in the body). Future is features-only and unranked. Solution/architecture detail still lives in linked implementation docs.
 3. **Evidence** — Customer quotes and data extracted from source issue descriptions and comments (with citations back to Jira keys). Analyst/market data if available. Platform gap assessment based on what the features reveal about current state.
 4. **Open Questions** — Discovery questions surfaced during synthesis. Questions from source issue comments. Architectural decisions that need resolution.
 5. **Out of Scope** — Features from the source issues that were excluded (different JTBD, too narrow, out of cluster). At least 3 exclusions with rationale.

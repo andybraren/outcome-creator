@@ -1,4 +1,4 @@
-"""Tests for export_rfe_batch phase parsing."""
+"""Tests for export_rfe_batch journey parsing."""
 
 import sys
 from pathlib import Path
@@ -9,19 +9,52 @@ from export_rfe_batch import (
     extract_job_context,
     parse_phases,
     phases_to_batch_entries,
-    OutcomePhase,
 )
 
 SAMPLE_PROBLEM = """
 ## Problem Statement
 
-- **Job (JTBD)**: Run AI agents in production with enterprise confidence
+- **Context**: Agents are moving from pilots into production.
 - **Struggle**: There is no equivalent of MLOps for agents.
+- **Goal**: Run AI agents in production with enterprise confidence
+- **Personas (JTBD)**:
+- **Platform engineer** — Operate agents with governance and reliability
 
 ## Evidence
 """
 
-SAMPLE_ARC = """
+SAMPLE_NEXT_FUTURE = """
+## User Journey & Phases
+
+### Next
+
+**Problems to address:**
+- Agents act with ambiguous identities *(identity before access control)*
+- End-user context is lost during tool execution
+
+**Personas this helps:**
+- Security team: Can establish identity and access boundaries
+- Platform engineer: Can enforce per-tenant isolation
+
+**Features to deliver:**
+- [PROJ-1](https://example.com) — Identity boundaries
+
+**Success signal:** ≥1 account in production (target: 6 months)
+
+#### Scenario: Example
+- **Actors:** Architect
+
+---
+
+### Future
+
+**Features to deliver:**
+- [PROJ-2](https://example.com) — Later self-service
+
+## Evidence
+"""
+
+SAMPLE_LEGACY_ARC = """
 ## User Journey & Phases
 
 ### Phase 1: Trust
@@ -55,8 +88,42 @@ def test_extract_job_context():
     assert "mlops" in ctx.lower()
 
 
-def test_parse_phases():
-    phases = parse_phases(SAMPLE_ARC)
+def test_parse_next_future():
+    phases = parse_phases(SAMPLE_NEXT_FUTURE)
+    assert len(phases) == 2
+    assert phases[0].name == "Next"
+    assert phases[0].exportable is True
+    assert len(phases[0].problems) == 2
+    assert "Security team" in phases[0].capability
+    assert phases[0].success_signal.startswith("≥1 account")
+    assert any("identity before access control" in n for n in phases[0].sequencing_notes)
+    assert phases[1].name == "Future"
+    assert phases[1].exportable is False
+
+
+def test_next_future_batch_exports_next_only():
+    phases = parse_phases(SAMPLE_NEXT_FUTURE)
+    entries = phases_to_batch_entries(
+        phases, outcome_id="OUT-1", priority="Critical", per_problem=False
+    )
+    assert len(entries) == 1
+    assert "milestone-phase:next" in entries[0]["labels"]
+    assert "milestone:Next" in entries[0]["labels"]
+    assert "export-role:phase-candidate" in entries[0]["labels"]
+    assert "milestone_success_signal" in entries[0]
+
+
+def test_next_future_batch_per_problem():
+    phases = parse_phases(SAMPLE_NEXT_FUTURE)
+    entries = phases_to_batch_entries(
+        phases, outcome_id="OUT-1", priority="Major", per_problem=True
+    )
+    assert len(entries) == 2
+    assert all("milestone-phase:next" in e["labels"] for e in entries)
+
+
+def test_parse_legacy_phases():
+    phases = parse_phases(SAMPLE_LEGACY_ARC)
     assert len(phases) == 2
     assert phases[0].name == "Trust"
     assert len(phases[0].problems) == 2
@@ -66,8 +133,8 @@ def test_parse_phases():
     assert any("Phase 1" in n for n in phases[1].sequencing_notes)
 
 
-def test_phases_to_batch_per_phase():
-    phases = parse_phases(SAMPLE_ARC)
+def test_legacy_phases_to_batch_per_phase():
+    phases = parse_phases(SAMPLE_LEGACY_ARC)
     entries = phases_to_batch_entries(
         phases, outcome_id="OUT-1", priority="Critical", per_problem=False
     )
@@ -78,8 +145,8 @@ def test_phases_to_batch_per_phase():
     assert "milestone_success_signal" in entries[0]
 
 
-def test_phases_to_batch_per_problem():
-    phases = parse_phases(SAMPLE_ARC)
+def test_legacy_phases_to_batch_per_problem():
+    phases = parse_phases(SAMPLE_LEGACY_ARC)
     entries = phases_to_batch_entries(
         phases, outcome_id="OUT-1", priority="Major", per_problem=True
     )

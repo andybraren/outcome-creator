@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
-"""Export rfe-creator batch YAML from an outcome document's delivery phases.
+"""Export rfe-creator batch YAML from an outcome document's User Journey.
 
-A milestone (User Journey phase) may become one or several sibling RFEs after
-rfe-creator review/split — export only seeds the batch; it does not fix final count.
+Exports the **Next** subsection (near-term delivery). Future is a deferred
+feature list and is skipped unless legacy multi-phase docs are present.
 
-Default: one phase-candidate prompt per milestone (often becomes 1 RFE; may become
+A milestone may become one or several sibling RFEs after rfe-creator
+review/split — export only seeds the batch; it does not fix final count.
+
+Default: one phase-candidate prompt for Next (often becomes 1 RFE; may become
 several siblings via /rfe.split). Use --per-problem when independent problems should
 start as separate entries under the same milestone.
 """
@@ -21,22 +24,33 @@ import yaml
 
 from frontmatter import read_frontmatter
 
-PHASE_HEADER = re.compile(r"^### Phase (\d+):\s*(.+)\s*$", re.MULTILINE)
+# Preferred: ### Next / ### Future. Legacy: ### Phase N: Name
+NEXT_FUTURE_HEADER = re.compile(
+    r"^### (Next|Future)\s*$", re.MULTILINE | re.IGNORECASE
+)
+LEGACY_PHASE_HEADER = re.compile(r"^### Phase (\d+):\s*(.+)\s*$", re.MULTILINE)
 FIELD_CAPABILITY = re.compile(
     r"^\*\*(?:User|Customer) capability:\*\*\s*(.+)\s*$", re.MULTILINE
 )
 FIELD_SUCCESS = re.compile(r"^\*\*Success signal:\*\*\s*(.+)\s*$", re.MULTILINE)
+FIELD_PERSONAS = re.compile(
+    r"^\*\*Personas this helps:\*\*\s*$", re.MULTILINE | re.IGNORECASE
+)
+FIELD_WHEN_TRUE = re.compile(
+    r"^\*\*When this is true:\*\*\s*$", re.MULTILINE | re.IGNORECASE
+)
 DEPENDENCY_MARKERS = ("depends on", "dependency")
 
 
 @dataclass
 class OutcomePhase:
-    number: int
+    number: int | str
     name: str
     capability: str = ""
     success_signal: str = ""
     problems: list[str] = field(default_factory=list)
     sequencing_notes: list[str] = field(default_factory=list)
+    exportable: bool = True  # Future is not exported by default
 
 
 def _strip_dependency_note(text: str) -> tuple[str, str | None]:
@@ -55,27 +69,110 @@ def _is_sequencing_only_line(problem: str) -> bool:
     return any(m in lower for m in DEPENDENCY_MARKERS) and len(problem) < 120
 
 
-def parse_phases(body: str) -> list[OutcomePhase]:
-    """Parse ### Phase N: sections from User Journey & Phases."""
+def _journey_body(body: str) -> str | None:
     arc_match = re.search(
-        r"^## (?:User Journey & Phases|User Journey & Milestones|Customer Arc & Delivery Plan)\s*$",
+        r"^## (?:User Journey & Phases|User Journey & Milestones|Customer Arc & Delivery Plan|User Journey)\s*$",
         body,
         re.MULTILINE | re.IGNORECASE,
     )
     if not arc_match:
-        return []
+        return None
 
     arc_body = body[arc_match.end() :]
-    # Stop at next top-level ## section
     next_section = re.search(r"^## [^#]", arc_body, re.MULTILINE)
     if next_section:
         arc_body = arc_body[: next_section.start()]
+    return arc_body
 
-    headers = list(PHASE_HEADER.finditer(arc_body))
+
+def _parse_block_fields(block: str, phase: OutcomePhase) -> None:
+    cap = FIELD_CAPABILITY.search(block)
+    if cap:
+        phase.capability = cap.group(1).strip()
+
+    # Prefer Personas this helps; fall back to legacy When this is true
+    personas_match = FIELD_PERSONAS.search(block) or FIELD_WHEN_TRUE.search(block)
+    if personas_match and not phase.capability:
+        rest = block[personas_match.end() :]
+        stop = re.search(
+            r"^\*\*(?:Features to deliver|Success signal|Problems)",
+            rest,
+            re.MULTILINE,
+        )
+        if stop:
+            rest = rest[: stop.start()]
+        bullets: list[str] = []
+        for line in rest.splitlines():
+            line = line.strip()
+            if line.startswith("- "):
+                bullets.append(line[2:].strip())
+        if bullets:
+            phase.capability = "; ".join(bullets)
+
+    sig = FIELD_SUCCESS.search(block)
+    if sig:
+        phase.success_signal = sig.group(1).strip()
+
+    problems_match = re.search(
+        r"^\*\*Problems (?:to address|this (?:phase )?addresses):\*\*\s*$",
+        block,
+        re.MULTILINE | re.IGNORECASE,
+    )
+    if problems_match:
+        rest = block[problems_match.end() :]
+        scenario = re.search(r"^####\s+", rest, re.MULTILINE)
+        if scenario:
+            rest = rest[: scenario.start()]
+        # Stop at next bold field so features/personas are not eaten as problems
+        next_field = re.search(r"^\*\*[^*]+:\*\*\s*$", rest, re.MULTILINE)
+        if next_field:
+            rest = rest[: next_field.start()]
+        for line in rest.splitlines():
+            line = line.strip()
+            if not line.startswith("- "):
+                continue
+            problem, note = _strip_dependency_note(line)
+            if _is_sequencing_only_line(problem):
+                if note:
+                    phase.sequencing_notes.append(note)
+                else:
+                    phase.sequencing_notes.append(problem)
+                continue
+            if problem:
+                phase.problems.append(problem)
+            if note:
+                phase.sequencing_notes.append(note)
+
+
+def parse_phases(body: str) -> list[OutcomePhase]:
+    """Parse Next/Future (preferred) or legacy ### Phase N sections."""
+    arc_body = _journey_body(body)
+    if arc_body is None:
+        return []
+
+    nf_headers = list(NEXT_FUTURE_HEADER.finditer(arc_body))
+    if nf_headers:
+        phases: list[OutcomePhase] = []
+        for i, match in enumerate(nf_headers):
+            start = match.end()
+            end = nf_headers[i + 1].start() if i + 1 < len(nf_headers) else len(arc_body)
+            block = arc_body[start:end]
+            name = match.group(1).strip().title()  # Next / Future
+            phase = OutcomePhase(
+                number=name.lower(),
+                name=name,
+                exportable=(name.lower() == "next"),
+            )
+            _parse_block_fields(block, phase)
+            phases.append(phase)
+        return phases
+
+    # Legacy multi-phase support
+    headers = list(LEGACY_PHASE_HEADER.finditer(arc_body))
     if not headers:
         return []
 
-    phases: list[OutcomePhase] = []
+    phases = []
     for i, match in enumerate(headers):
         start = match.end()
         end = headers[i + 1].start() if i + 1 < len(headers) else len(arc_body)
@@ -83,42 +180,9 @@ def parse_phases(body: str) -> list[OutcomePhase]:
         phase = OutcomePhase(
             number=int(match.group(1)),
             name=match.group(2).strip(),
+            exportable=True,
         )
-
-        cap = FIELD_CAPABILITY.search(block)
-        if cap:
-            phase.capability = cap.group(1).strip()
-
-        sig = FIELD_SUCCESS.search(block)
-        if sig:
-            phase.success_signal = sig.group(1).strip()
-
-        problems_match = re.search(
-            r"^\*\*Problems this phase addresses:\*\*\s*$",
-            block,
-            re.MULTILINE,
-        )
-        if problems_match:
-            rest = block[problems_match.end() :]
-            scenario = re.search(r"^####\s+", rest, re.MULTILINE)
-            if scenario:
-                rest = rest[: scenario.start()]
-            for line in rest.splitlines():
-                line = line.strip()
-                if not line.startswith("- "):
-                    continue
-                problem, note = _strip_dependency_note(line)
-                if _is_sequencing_only_line(problem):
-                    if note:
-                        phase.sequencing_notes.append(note)
-                    else:
-                        phase.sequencing_notes.append(problem)
-                    continue
-                if problem:
-                    phase.problems.append(problem)
-                if note:
-                    phase.sequencing_notes.append(note)
-
+        _parse_block_fields(block, phase)
         phases.append(phase)
 
     return phases
@@ -158,6 +222,10 @@ def _priority_from_frontmatter(fm: dict[str, Any]) -> str:
     return "Major"
 
 
+def _milestone_phase_label(phase: OutcomePhase) -> str:
+    return f"milestone-phase:{phase.number}"
+
+
 def phases_to_batch_entries(
     phases: list[OutcomePhase],
     *,
@@ -170,14 +238,21 @@ def phases_to_batch_entries(
     slice_idx = 0
 
     for phase in phases:
-        sequencing = "; ".join(_clean_sequencing_note(n) for n in phase.sequencing_notes) if phase.sequencing_notes else ""
+        if not phase.exportable:
+            continue
+
+        sequencing = (
+            "; ".join(_clean_sequencing_note(n) for n in phase.sequencing_notes)
+            if phase.sequencing_notes
+            else ""
+        )
 
         if per_problem:
             for problem in phase.problems:
                 slice_idx += 1
                 labels = [
                     f"source-outcome:{outcome_id}",
-                    f"milestone-phase:{phase.number}",
+                    _milestone_phase_label(phase),
                     f"milestone:{phase.name}",
                     f"export-role:problem-slice",
                     f"slice:{slice_idx}",
@@ -199,7 +274,7 @@ def phases_to_batch_entries(
         slice_idx += 1
         labels = [
             f"source-outcome:{outcome_id}",
-            f"milestone-phase:{phase.number}",
+            _milestone_phase_label(phase),
             f"milestone:{phase.name}",
             "export-role:phase-candidate",
             f"slice:{slice_idx}",
@@ -227,20 +302,23 @@ def extract_job_context(body: str) -> str:
     if next_h:
         section = section[: next_h.start()]
 
+    # Prefer Goal; fall back to legacy Job (JTBD)
     # Bold label may be **Label**: or **Label**: (colon inside or outside bold)
-    job = re.search(
-        r"\*\*Job \(JTBD\)(:\*\*|\*\*:)\s*(.+?)\s*$", section, re.MULTILINE
+    goal = re.search(
+        r"\*\*(?:Goal|Job \(JTBD\))(:\*\*|\*\*:)\s*(.+?)\s*$",
+        section,
+        re.MULTILINE,
     )
     struggle = re.search(
         r"\*\*Struggle(:\*\*|\*\*:)\s*(.+?)\s*$", section, re.MULTILINE
     )
-    if job and struggle:
+    if goal and struggle:
         return (
-            f"Enterprises need to {job.group(2).strip().lower().rstrip('.')}, "
+            f"Enterprises need to {goal.group(2).strip().lower().rstrip('.')}, "
             f"but {struggle.group(2).strip().lower().rstrip('.')}"
         )
-    if job:
-        return job.group(2).strip()
+    if goal:
+        return goal.group(2).strip()
     return ""
 
 
@@ -266,7 +344,7 @@ def export_batch(
         "source_outcome": outcome_id,
         "usage": "Run in rfe-creator: /rfe.speedrun --input <this-file> --headless",
         "rfe_sizing": (
-            "Each milestone may yield 1..N sibling RFEs. After speedrun, /rfe.review each entry; "
+            "Next may yield 1..N sibling RFEs. After speedrun, /rfe.review each entry; "
             "if right_sized < 2, /rfe.split and keep milestone-phase labels on children. "
             "See docs/outcome-rfe-handoff.md."
         ),
@@ -308,8 +386,8 @@ def main() -> None:
         "--per-problem",
         action="store_true",
         help=(
-            "One problem-slice per bullet under each milestone (default: one phase-candidate "
-            "per milestone — may still become several RFEs via /rfe.split)"
+            "One problem-slice per bullet under Next (default: one phase-candidate "
+            "for Next — may still become several RFEs via /rfe.split)"
         ),
     )
     args = parser.parse_args()

@@ -34,12 +34,12 @@ User says `/outcome.create` optionally followed by:
 3. Use Problem Statement seeds, Evidence seeds, and atomic capability seeds when writing the outcome and milestone plan.
 4. Add optional frontmatter when jobs were matched: `jtbd_jobs`, `jtbd_registry_id`.
 
-**When the registry is unavailable** (sync failed or user skipped), log it in the console summary and note in the inputs snapshot that "Who is involved" was derived from Jira context rather than JTBD research personas. The JTBD registry is the preferred source for the "Who is involved" section — when present, populate job executors from matched persona files (role names, pain themes, and job ownership) rather than inferring from Jira issue descriptions.
+**When the registry is unavailable** (sync failed or user skipped), log it in the console summary and note in the inputs snapshot that "Personas (JTBD)" was derived from Jira context rather than JTBD research personas. The JTBD registry is the preferred source for **Personas (JTBD)** — when present, populate each persona with their job-to-be-done from matched persona files (role names, pain themes, and job statements) rather than inferring from Jira issue descriptions.
 
 If `--headless` is NOT set, ask up to 5 clarifying questions to understand:
 
 1. **Strategic anchor**: Which strategic goal(s) does this outcome relate to? If a PROJGOALS key is provided, fetch it from Jira using the Atlassian MCP or REST API fallback. Strategic goals are used as context when provided — auto-discovery of related strat items from problem text alone is not implemented yet (follow-up).
-2. **User need / JTBD**: What job is the user trying to get done? Who are the job executors? What context triggers the job? What struggle makes it hard today? (Multiple actors sharing one job is fine — flag unrelated jobs for sibling outcomes.) If Step 1a produced a JTBD context artifact, pre-fill from registry data and ask only for gaps the registry does not cover.
+2. **User need / JTBD**: What context triggers the need? What struggle makes it hard today? What goal are we enabling for customers as a whole? Who are the personas and what is each one's job-to-be-done? (Multiple personas sharing one job thread is fine — flag unrelated jobs for sibling outcomes.) If Step 1a produced a JTBD context artifact, pre-fill from registry data and ask only for gaps the registry does not cover.
 3. **Business context**: How does solving this benefit the organization? What business metric would improve?
 4. **Evidence**: What research, customer feedback, or data supports this need? Prefer JTBD registry Evidence seeds (OpScores, verbatim quotes with citations) when Step 1a ran. (Automated market/analyst research is a follow-up — see `docs/follow-ups.md`.)
 5. **Scope**: Is this a broad thematic outcome or a focused product-level outcome?
@@ -78,15 +78,16 @@ Write the outcome to `artifacts/outcome-tasks/OUTCOME-NNN-<slug>.md` using the t
 
 The document MUST include these sections only (lean structure — avoid redundant restatements):
 
-1. **Problem Statement** — JTBD only: job, context, struggle, who is involved (sub-bullets per job executor). No customer quotes, no named accounts, no solution language.
-2. **User Journey & Phases** — Write phases from the milestone plan (Step 2.5). **All success metrics live here** — no separate Success & Metrics section. Typically **2–4 phases** (fewer when delivery-coupled; cap at ~4). Separate phases with a horizontal rule (`---`) so they render as dividers in Jira. For each phase:
-   - User capability headline (from plan; three-solutions test)
-   - When this is true (actor capabilities, solution-independent)
-   - Success signal with target timeframe (from plan)
-   - Problems this phase addresses (from atomic inventory; value dependencies noted) — problem-framed only; do not bury Jira keys here
-   - **Features to deliver** — bulleted list of linked Stories / Features / RFEs that realize this phase (`[KEY](url) — summary`). Populate from known source issues when deriving or when strat/RFE work already exists; use `TBD` only when no delivery tickets exist yet
-   - 2–3 scenarios nested under relevant phases: Actors, Context, Flow, Win moment — **no Today's pain** (Problem + Evidence cover that)
-   - Set milestone plan `status: applied` after writing phases
+1. **Problem Statement** — Context, Struggle, Goal (org-level enablement), Personas (JTBD) with one sub-bullet per persona and their job-to-be-done. No customer quotes, no named accounts, no solution language.
+2. **User Journey & Phases** — Write from the milestone plan (Step 2.5). **Exactly two subsections: `### Next` and `### Future`** — do not invent additional phase headings. Separate them with a horizontal rule (`---`) for Jira rendering. **All success metrics live under Next** — no separate Success & Metrics section.
+   - **Next** (near-term delivery), in this order:
+     - **Problems to address** (from atomic inventory; value dependencies noted) — problem-framed only; do not bury Jira keys here
+     - **Personas this helps** (per actor: capability / experience change, solution-independent; three-solutions test)
+     - **Features to deliver** — linked Stories / Features / RFEs, rank-ordered for Next: `(P1) [KEY](url) — summary`, `(P2) …`, `(P3) …`. Assess which features most unlock Next problems / personas / success signal (prerequisites and delivery coupling first; highest customer-value unlocks next). Prefix only — do **not** write ranking justification in the outcome. Populate from known source issues; use `TBD` only when none exist yet
+     - **Success signal** with target timeframe (from plan)
+     - 1–2 scenarios: Actors, Context, Flow, Win moment — **no Today's pain** (Problem + Evidence cover that)
+   - **Future** (later work): **Features to deliver** only — no problems, personas, success signal, or scenarios
+   - Set milestone plan `status: applied` after writing the journey
 3. **Evidence** — Customer quotes, analyst/market data, platform gaps, one-line opportunity verdict. No separate Opportunity Assessment section.
 4. **Open Questions** — What engineering and product still need to decide. Discovery questions per capability area. No solution sketches in the body — link to external docs instead.
 5. **Out of Scope** — 3+ related exclusions with brief rationale
@@ -123,7 +124,7 @@ Save the original inputs (strategic goal data, research excerpts, user prompt) t
 - `artifacts/outcome-originals/OUTCOME-NNN-inputs.md` — Input snapshot
 - `artifacts/outcome-originals/OUTCOME-NNN-jtbd-context.md` — JTBD registry context (when registry present)
 - `artifacts/outcome-plans/OUTCOME-NNN-milestone-plan.yaml` — Milestone plan (gap inventory + grouping)
-- Console summary of what was created (include milestone count and RFE forecast per phase)
+- Console summary of what was created (include Next RFE forecast and Future feature count)
 
 ## Quality Guidelines
 
@@ -132,7 +133,7 @@ Save the original inputs (strategic goal data, research excerpts, user prompt) t
 **Do:**
 - Plan milestones bottom-up before writing User Journey (`docs/outcome-milestone-planning.md`)
 - Run the cohesion check when the input is a feature/idea dump — confirm one shared journey before writing
-- Write problem-framed statements that pass the three-solutions test in Problem Statement and User Journey phases
+- Write problem-framed statements that pass the three-solutions test in Problem Statement and Next personas
 - Put all customer quotes and named accounts in Evidence (once), each with source citation
 - Put solution language in linked implementation docs (Related Documents), not in the outcome body
 - Preserve the author's solution thinking when converting from Jira — move it to a linked doc, don't delete it
@@ -140,7 +141,8 @@ Save the original inputs (strategic goal data, research excerpts, user prompt) t
 
 **Don't:**
 - Accept a kitchen-sink feature list as one outcome without checking cohesion
-- Repeat the same metric verbatim across multiple phase success signals (say it once in the right phase)
+- Add Phase 3 / Phase 4 / thematic phase headings — only Next and Future
+- Put problems, personas, success signals, or scenarios under Future
 - Repeat customer quotes in Problem Statement and scenarios
 - Add "Today's pain" to scenarios when Problem Statement and Evidence already describe the struggle
 - Create legacy sections (User Outcome, separate milestones, Acceptance Signals) — use the lean template

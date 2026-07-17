@@ -14,6 +14,8 @@ When given an outcome document path, score it across 4 dimensions.
 
 Score against the standard six-section structure: Problem Statement, User Journey & Phases, Evidence, Open Questions, Out of Scope, Related Resources. Score substance and quality, not minor section naming variations within that structure.
 
+**User Journey structure (enforce):** exactly `### Next` and `### Future`. Multi-phase arcs (Phase 1/2/3…, thematic third phases) are a structural defect — cap Actionability at 1 until collapsed.
+
 ### Input
 
 You will receive a path to an outcome document (markdown with YAML frontmatter).
@@ -30,12 +32,12 @@ Read the outcome document carefully. For each dimension, assign a score of 0, 1,
 
 **Score 1** if:
 - Directional indicators present but metrics are vague
-- Only lagging OR leading indicators present, not both
-- Phase success signals missing for long-lived outcomes
+- Only lagging OR leading indicators present, not both (when both would be expected)
+- Next success signal missing for long-lived outcomes
 
 **Score 2** if:
-- Each User Journey phase has an observable success signal with timeframe (leading in early phases, lagging in later)
-- No contradictory duplicate metrics across phases
+- Next has an observable success signal with timeframe
+- No contradictory duplicate metrics elsewhere in the document
 
 #### User Focus (0–2)
 
@@ -49,9 +51,9 @@ Read the outcome document carefully. For each dimension, assign a score of 0, 1,
 - Evidence thin or absent
 
 **Score 2** if:
-- Problem Statement has explicit JTBD with job, context, struggle, job executors sharing one coherent job
-- User Journey & Phases has 2–4 phases with solution-independent capabilities (1 acceptable for narrowly scoped outcomes)
-- 2–3 scenarios with flow and win moments; grounded in Evidence
+- Problem Statement has Context, Struggle, Goal, and Personas (JTBD) sharing one coherent job thread
+- User Journey has exactly Next + Future; Next has solution-independent Personas this helps
+- 1–2 scenarios under Next with flow and win moments; grounded in Evidence
 - A user would recognize this as their problem
 
 #### Business Alignment (0–2)
@@ -65,7 +67,7 @@ Read the outcome document carefully. For each dimension, assign a score of 0, 1,
 
 **Score 2** if:
 - Direct connection to strategic goals with rationale
-- Lagging targets in phase success signals or Evidence; strategic connection clear
+- Lagging targets in Next success signal or Evidence; strategic connection clear
 - Evidence section supports the business case
 
 #### Actionability (0–2)
@@ -73,18 +75,19 @@ Read the outcome document carefully. For each dimension, assign a score of 0, 1,
 **Score 0** if:
 - Too broad or too narrow (feature in disguise)
 - Kitchen sink: unrelated features / job threads forced into one outcome with no shared journey bridge
-- Teams cannot derive concrete work; no phases or milestones
+- Teams cannot derive concrete work; no Next/Future journey
 
 **Score 1** if:
-- Phases exist but solution-shaped, theme-only, lack sequencing, or missing success signals
-- One or more phases bundle unrelated problems without delivery-coupling notes
+- Journey exists but solution-shaped, theme-only, multi-phase (more than Next + Future), or Next missing success signal
+- Next bundles unrelated problems without delivery-coupling notes
+- Future includes problems/personas/success signals/scenarios (should be features-only)
 - Outliers or mixed journeys present but not flagged for `/outcome.split`
 - Out-of-scope missing or vague; open questions absent
 
 **Score 2** if:
-- User Journey phases are gap-driven user-capability statements passing the three-solutions test
-- Each phase is one capability thread (one-sentence test); value dependencies explicit
-- Sequence with value dependencies; success signal per phase
+- User Journey is exactly Next + Future
+- Next is gap-driven (problems → personas → features → success signal → scenarios) and passes the three-solutions test
+- Future is features-only
 - Open Questions identifies discovery questions per capability area
 - Related Resources links to implementation sketch and other external docs
 - Out of Scope names 3+ exclusions with rationale
