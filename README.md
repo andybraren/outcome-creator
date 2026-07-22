@@ -258,30 +258,29 @@ Each outcome artifact uses a **lean structure** — five sections, minimal redun
 ```markdown
 ---
 id: PROJSTRAT-XXXX
-title: "Outcome Title"
+title: "Short Colloquial Title"   # ≤5 words by default — Jira Summary / planning shorthand
 ...
 ---
 
-# Outcome Title
+# Short Colloquial Title
 
 ## Problem Statement
 Context → Struggle → Goal → Personas (JTBD). No quotes or named accounts here.
+(Keep the full experience / metrics statement in Goal and Phases — not in the title.)
 
 ## User Journey & Phases
 Exactly two subsections — **Next** (near-term) and **Future** (later). Do not add more phases.
-- **Next:** Problems to address → Personas this helps → Features to deliver (`(P1)`, `(P2)`, … ranked) → Success signal → Scenario(s)
+- **Next:** Features to deliver (`(P1)`, `(P2)`, … ranked) → Problems to address → Value to personas → Success signal → Scenario(s)
 - **Future:** Features to deliver only (unranked)
 - All success metrics live under Next (not a separate Success & Metrics section)
 - Scenarios under Next: Actors, Context, Flow, Win moment (no "Today's pain")
+- **Product overlays** may restrict which Jira projects appear under Features to deliver (e.g. RHAI → RHAIRFE only; see `docs/product-overlays.md`)
 
 ## Evidence
 Customer quotes, analyst/market data, platform gaps, one-line opportunity verdict.
 
 ## Open Questions
 Discovery questions per capability area — what engineering and product still need to decide.
-
-## Out of Scope
-3+ related exclusions with brief rationale.
 
 ## Related Resources
 Links to external docs: implementation sketch, design/prototype, evidence deep-dive.
@@ -326,7 +325,9 @@ outcome-creator/
 ├── config/
 │   ├── pipeline-settings.yaml      # JQL filters, batch size, labels
 │   ├── jtbd-registry.yaml          # JTBD registry path, citations, matching
-│   └── rubric.yaml                 # Scoring rubric definition
+│   ├── rubric.yaml                 # Scoring rubric definition
+│   └── product-overlays/           # Product-specific conventions (e.g. RHAI RFE-only features)
+│       └── rhai.yaml
 ├── templates/
 │   ├── outcome-template.md         # Outcome document template
 │   ├── milestone-plan-template.yaml
@@ -338,7 +339,8 @@ outcome-creator/
 │   ├── outcome-framework.md        # Outcome theory and best practices
 │   ├── outcome-milestone-planning.md  # Bottom-up phase design (from rfe.split patterns)
 │   ├── pipeline-architecture.md    # Technical pipeline docs
-│   └── outcome-rfe-handoff.md      # Outcome → rfe-creator sizing workflow
+│   ├── outcome-rfe-handoff.md      # Outcome → rfe-creator sizing workflow
+│   └── product-overlays.md         # Product-specific Features to deliver rules
 ├── tests/                          # Test suite
 ├── local/                          # Human review workspace (gitignored)
 │   ├── outcome-tasks/

@@ -3,7 +3,7 @@
 # Enforce exactly two buckets: Next (near-term) and Future (later). No additional phases.
 
 outcome_id: OUTCOME-NNN
-title: ""
+title: ""  # same as outcome title — ≤5 words by default (Jira Summary shorthand)
 status: draft  # draft | applied
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
@@ -36,6 +36,8 @@ milestones:
       - actor: "Role"
         change: "Capability / experience change"
     features_to_deliver:
+      # Delivery-scoped keys only. Product overlays may restrict projects
+      # (e.g. RHAI → RHAIRFE only; see docs/product-overlays.md).
       - key: PROJ-123
         summary: "Story / Feature / RFE summary"
         rank: P1  # P1, P2, P3… — importance to unlock Next; written as (P1) prefix in outcome body

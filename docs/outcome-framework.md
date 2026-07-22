@@ -104,6 +104,20 @@ This produces four categories:
 
 The most valuable outcomes to pursue are **underserved** ones: important to users but poorly satisfied by current solutions.
 
+## Naming the Outcome (Jira Title)
+
+The outcome `title` becomes the Jira Summary. Teams refer to outcomes by this name in planning conversations, so keep it short enough to say out loud and still be understood.
+
+**Default:** ≤5 words — a colloquial shorthand that captures the gist.
+
+| Prefer | Avoid |
+|---|---|
+| `Deploy Agents Confidently` | `AI engineers can deploy a new agent version to production in under 15 minutes with automated rollback` |
+| `Diagnose Agent Failures` | `Minimize the time it takes for platform engineers to diagnose agent failures in production without ops assistance` |
+| `Govern Model Access` | `Enterprise admins can govern which teams can access which models across all environments` |
+
+The measurable, experience-oriented statement still belongs in the outcome — in **Goal**, **Value to personas**, and **Success signal** — not in the title. Exceed 5 words only when the author explicitly wants a longer Summary.
+
 ## Common Anti-Patterns
 
 ### 1. Output Disguised as Outcome

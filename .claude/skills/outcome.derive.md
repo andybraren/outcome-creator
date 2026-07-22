@@ -91,7 +91,7 @@ When most issues cohere but one or two do not:
   - "Can we remove it from this outcome and handle it separately?"
   - "These two clusters look like different experience journeys. Should we derive two outcomes instead of one?"
 - Do **not** silently fold an unrelated feature into the outcome just because the user listed it.
-- Put confirmed exclusions in **Out of Scope** (and in the inputs snapshot) with a one-line rationale.
+- Record confirmed exclusions in the inputs snapshot with a one-line rationale. Park deferred work under **Future**, or recommend a separate outcome — do not keep excluded features in the body.
 
 #### Signal unrelated jobs / split into sibling outcomes
 
@@ -162,18 +162,17 @@ Write the outcome to `artifacts/outcome-tasks/OUTCOME-NNN-<slug>.md` using the t
 Follow the **same section rules as `/outcome.create`** — the document MUST include only:
 
 1. **Problem Statement** — Context, Struggle, Goal, Personas (JTBD) from Step 3. No solution language, no feature names from source issues.
-2. **User Journey & Phases** — Exactly `### Next` and `### Future` from the milestone plan (Step 5). Source issue **customer gaps** for near-term work become Next "Problems to address" (problem-framed, no feature names) plus "Personas this helps". Source issues go under **Features to deliver** in Next or Future. Next features are rank-ordered as `(P1) [KEY](url) — summary`, `(P2) …` by what most unlocks Next (no ranking justification in the body). Future is features-only and unranked. Solution/architecture detail still lives in linked implementation docs.
+2. **Phases** — Exactly `### Next` and `### Future` from the milestone plan (Step 5). Source issue **customer gaps** for near-term work become Next "Problems to address" (problem-framed, no feature names) plus "Value to personas". **Features to deliver** lists delivery-scoped source issues in Next or Future — apply **product overlays** (`docs/product-overlays.md`): for RHAI, list **RHAIRFE only** (omit RHAISTRAT from Features; prefer RFE when both exist). Next features are rank-ordered as `(P1) [KEY](url) — summary`, `(P2) …` by what most unlocks Next (no ranking justification in the body). Future is features-only and unranked. Solution/architecture detail still lives in linked implementation docs.
 3. **Evidence** — Customer quotes and data extracted from source issue descriptions and comments (with citations back to Jira keys). Analyst/market data if available. Platform gap assessment based on what the features reveal about current state.
 4. **Open Questions** — Discovery questions surfaced during synthesis. Questions from source issue comments. Architectural decisions that need resolution.
-5. **Out of Scope** — Features from the source issues that were excluded (different JTBD, too narrow, out of cluster). At least 3 exclusions with rationale.
-6. **Related Resources** — Link to each source issue. Link to implementation sketch (compiled from source issue solution language). Link to design/prototype if any source issues reference one.
+5. **Related Resources** — Link to implementation sketch (compiled from source issue solution language). Link to design/prototype if any source issues reference one. Do not add RHAISTRAT keys here solely because a product overlay excluded them from Features to deliver.
 
 ### Step 7: Write Frontmatter
 
 ```yaml
 ---
 id: OUTCOME-NNN
-title: "Descriptive title"
+title: "Short Colloquial Title"   # ≤5 words by default — same Title rules as /outcome.create
 status: draft
 strategic_goals: [PROJGOALS-XXX]
 components: []                    # union of components from source issues
@@ -186,6 +185,8 @@ created: YYYY-MM-DD
 updated: YYYY-MM-DD
 ---
 ```
+
+**Title:** Follow the same **Title rules** as `/outcome.create` — `title` is the Jira Summary; keep it **≤5 words by default** (colloquial shorthand). Do not paste a long experience statement or a concatenated source-issue summary into the title. Put the synthesized job / experience detail in Goal and Phases.
 
 The `derived_from` field is unique to derived outcomes — it traces back to the source issues.
 
@@ -243,6 +244,7 @@ If invoked with files in `local/outcome-tasks/`, write outputs to `local/` inste
 ## Quality Guidelines
 
 **Do:**
+- Keep `title` ≤5 words by default — colloquial shorthand (same Title rules as `/outcome.create`)
 - Run the cohesion check before synthesizing — relatedness, higher-level journey bridge, natural progression
 - Push back on outliers: ask how they connect, or confirm remove / separate outcome
 - Reverse-engineer the user job from feature requests — the outcome must be experience-oriented, not a feature list
@@ -251,13 +253,16 @@ If invoked with files in `local/outcome-tasks/`, write outputs to `local/` inste
 - Cite source Jira keys when extracting evidence (customer quotes, rationale)
 - Use `derived_from` frontmatter to maintain traceability
 - Run the three-solutions test on every capability headline and the synthesized JTBD
+- Apply matching product overlays when populating Features to deliver (`config/product-overlays/`, `docs/product-overlays.md`)
 
 **Don't:**
+- Use a long sentence or concatenated RFE summaries as the Jira title — gist only; detail goes in Goal / Phases
 - Silently fold unrelated features into one outcome because the user listed them together
 - Copy-paste feature summaries as outcome phases — phases are user capabilities, not feature names
 - Lose context from source issue comments — customer names, use cases, and rationale are valuable evidence
 - Create a "feature umbrella" outcome that just lists features without a coherent job thread
 - Skip the cohesion / clustering step — unrelated features in one outcome will fail review
+- For RHAI: list RHAISTRAT keys under Features to deliver (use RHAIRFE; omit STRATs from Features)
 
 ## Output
 

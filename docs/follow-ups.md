@@ -17,3 +17,11 @@ Deferred enhancements from PR review and pipeline work.
 **Idea:** `--discover-strategic-goals` or submit-time validation that searches PROJGOALS by theme when frontmatter keys are missing.
 
 **Status:** Not implemented. Create/submit link goals when keys are provided in frontmatter or via `--strategic-goal`.
+
+## Product overlay auto-enforcement in CI
+
+**Source:** RHAI Features-to-deliver convention (RFE-only) introduced as `config/product-overlays/rhai.yaml`.
+
+**Idea:** Scripted check in CI / `/outcome.review` scoring that fails or auto-revises when excluded project keys appear under Features to deliver for a matched overlay.
+
+**Status:** Skill guidance + docs only; no automated validator yet.

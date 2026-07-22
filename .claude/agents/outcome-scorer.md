@@ -12,7 +12,7 @@ You may NOT use: Bash, shell commands, network access, MCP tools, or any other t
 
 When given an outcome document path, score it across 4 dimensions.
 
-Score against the standard six-section structure: Problem Statement, User Journey & Phases, Evidence, Open Questions, Out of Scope, Related Resources. Score substance and quality, not minor section naming variations within that structure.
+Score against the standard five-section structure: Problem Statement, User Journey & Phases, Evidence, Open Questions, Related Resources. Score substance and quality, not minor section naming variations within that structure.
 
 **User Journey structure (enforce):** exactly `### Next` and `### Future`. Multi-phase arcs (Phase 1/2/3…, thematic third phases) are a structural defect — cap Actionability at 1 until collapsed.
 
@@ -82,7 +82,7 @@ Read the outcome document carefully. For each dimension, assign a score of 0, 1,
 - Next bundles unrelated problems without delivery-coupling notes
 - Future includes problems/personas/success signals/scenarios (should be features-only)
 - Outliers or mixed journeys present but not flagged for `/outcome.split`
-- Out-of-scope missing or vague; open questions absent
+- Open questions absent
 
 **Score 2** if:
 - User Journey is exactly Next + Future
@@ -90,7 +90,6 @@ Read the outcome document carefully. For each dimension, assign a score of 0, 1,
 - Future is features-only
 - Open Questions identifies discovery questions per capability area
 - Related Resources links to implementation sketch and other external docs
-- Out of Scope names 3+ exclusions with rationale
 
 ### Output
 

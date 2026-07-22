@@ -50,8 +50,8 @@ The scorer evaluates 4 dimensions, each scored 0–2:
 
 #### Actionability (0–2)
 - **0**: Too broad to act on ("improve everything") or too narrow (just a feature request in disguise)
-- **1**: Scope reasonable but Next lacks success signal or open questions; out-of-scope missing or vague; multi-phase arc instead of Next/Future
-- **2**: User Journey is Next (problems → personas → features → success signal → scenarios) + Future (features only); Open Questions identifies discovery questions; Out of Scope has 3+ exclusions with rationale; Related Resources links to implementation sketch
+- **1**: Scope reasonable but Next lacks success signal or open questions; multi-phase arc instead of Next/Future
+- **2**: User Journey is Next (problems → personas → features → success signal → scenarios) + Future (features only); Open Questions identifies discovery questions; Related Resources links to implementation sketch
 
 ### Step 4: Three-Solutions Test (pre-review check)
 
@@ -82,6 +82,12 @@ Read `docs/outcome-milestone-planning.md`. If `artifacts/outcome-plans/<OUTCOME-
 | **Next + Future only** | Missing `### Next` / `### Future`, or extra phase headings (Phase N, thematic third phases, etc.) |
 | **Future is lean** | Future contains problems, personas, success signal, or scenarios |
 
+**Title (soft → auto-revise when clear):**
+
+| Check | Flag when |
+|-------|-----------|
+| **Concise title** | Frontmatter `title` (Jira Summary) is longer than ~5 words, or reads like a full experience / metrics sentence. Shorten to colloquial shorthand; keep detail in Goal / Phases (`docs/outcome-framework.md` → Naming the Outcome) |
+
 **Next sizing:**
 
 | Check | Flag when |
@@ -103,7 +109,7 @@ After scoring, run 4 independent prose reviews (can be parallelized as separate 
 1. **Measurability Reviewer** — Does Next have a real, measurable success signal with timeframe? Flag a legacy Success & Metrics section for migration. Flag success signals under Future.
 2. **User Focus Reviewer** — Is JTBD coherent? Does Next describe personas solution-independently? Are scenarios free of duplicated pain/quotes from Evidence?
 3. **Business Alignment Reviewer** — Does the business case hold up? Are strategic connections genuine? Is Evidence substantive?
-4. **Actionability Reviewer** — Can teams start discovery from Next? Is the journey Next + Future only (not a multi-phase arc)? Read milestone-sizing findings. Does Next (and Future) list **Features to deliver** when source Stories/Features/RFEs are known (or explicitly TBD)? Are Next features prefixed `(P1)`, `(P2)`, … in rank order (no justification text required)? Does Open Questions identify discovery questions? Does Related Resources link to an implementation sketch? Is Out of Scope explicit? Flag legacy sections (including inline Example Implementation) that should be consolidated.
+4. **Actionability Reviewer** — Can teams start discovery from Next? Is the journey Next + Future only (not a multi-phase arc)? Read milestone-sizing findings. Does Next (and Future) list **Features to deliver** when source delivery issues are known (or explicitly TBD)? Are Next features prefixed `(P1)`, `(P2)`, … in rank order (no justification text required)? **Product overlays:** if RHAI keys are present, flag any RHAISTRAT entries under Features to deliver (should be RHAIRFE only; omit STRATs from that list — see `docs/product-overlays.md`). Does Open Questions identify discovery questions? Does Related Resources link to an implementation sketch? Flag legacy sections (including Out of Scope and inline Example Implementation) that should be consolidated.
 
 Each reviewer writes findings to `artifacts/outcome-reviews/OUTCOME-NNN-<dimension>.md`.
 

@@ -136,13 +136,11 @@ rubric:
             - "Journey exists but is solution-shaped, theme-only, or a multi-phase arc instead of Next + Future"
             - "Next bundles unrelated problems without delivery-coupling rationale"
             - "Future includes problems, personas, success signals, or scenarios"
-            - "Out-of-scope statement missing or vague"
             - "Teams would need significant additional context"
             - "Open questions not identified"
           examples:
             - "Users need better agent management (no specifics on where to start)"
             - "Four thematic phases instead of Next + Future"
-            - "Out of scope says 'performance optimization' without naming what's excluded"
         2:
           label: "Complete"
           criteria:
@@ -151,14 +149,13 @@ rubric:
             - "Next is gap-driven (problems → personas → features → success signal) and passes the three-solutions test"
             - "Future is features-only"
             - "Next has a success signal (observable customer value)"
-            - "Out-of-scope statement names 3+ related exclusions with brief rationale"
             - "Open Questions identifies discovery questions per capability area"
             - "Related Resources links to implementation sketch, design, and/or evidence docs"
             - "Teams can begin discovery immediately"
             - "Open questions are identified and contextualized"
             - "Related RFEs cross-referenced where relevant"
           examples:
-            - "Outcome with Next (problems, personas, features, success signal, scenarios) and Future (features only), 4 named exclusions with rationale"
+            - "Outcome with Next (problems, personas, features, success signal, scenarios) and Future (features only), Open Questions, and Related Resources"
 
   verdicts:
     PASS:

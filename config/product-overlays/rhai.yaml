@@ -1,0 +1,34 @@
+# Product overlay: Red Hat AI (RHOAI / RHAII / MaaS, etc.)
+#
+# Applied when an outcome's source issues, Features to deliver keys, or
+# related Jira projects match `match` below. See docs/product-overlays.md.
+
+id: rhai
+display_name: Red Hat AI
+
+match:
+  jira_projects:
+    - RHAIRFE
+    - RHAISTRAT
+  issue_key_prefixes:
+    - RHAIRFE-
+    - RHAISTRAT-
+
+features_to_deliver:
+  # Delivery-scoped work lives in RHAIRFE. RHAISTRAT holds strategy / planning
+  # wrappers and umbrellas — useful context elsewhere, not Features to deliver.
+  include_projects:
+    - RHAIRFE
+  exclude_projects:
+    - RHAISTRAT
+  # Omit excluded keys from Features to deliver; do not relocate them unless
+  # they already belong in Related Resources / Evidence for other reasons.
+  excluded_issues_home: omit
+  guidance: >
+    List only RHAIRFE issues under **Features to deliver** (Next and Future).
+    Do not list RHAISTRAT issues there — even when a STRAT and RFE pair describe
+    the same work. Prefer the RFE; if only a STRAT exists, omit it from Features
+    to deliver (do not invent a placeholder and do not park the STRAT in Related
+    Resources solely because it was excluded). STRAT citations may still appear
+    in Evidence, Struggle, or Related Resources when they are already serving as
+    baseline / strategic context.

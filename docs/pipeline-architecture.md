@@ -48,7 +48,7 @@ All pipeline artifacts use a consistent format: YAML frontmatter + Markdown body
 
 ```yaml
 id: string              # OUTCOME-NNN (local) or PROJSTRAT-XXXX (Jira)
-title: string            # Descriptive title
+title: string            # Jira Summary; ≤5 words by default (colloquial shorthand)
 status: enum             # draft | review | approved | active | closed
 strategic_goals: list    # [PROJGOALS-XXX, ...]
 components: list         # [ComponentName, ...]

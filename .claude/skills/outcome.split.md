@@ -25,7 +25,7 @@ User says `/outcome.split` optionally followed by:
 
 ### Step 1: Load outcome
 
-Read Problem Statement, User Journey (Next + Future), Evidence, Out of Scope.
+Read Problem Statement, User Journey (Next + Future), Evidence, Open Questions, Related Resources.
 
 ### Step 2: Atomic job inventory (from rfe.split pattern)
 
@@ -44,7 +44,7 @@ Propose 2–3 ways to group into sibling outcomes:
 - How many outcomes
 - What each outcome's JTBD would be
 - Which phases move to which outcome
-- What moves to Out of Scope / "deferred sibling" on each
+- What is deferred to Future vs handled as a sibling outcome on each
 
 **Recommend** the option with the fewest outcomes where each still passes JTBD coherence and is not a kitchen sink.
 
@@ -55,7 +55,7 @@ For each sibling:
 1. Copy lean template structure from `templates/outcome-template.md`
 2. Rewrite Problem Statement (JTBD) for that job thread only
 3. Keep only relevant User Journey phases
-4. Add cross-reference in Out of Scope: "See sibling outcome: …"
+4. Add cross-reference in Related Resources: "See sibling outcome: …"
 5. Write to `artifacts/outcome-tasks/OUTCOME-NNN-<slug>.md` with new frontmatter
 
 Archive or mark the parent outcome `status: split` in frontmatter and note `split_children: [OUTCOME-002, ...]` if useful.

@@ -8,6 +8,11 @@ jira:
   strategic_goals_project: "PROJGOALS"
   strategic_goals_issue_type: "Strategic Goal"
 
+# Product-specific conventions (Features to deliver link policy, etc.)
+# See docs/product-overlays.md and config/product-overlays/*.yaml
+product_overlays:
+  directory: "config/product-overlays"
+
   labels:
     auto_created: "outcome-creator-auto-created"
     auto_updated: "outcome-creator-auto-updated"

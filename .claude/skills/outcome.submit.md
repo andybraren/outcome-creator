@@ -25,9 +25,10 @@ User says `/outcome.submit` optionally followed by:
 ### Step 2: Validate
 
 Before submission, validate:
-- Required sections: Problem Statement, User Journey & Phases, Evidence, Open Questions, Out of Scope, Related Resources
+- Required sections: Problem Statement, User Journey & Phases, Evidence, Open Questions, Related Resources
 - Success metrics live in phase success signals only (no separate Success & Metrics section)
 - Frontmatter has required fields (title, strategic_goals, priority)
+- **Title length:** Prefer ≤5 words (Jira Summary). If longer, warn and offer to shorten before submit unless the user opted into a longer title
 - If scored, verdict is at least REVISE (warn if submitting a REWORK)
 - Strategic goal references are valid PROJGOALS keys
 

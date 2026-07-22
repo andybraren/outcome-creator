@@ -95,7 +95,7 @@ Run on **Next** (Future is a feature backlog — sizing checks apply when promot
 |-------|----------------|
 | **Three-solutions test** on persona/capability language | Rewrite; solution language → linked implementation doc |
 | **One-sentence test** | Needs "and" between unrelated scenarios → split outcome or set `expected_rfe_count: "1..N"` / park some gaps in Future |
-| **Job thread** | Unrelated problems → `/outcome.split` or move outliers to Future / out of scope |
+| **Job thread** | Unrelated problems → `/outcome.split` or move outliers to Future |
 | **Delivery coupling** | Prerequisite missing from Next → merge into Next or note sequencing |
 | **RFE forecast** | 1–3 related problems → `"1"`; 2+ independent → `"1..N"` or `"2+"` |
 
@@ -122,9 +122,9 @@ Rewrite **only** `## User Journey & Phases` in the outcome file:
 
 - Exactly `### Next` and `### Future` — no other `###` phase headings
 - Separate with a horizontal rule (`---`) for Jira rendering
-- **Next** order: Problems to address → Personas this helps → Features to deliver → Success signal → Scenario(s)
+- **Next** order: Features to deliver → Problems to address → Value to personas → Success signal → Scenario(s)
 - **Future**: Features to deliver only
-- **Features to deliver:** from `features_to_deliver` / `source_issues` — linked bullets; one home per issue across Next/Future
+- **Features to deliver:** from `features_to_deliver` / `source_issues` — linked bullets; one home per delivery issue across Next/Future. **Apply product overlays** (`docs/product-overlays.md`): for RHAI, include **RHAIRFE only**; omit RHAISTRAT from Features to deliver.
 - **Next ranking:** Prefix Next features `(P1)`, `(P2)`, `(P3)`, … by importance to unlock Next (prerequisites / delivery-coupled first, then highest customer-value unlocks). Prefix only — no ranking justification in the outcome. Future features unranked.
 - Preserve scenarios that still map to Next; drop scenarios that belonged only to deferred work
 - Do not put metrics in Future or Evidence (success signal lives under Next only)

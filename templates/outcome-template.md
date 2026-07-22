@@ -1,5 +1,7 @@
 ---
 id: ${ID}
+# title → Jira Summary. Default ≤5 words: colloquial shorthand for planning talk.
+# Put the full experience / metrics statement in Goal and Phases, not here.
 title: "${TITLE}"
 status: draft
 strategic_goals: [${STRATEGIC_GOALS}]
@@ -19,7 +21,9 @@ updated: ${DATE}
 - **[Persona name]** — [Their job to be done]
 - **[Additional persona (if applicable)]** — [Their job to be done]
 
-## Phases
+---
+
+## Plan
 
 Exactly two subsections — **Next** (near-term delivery) and **Future** (later work). Do not add additional phase headings.
 
@@ -44,8 +48,6 @@ Exactly two subsections — **Next** (near-term delivery) and **Future** (later 
 - **Context:** [When/where this happens]
 - **Flow:** [Concise, plain-language steps — roles, decisions, handoffs]
 - **Win moment:** [Observable signal that Next is real]
-
----
 
 ### Future
 
@@ -74,14 +76,6 @@ What engineering and product still need to decide before or during implementatio
 - [Question about scope, architecture, dependency, or trade-off]
 - [Question about scope, architecture, dependency, or trade-off]
 - [Question about scope, architecture, dependency, or trade-off]
-
-## Out of Scope
-
-What related problems or capabilities are explicitly NOT part of this outcome?
-
-- [Exclusion]: [Reason]
-- [Exclusion]: [Reason]
-- [Exclusion]: [Reason]
 
 ## Related Resources
 

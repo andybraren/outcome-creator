@@ -39,6 +39,7 @@ If the document uses legacy sections, migrate content without losing information
 | Example Implementation (inline) | Open Questions (extract questions) + Related Resources (link to implementation doc with solution details) |
 | Acceptance Signals | Merge into Next success signal — delete duplicate Measurement Timeframe |
 | User capability / When this is true | Merge into **Personas this helps** (drop duplicate capability headline) |
+| Out of Scope | Drop the section. Park deferred work under **Future**; note sibling/split follow-ups in Related Resources or Open Questions if still useful |
 
 ### Step 4: Refine Each Section
 
@@ -62,12 +63,12 @@ If the journey has more than Next + Future, is missing subsections, is theme-onl
 Otherwise refine in place:
 
 - **Enforce structure:** only `### Next` and `### Future` — collapse extra phases into these two
-- **Next** order: Problems to address → Personas this helps → Features to deliver → Success signal → Scenario(s)
+- **Next** order: Features to deliver → Problems to address → Value to personas → Success signal → Scenario(s)
 - **Future:** Features to deliver only (strip problems, personas, success signals, scenarios if present)
 - Separate Next and Future with a horizontal rule (`---`) for Jira rendering
-- **Features to deliver:** If Jira keys are buried in problem bullets, Evidence, or Related Resources, move them into the appropriate bucket's list as `[KEY](url) — summary`. Keep problem bullets problem-framed. Every in-scope source issue appears in exactly one of Next or Future.
+- **Features to deliver:** If Jira keys are buried in problem bullets, Evidence, or Related Resources, move delivery-scoped keys into the appropriate bucket's list as `[KEY](url) — summary`. Keep problem bullets problem-framed. Every in-scope **delivery** issue appears in exactly one of Next or Future. **Apply product overlays** (`docs/product-overlays.md`): for RHAI, keep **RHAIRFE only** in Features to deliver; omit RHAISTRAT from that list (prefer RFE when both exist for the same work; do not relocate STRATs to Related Resources solely because they were excluded).
 - **Next feature ranking:** Rank-order Next features as `(P1)`, `(P2)`, `(P3)`, … based on what most unlocks Next problems / personas / success signal (prerequisites and delivery coupling first). Prefix only — do **not** write ranking justification. Future features do not need P-ranks.
-- **Three-solutions test** on Personas this helps language
+- **Three-solutions test** on Value to personas language
 - **Milestone sizing:** one-sentence test on Next; flag `expected_rfe_count: 1..N` in plan when needed
 - Scenarios only under Next: Actors, Context, Flow, Win moment — remove Today's pain if present
 - **Through-line test:** Each scenario demonstrates a Next persona capability
@@ -88,22 +89,22 @@ Otherwise refine in place:
 - Move solution language from Problem Statement, phases, or legacy Example Implementation into a linked implementation doc (don't delete — preserve the author's thinking)
 - Ensure at least an implementation sketch link is present
 
-#### Out of Scope
-- 3+ exclusions with rationale
-- **Readiness test:** Could an engineer answer "are we doing X?" from this list alone?
-
 ### Step 5: Redundancy Pass
 
 Before finishing, check for and remove:
 - Same quote in Problem Statement and Evidence
-- Duplicate User capability + Personas this helps (keep Personas only)
+- Duplicate User capability + Value to personas (keep Value to personas only)
 - Problems, personas, success signals, or scenarios under Future
 - Extra phase headings beyond Next and Future
-- Separate Story Map + Milestones + Acceptance Signals sections (must be one User Journey & Phases)
+- Separate Story Map + Milestones + Acceptance Signals sections (must be one Phases section)
+- Product-overlay violations (e.g. RHAI outcome listing RHAISTRAT under Features to deliver)
+- Legacy **Out of Scope** section (drop; park deferred work under Future)
 
 ### Step 6: Update Frontmatter
 
 Update the `updated` timestamp. If components or strategic goals changed, update those too.
+
+**Title check:** If `title` is longer than ~5 words (or reads like a full experience / metrics sentence), shorten it to a colloquial ≤5-word shorthand suitable as a Jira Summary — same Title rules as `/outcome.create`. Keep the fuller wording in Goal / Phases; do not drop meaning from the body when shortening the title.
 
 ### Step 7: Write Refined Document
 

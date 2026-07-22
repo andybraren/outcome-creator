@@ -79,21 +79,20 @@ Write the outcome to `artifacts/outcome-tasks/OUTCOME-NNN-<slug>.md` using the t
 The document MUST include these sections only (lean structure — avoid redundant restatements):
 
 1. **Problem Statement** — Context, Struggle, Goal (org-level enablement), Personas (JTBD) with one sub-bullet per persona and their job-to-be-done. No customer quotes, no named accounts, no solution language.
-2. **User Journey & Phases** — Write from the milestone plan (Step 2.5). **Exactly two subsections: `### Next` and `### Future`** — do not invent additional phase headings. Separate them with a horizontal rule (`---`) for Jira rendering. **All success metrics live under Next** — no separate Success & Metrics section.
+2. **Phases** — Write from the milestone plan (Step 2.5). **Exactly two subsections: `### Next` and `### Future`** — do not invent additional phase headings. Separate them with a horizontal rule (`---`) for Jira rendering. **All success metrics live under Next** — no separate Success & Metrics section.
    - **Next** (near-term delivery), in this order:
+     - **Features to deliver** — linked delivery issues, rank-ordered for Next: `(P1) [KEY](url) — summary`, `(P2) …`, `(P3) …`. Assess which features most unlock Next problems / personas / success signal (prerequisites and delivery coupling first; highest customer-value unlocks next). Prefix only — do **not** write ranking justification in the outcome. Populate from known source issues; use `TBD` only when none exist yet. **Apply product overlays** (see below) before finalizing the list.
      - **Problems to address** (from atomic inventory; value dependencies noted) — problem-framed only; do not bury Jira keys here
-     - **Personas this helps** (per actor: capability / experience change, solution-independent; three-solutions test)
-     - **Features to deliver** — linked Stories / Features / RFEs, rank-ordered for Next: `(P1) [KEY](url) — summary`, `(P2) …`, `(P3) …`. Assess which features most unlock Next problems / personas / success signal (prerequisites and delivery coupling first; highest customer-value unlocks next). Prefix only — do **not** write ranking justification in the outcome. Populate from known source issues; use `TBD` only when none exist yet
+     - **Value to personas** (per actor: capability / experience change, solution-independent; three-solutions test)
      - **Success signal** with target timeframe (from plan)
      - 1–2 scenarios: Actors, Context, Flow, Win moment — **no Today's pain** (Problem + Evidence cover that)
    - **Future** (later work): **Features to deliver** only — no problems, personas, success signal, or scenarios
    - Set milestone plan `status: applied` after writing the journey
 3. **Evidence** — Customer quotes, analyst/market data, platform gaps, one-line opportunity verdict. No separate Opportunity Assessment section.
 4. **Open Questions** — What engineering and product still need to decide. Discovery questions per capability area. No solution sketches in the body — link to external docs instead.
-5. **Out of Scope** — 3+ related exclusions with brief rationale
-6. **Related Resources** — Required links to external docs: implementation sketch, design/prototype, evidence deep-dive. Keep the outcome body lean; solution language, architecture details, and collaborative artifacts live in linked resources.
+5. **Related Resources** — Required links to external docs: implementation sketch, design/prototype, evidence deep-dive. Keep the outcome body lean; solution language, architecture details, and collaborative artifacts live in linked resources.
 
-Do NOT create: Success & Metrics, User Outcome, Product Outcome, Business Outcome (as separate sections), End-to-End Customer Arc, Story Map, Release Milestones, Opportunity Assessment, Downstream Opportunities, Example Implementation (inline), Related Documents (use Related Resources), or Acceptance Signals.
+Do NOT create: Out of Scope, Success & Metrics, User Outcome, Product Outcome, Business Outcome (as separate sections), End-to-End Customer Arc, Story Map, Release Milestones, Opportunity Assessment, Downstream Opportunities, Example Implementation (inline), Related Documents (use Related Resources), or Acceptance Signals.
 
 ### Step 4: Write Frontmatter
 
@@ -101,7 +100,7 @@ Add YAML frontmatter with:
 ```yaml
 ---
 id: OUTCOME-NNN
-title: "Descriptive title"
+title: "Short Colloquial Title"   # ≤5 words by default — see Title rules below
 status: draft
 strategic_goals: [PROJGOALS-XXX]
 components: []
@@ -113,6 +112,15 @@ created: YYYY-MM-DD
 updated: YYYY-MM-DD
 ---
 ```
+
+#### Title rules (Jira Summary)
+
+`title` becomes the Jira issue Summary. Keep it **≤5 words by default** — a colloquial shorthand people can say in planning conversations and still be understood.
+
+- **Do:** Capture the gist in a short noun or verb phrase — e.g. `Deploy Agents Confidently`, `Diagnose Agent Failures`, `Govern Model Access`
+- **Don't:** Pack the full experience statement, metrics, persona lists, or "so that…" clauses into the title
+- Put the measurable / experience-oriented detail in **Goal** and **Phases**, not in `title`
+- Exceed 5 words only when the user explicitly asks for a longer title
 
 ### Step 5: Save Input Snapshot
 
@@ -131,6 +139,7 @@ Save the original inputs (strategic goal data, research excerpts, user prompt) t
 **Important:** ALWAYS cite sources for quotes, statistics, data points, or claims from other documents. Include a link or reference to the original source. Verify the quote and URL match the source exactly.
 
 **Do:**
+- Keep `title` ≤5 words by default — colloquial shorthand for planning talk (see Title rules)
 - Plan milestones bottom-up before writing User Journey (`docs/outcome-milestone-planning.md`)
 - Run the cohesion check when the input is a feature/idea dump — confirm one shared journey before writing
 - Write problem-framed statements that pass the three-solutions test in Problem Statement and Next personas
@@ -140,6 +149,7 @@ Save the original inputs (strategic goal data, research excerpts, user prompt) t
 - Flag outliers and recommend sibling outcomes when items target different experience journeys
 
 **Don't:**
+- Use a long sentence or full user-outcome statement as the Jira title — that detail belongs in Goal / Phases
 - Accept a kitchen-sink feature list as one outcome without checking cohesion
 - Add Phase 3 / Phase 4 / thematic phase headings — only Next and Future
 - Put problems, personas, success signals, or scenarios under Future
@@ -148,11 +158,19 @@ Save the original inputs (strategic goal data, research excerpts, user prompt) t
 - Create legacy sections (User Outcome, separate milestones, Acceptance Signals) — use the lean template
 - Leave Jira issue keys as plain text — always hyperlink them (see Jira references rule below)
 
+### Product overlays
+
+Before writing **Features to deliver**, load matching overlays from `config/product-overlays/` (see `docs/product-overlays.md`). Match on source-issue projects / key prefixes.
+
+- **Default (no overlay):** Stories / Features / RFEs that deliver the work may appear in the list.
+- **RHAI (`rhai.yaml`):** List **RHAIRFE only** — never RHAISTRAT. Prefer the RFE when a STRAT↔RFE pair exists for the same work. Omit RHAISTRAT from Features to deliver (do not relocate excluded STRATs to Related Resources solely for that reason).
+
 ### Jira Issue References
 
 All Jira issue key references (e.g. `RHAISTRAT-1070`, `RHAIRFE-2494`) MUST be rendered as markdown hyperlinks in the outcome document:
 
 - **Format:** `[RHAISTRAT-1070](https://redhat.atlassian.net/browse/RHAISTRAT-1070)`
 - **Why:** When the outcome is pushed to Jira (via `/outcome.push` or manual upload), plain-text issue keys may or may not auto-link depending on Jira's rendering context. Explicit hyperlinks guarantee clickable cross-references in all contexts (Jira description, Confluence, exported markdown).
-- **Scope:** Apply to all sections — Problem Statement, Evidence, Out of Scope, Example Implementation, and anywhere else an issue key appears.
+- **Scope:** Apply to all sections — Goal, Evidence, Related Resources, and anywhere else an issue key appears.
 - **Base URL:** Use `https://redhat.atlassian.net/browse/` as the base. If a different Jira instance is configured, derive the base URL from the `cloudId` or site URL used in Atlassian MCP calls.
+- **Features to deliver:** Still hyperlink every key — but which projects belong in that section is governed by product overlays (above).
