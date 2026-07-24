@@ -49,15 +49,46 @@ If the user describes features without Jira keys (e.g., "we have a bunch of MaaS
 2. Keywords, labels, components, or epics to filter by
 3. Build a JQL query from their description and confirm before executing
 
+#### Parent-walk sibling discovery (expand sparse seeds)
+
+When the user gives **one key** (or a small set) that already sits under a Jira hierarchy, **do not stop at the seed**. Learn from related work already grouped under the nearest Outcome — but treat that group as a **candidate pool**, not automatic membership.
+
+**When to run:** After fetching explicit keys (or a small JQL result set). Skip if the user already supplied a large, intentional set (≥5 keys or a broad JQL) and asked to derive from *those only*.
+
+**Procedure:**
+
+1. **Walk up to Outcome (cap).** For each seed issue, follow `parent` upward until:
+   - The ancestor's `issuetype.name` is **Outcome**, or
+   - There is no further parent.
+   Stop at the first **Outcome**. Do **not** climb further into Initiative, Strategic Goal, Epic-of-epics, or other higher containers — even if the Outcome itself has a parent.
+2. **Build the candidate pool.** If an Outcome ancestor was found, fetch its children via JQL (`parent = <OUTCOME-KEY> ORDER BY rank ASC`). Cap at **50** children. If more exist, warn the user, keep the first page, and prefer filtering by keywords/themes from the seed summary/description rather than ingesting the entire umbrella.
+3. **Also keep direct links.** Continue to follow seed `issuelinks` (clones, related, depends/blocks) as today — those stay in the working set even if they are not children of the Outcome.
+4. **Filter candidates by job thread (required).** For each child in the pool, ask the same cohesion questions used in Step 2: does it serve the **same end-to-end journey** as the seed, or is it only co-located under a broad umbrella (e.g. "Gen AI Studio")?
+   - **Include** only clear same-job-thread matches (Next or Future).
+   - **Exclude** siblings on different journeys (RAG, MCP, observability, etc. when the seed is about prompt↔model continuity — or whatever the seed's job is). Record each exclusion with a one-line rationale in the inputs snapshot.
+   - Do **not** fold the whole Outcome's child list into one derived outcome. Umbrella Outcomes are often kitchen-sinks by design; this step exists to *discover* related work, not to clone the parent.
+5. **Confirm before writing (interactive).** Unless `--headless`, present:
+   - Outcome ancestor key + summary
+   - Proposed includes (with Next vs Future lean)
+   - Proposed excludes (short rationale)
+   Ask the user to confirm or adjust before synthesizing.
+6. **Headless.** Include only high-confidence same-job-thread matches. Log the Outcome key, included keys, and excluded keys (with reasons) in the inputs snapshot. Prefer under-inclusion over a kitchen-sink.
+7. **Product overlays still apply later.** Sibling discovery may surface RHAISTRAT and RHAIRFE pairs; when writing **Features to deliver**, apply overlays (e.g. RHAI → RHAIRFE only). Strategy counterparts may be cited in Evidence / Related Resources when they add context — do not reparent any issues.
+
+**If no Outcome ancestor exists:** skip this step; continue with seeds + direct links only.
+
+**Inputs snapshot must record:** Outcome ancestor (or "none"), candidate pool size, included keys, excluded keys with one-line rationales.
+
 ### Step 2: Analyze & Cluster Source Issues
 
-Read all fetched issues. For each issue, extract:
+Read all fetched issues (seeds + confirmed sibling discoveries + direct links). For each issue, extract:
 
 - **Summary** and **description** (the feature/RFE content)
 - **Components** and **labels** (for grouping signals)
 - **Issue links** (parent epics, related issues, blocks/is-blocked-by)
 - **Priority** and **status**
 - **Comments** (for additional context — customer names, use cases, rationale)
+- **Hierarchy context** from Step 1 parent-walk (Outcome ancestor, include/exclude decisions)
 
 #### Cohesion check (do this before synthesizing)
 
@@ -194,6 +225,7 @@ The `derived_from` field is unique to derived outcomes — it traces back to the
 
 1. **Input snapshot** — Save the raw source issue data to `artifacts/outcome-originals/OUTCOME-NNN-inputs.md`. Include:
    - List of source issue keys with summaries
+   - Parent-walk result: Outcome ancestor (or none), candidate pool size, included siblings, excluded siblings with one-line rationales
    - The clustering analysis (which issues → which job thread)
    - Solution language extracted from source issues (preserved for implementation docs)
    - Any source issues excluded and why
@@ -213,6 +245,7 @@ Check if `artifacts/outcome-rubric.md` exists. If not, run the `export-rubric` s
 Unless `--headless`, present a summary:
 
 - Source issues used (count and keys)
+- Parent-walk: Outcome ancestor (or none), siblings included from candidate pool, siblings excluded
 - Source issues excluded (if any, with reasons) — including outliers the user confirmed to drop
 - Cohesion check result (one shared journey vs. split recommended)
 - Synthesized JTBD (one sentence)
@@ -232,9 +265,10 @@ Suggest next steps:
 ## Headless Mode
 
 When `--headless` is set:
-- Skip clustering confirmation — use the largest coherent cluster
+- Still run **parent-walk sibling discovery** when seeds are sparse — include only high-confidence same-job-thread matches; log Outcome ancestor + include/exclude lists
+- Skip interactive confirmation of clustering / sibling includes — use the largest coherent cluster
 - Skip clarifying questions — derive JTBD from source issue content
-- Write warnings about excluded issues to the input snapshot
+- Write warnings about excluded issues (including rejected Outcome siblings) to the input snapshot
 - Continue through the full pipeline
 
 ## Local Mode
@@ -245,6 +279,7 @@ If invoked with files in `local/outcome-tasks/`, write outputs to `local/` inste
 
 **Do:**
 - Keep `title` ≤5 words by default — colloquial shorthand (same Title rules as `/outcome.create`)
+- When seeds are sparse, **parent-walk to the nearest Outcome** and discover same-job-thread siblings from its children (candidate pool → filter → confirm)
 - Run the cohesion check before synthesizing — relatedness, higher-level journey bridge, natural progression
 - Push back on outliers: ask how they connect, or confirm remove / separate outcome
 - Reverse-engineer the user job from feature requests — the outcome must be experience-oriented, not a feature list
@@ -257,12 +292,16 @@ If invoked with files in `local/outcome-tasks/`, write outputs to `local/` inste
 
 **Don't:**
 - Use a long sentence or concatenated RFE summaries as the Jira title — gist only; detail goes in Goal / Phases
+- Stop at a single seed without checking the nearest Outcome ancestor for related siblings
+- Climb past Outcome into Initiative / Strategic Goal / portfolio containers when expanding candidates
+- Silently include every child of the parent Outcome — co-location under an umbrella is not the same job thread
 - Silently fold unrelated features into one outcome because the user listed them together
 - Copy-paste feature summaries as outcome phases — phases are user capabilities, not feature names
 - Lose context from source issue comments — customer names, use cases, and rationale are valuable evidence
 - Create a "feature umbrella" outcome that just lists features without a coherent job thread
 - Skip the cohesion / clustering step — unrelated features in one outcome will fail review
 - For RHAI: list RHAISTRAT keys under Features to deliver (use RHAIRFE; omit STRATs from Features)
+- Reparent Jira issues under the newly derived outcome unless the user explicitly asks to move them
 
 ## Output
 

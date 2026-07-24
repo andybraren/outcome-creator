@@ -121,7 +121,7 @@ Create runs milestone planning before writing User Journey (Next + Future). Refi
 /outcome.derive RHAIRFE-1234 RHAIRFE-1235 → /outcome.review → /outcome.submit
 ```
 
-Derive synthesizes an experience-oriented outcome from existing feature requests, RFEs, or epics in Jira. It reverse-engineers the user job from solution-shaped issues, runs a **cohesion check** (are these related? is there a shared journey bridge? any outliers?), clusters by JTBD, plans milestones bottom-up, and produces a proper outcome — with solution language preserved in linked implementation docs. Unrelated clusters or different experience journeys become sibling outcomes, not a kitchen sink. Accepts explicit Jira keys or a `--jql` query.
+Derive synthesizes an experience-oriented outcome from existing feature requests, RFEs, or epics in Jira. For sparse seeds (e.g. one feature key), it **parent-walks to the nearest Outcome** and treats that Outcome’s children as a candidate pool — including only siblings that share the seed’s job thread (not the whole umbrella). It reverse-engineers the user job from solution-shaped issues, runs a **cohesion check** (are these related? is there a shared journey bridge? any outliers?), clusters by JTBD, plans milestones bottom-up, and produces a proper outcome — with solution language preserved in linked implementation docs. Unrelated clusters or different experience journeys become sibling outcomes, not a kitchen sink. Accepts explicit Jira keys or a `--jql` query.
 
 ### Existing Jira Outcomes
 
